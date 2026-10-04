@@ -102,6 +102,9 @@ await send('Emulation.setDeviceMetricsOverride', { width: 844, height: 390, devi
 await send('Emulation.setTouchEmulationEnabled', { enabled: true, maxTouchPoints: 5 });
 await send('Page.reload');
 await sleep(3000);
+/* 统一先去 5F：零食 + 宠物都在那一层，量出来的热区最有参考价值 */
+await ev(`document.querySelector('.floorbtn[data-floor="5"]').click()`);
+await sleep(4600);
 let r = await ev(PROBE);
 check('横屏 844×390：命中触屏样式 (pointer: coarse)', r.coarse === true);
 check('横屏：整体还能完整放下', r.scale > 0.4, `缩放=${r.scale}，视口=${r.viewport}`);

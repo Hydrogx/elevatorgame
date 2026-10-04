@@ -408,8 +408,7 @@
 .wear--hair     { z-index: 3; }
 .wear--headwear { z-index: 4; }
 
-/* 猫猫穿不了猪猪兔的衣服：舞台上的主角和镜子里的预览都隐藏 */
-body.skin-cat .wear { display: none !important; }
+/* 四位主角现在共用同一套 300×350 骨架，所以谁都能穿衣服，不用再隐藏图层了 */
 
 /* ---------- 穿衣镜里的预览 ---------- */
 .mirror {
@@ -473,7 +472,16 @@ body.skin-cat .wear { display: none !important; }
   white-space: nowrap;
 }
 
-.fit__list { display: flex; gap: 8px; }
+.fit__list {
+  display: flex;
+  gap: 8px;
+  /* 每件的大小由 JS 按数量算好（保证一行塞得进房间里的选项板，不会被右边柱子挡住） */
+}
+
+.fit__list .garment {
+  width: var(--garment-size, 66px);
+  height: var(--garment-size, 66px);
+}
 
 /* 每个选项按钮：把对应图层的那个部位放大取景 */
 .garment {

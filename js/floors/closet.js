@@ -18,7 +18,21 @@
     row.appendChild(label);
 
     var list = EG.util.el('div', 'fit__list');
-    (C.closet.items[cat.key] || []).forEach(function (item) {
+    var items = C.closet.items[cat.key] || [];
+
+    /* 一行能用的安全宽度是 280px（房间里的选项板内框到 790±140 左右，
+       再往右 932px 开始就是电梯右侧柱子，会被挡住）：
+       道具多了就自动把圆按钮改小，保证每一件都完整看得见。
+       触屏上 mobile.css 会把按钮再放大 1.1 倍，所以这里先除回去。 */
+    var SAFE = 280;
+    var BOOST = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 1.1 : 1;
+    var gap = items.length > 4 ? 6 : 8;
+    var size = Math.floor((SAFE - (items.length - 1) * gap) / items.length / BOOST);
+    size = Math.max(36, Math.min(66, size));
+    list.style.gap = gap + 'px';
+    list.style.setProperty('--garment-size', size + 'px');
+
+    items.forEach(function (item) {
       var btn = EG.util.el('button', 'garment garment--' + cat.key);
       btn.type = 'button';
       btn.dataset.slot = cat.key;

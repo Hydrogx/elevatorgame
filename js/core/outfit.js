@@ -119,12 +119,7 @@
         var on = (self.data[btn.dataset.slot] || '') === (btn.dataset.item || '');
         btn.classList.toggle('is-active', on);
       });
-      /* 猫猫穿不了猪猪兔的衣服：舞台上的图层用 CSS 隐藏，镜子里的预览照常显示 */
-      var isCat = !!(EG.Say && EG.Say.skin && EG.Say.skin() === 'cat');
-      document.body.classList.toggle('skin-cat', isCat);
-      if (isCat && opts && opts.notify) {
-        EG.Say.show('这身衣服是猪猪兔的～点头像换回猪猪兔就能穿上啦', 2600);
-      }
+      /* 四位主角共用同一套骨架，衣服谁都能穿（以前猫猫会隐藏图层，现在不用了） */
     },
 
     /* 给调试/说明用 */

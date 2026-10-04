@@ -54,9 +54,21 @@ body {
   /* 各楼层里的小按钮也放大一点，保证手指点得中 */
   .pick__btn { width: 96px; height: 96px; }
   .pick__label { font-size: 14px; }
-  .garment { width: 80px; height: 80px; }
+  /* 倍数要和 js/floors/closet.js 里的 BOOST 保持一致（那边会先除回去） */
+  .fit__list .garment {
+    width: calc(var(--garment-size, 66px) * 1.1);
+    height: calc(var(--garment-size, 66px) * 1.1);
+  }
   .fit__list { gap: 10px; }
-  .food { width: 78px; }
+  /* 零食图很扁（小鱼干），光靠宽度热区不够高：
+     把容器做高、图片仍然贴着原来那条底线（place-items: end），多出来的高度全变成热区 */
+  .food {
+    width: 78px;
+    height: 74px;
+    display: grid;
+    place-items: end center;
+  }
+  .food img { width: 100%; }
   .food__label { font-size: 12px; }
   .brew { width: 168px; height: 168px; }
   .gauge { width: 60px; }

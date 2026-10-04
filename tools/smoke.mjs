@@ -207,6 +207,18 @@ await sleep(4000);
 check('4F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('closet'));
 check('4F 玩法已挂载（20 个换装按钮：每行 4 件免费 + 1 件商店）', (await ev(`document.querySelectorAll('.garment').length`)) === 20,
   '按钮数=' + (await ev(`document.querySelectorAll('.garment').length`)));
+/* 回归：每行道具都要完整落在房间选项板里（右边 932px 起是电梯柱子，会被挡住） */
+check('每行换装道具都完整显示（不会被右边柱子挡）', await ev(`(() => {
+  const st = document.querySelector('#stage').getBoundingClientRect();
+  const sc = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--app-scale'));
+  return [...document.querySelectorAll('.fit__list')].every(function (list) {
+    const r = list.getBoundingClientRect();
+    const l = (r.left - st.left) / sc, rr = (r.right - st.left) / sc;
+    return l >= 628 && rr <= 932;
+  });
+})()`) === true, '各行宽度=' + (await ev(`[...document.querySelectorAll('.fit__list')]
+  .map(l => Math.round(l.getBoundingClientRect().width)).join('/')`)));
+
 check('镜子里的预览已生成', await ev(`!!document.querySelector('.mirror__body')`));
 await shot('10-4F');
 
@@ -275,19 +287,26 @@ await sleep(500);
 const mirrorAfter = await ev(`document.querySelector('.mirror__body').getAttribute('src')`);
 check('4F 镜子里的人跟着主角一起换', !!mirrorAfter && mirrorAfter !== mirrorBefore,
   (mirrorBefore || '').split('/').pop() + ' → ' + (mirrorAfter || '').split('/').pop());
-check('换成猫猫后镜子里的衣服自动隐藏', await ev(`document.body.classList.contains('skin-cat') &&
-  getComputedStyle(document.querySelector('.mirror .wear--clothes')).display === 'none'`));
+/* 以前的 bug：选猫猫时换装看不到任何变化（图层被整层隐藏）。现在四个人都能穿 */
+await ev(`document.querySelector('.garment[data-slot="clothes"][data-item="sailor"]').click()`);
+await sleep(400);
+check('猫猫也能穿衣服（舞台上的图层没有被打进冷宫）', await ev(`(() => {
+  const wear = document.querySelector('.cat .wear--clothes');
+  return wear.getAttribute('src').indexOf('clothes-sailor') >= 0 && getComputedStyle(wear).display !== 'none';
+})()`), await ev(`document.querySelector('.cat .wear--clothes').getAttribute('src')`));
+check('猫猫换衣服时镜子里的预览也同步', await ev(`document.querySelector('.mirror .wear--clothes')
+  .getAttribute('src').indexOf('clothes-sailor') >= 0`));
 await shot('13-4F-换主角后的镜子');
 
 /* 再点两下到小兔子：它和猪猪兔共用骨架，所以衣服要正常显示 */
 await ev(`document.querySelector('#skin-toggle').click()`);
 await sleep(400);
 check('切到小兔子', (await ev(`EG.Say.skin()`)) === 'rabbit', await ev(`EG.Say.skin()`));
-/* 注意：随机搭配有可能抽到「不穿」，那图层本来就会隐藏 —— 只断言不会被 skin-cat 规则藏掉 */
-check('小兔子能穿衣服（不会像猫猫那样被隐藏）', await ev(`(() => {
+/* 注意：随机搭配有可能抽到「不穿」，那图层本来就会隐藏 */
+check('小兔子能穿衣服', await ev(`(() => {
   const wear = document.querySelector('.mirror .wear--clothes');
   const item = EG.Outfit.data.clothes;
-  return !document.body.classList.contains('skin-cat') && (!item || getComputedStyle(wear).display !== 'none');
+  return !item || getComputedStyle(wear).display !== 'none';
 })()`));
 await shot('13b-4F-小兔子');
 
