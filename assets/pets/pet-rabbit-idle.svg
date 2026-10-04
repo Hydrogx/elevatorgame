@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+  <!-- 宠物·小兔「雪球」待机 -->
+  <circle cx="152" cy="150" r="17" fill="#FFFFFF" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="100" cy="140" rx="52" ry="42" fill="#FFFDFB" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="100" cy="178" rx="18" ry="11" fill="#FFFDFB" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="124" cy="178" rx="18" ry="11" fill="#FFFDFB" stroke="#6B4A45" stroke-width="6"/>
+  <!-- 长耳朵 -->
+  <ellipse cx="78" cy="46" rx="16" ry="42" transform="rotate(-10 78 46)" fill="#FFFDFB" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="122" cy="46" rx="16" ry="42" transform="rotate(10 122 46)" fill="#FFFDFB" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="78" cy="48" rx="7" ry="28" transform="rotate(-10 78 48)" fill="#FFB3C6"/>
+  <ellipse cx="122" cy="48" rx="7" ry="28" transform="rotate(10 122 48)" fill="#FFB3C6"/>
+  <circle cx="100" cy="90" r="48" fill="#FFFDFB" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="62" cy="104" rx="12" ry="8" fill="#FFB3C6" opacity="0.9"/>
+  <ellipse cx="138" cy="104" rx="12" ry="8" fill="#FFB3C6" opacity="0.9"/>
+  <circle cx="82" cy="88" r="9" fill="#5A3E3A"/>
+  <circle cx="118" cy="88" r="9" fill="#5A3E3A"/>
+  <circle cx="85" cy="84" r="3.4" fill="#FFFFFF"/>
+  <circle cx="121" cy="84" r="3.4" fill="#FFFFFF"/>
+  <path d="M100 100 l-6 -5 h12 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M100 102 q-7 8 -15 2" fill="none" stroke="#6B4A45" stroke-width="4" stroke-linecap="round"/>
+  <path d="M100 102 q7 8 15 2" fill="none" stroke="#6B4A45" stroke-width="4" stroke-linecap="round"/>
+  <path d="M56 96 L30 90 M56 106 L28 108" stroke="#E8B9A0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M144 96 L170 90 M144 106 L172 108" stroke="#E8B9A0" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

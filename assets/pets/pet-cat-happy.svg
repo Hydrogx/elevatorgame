@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+  <!-- 宠物·小猫「团子」开心（尾巴翘起来、笑眼） -->
+  <path d="M146 150 q30 -30 12 -66" fill="none" stroke="#6B4A45" stroke-width="22" stroke-linecap="round"/>
+  <path d="M146 150 q30 -30 12 -66" fill="none" stroke="#FFF3DC" stroke-width="13" stroke-linecap="round"/>
+  <ellipse cx="100" cy="140" rx="52" ry="42" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="100" cy="178" rx="18" ry="11" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="124" cy="178" rx="18" ry="11" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M64 56 L56 16 L92 42 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M136 56 L144 16 L108 42 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M67 48 L63 28 L82 42 Z" fill="#FFB3C6"/>
+  <path d="M133 48 L137 28 L118 42 Z" fill="#FFB3C6"/>
+  <circle cx="100" cy="90" r="48" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7"/>
+  <g stroke="#F2B880" stroke-width="6" stroke-linecap="round">
+    <path d="M100 46 v13"/><path d="M84 50 l4 12"/><path d="M116 50 l-4 12"/>
+  </g>
+  <ellipse cx="62" cy="104" rx="13" ry="9" fill="#FF9FB6"/>
+  <ellipse cx="138" cy="104" rx="13" ry="9" fill="#FF9FB6"/>
+  <path d="M72 92 q10 -14 20 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M108 92 q10 -14 20 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M100 100 l-6 -5 h12 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M86 108 q14 14 28 0 q-14 -6 -28 0 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4.5" stroke-linejoin="round"/>
+  <path d="M56 96 L28 90 M56 106 L26 108" stroke="#E8B9A0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M144 96 L172 90 M144 106 L174 108" stroke="#E8B9A0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M28 44 l4 10 l11 1 l-8 8 l2 11 l-9 -6 l-9 6 l2 -11 l-8 -8 l11 -1 Z" fill="#FF9FB6" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M172 36 l3 9 l10 1 l-7 7 l2 10 l-8 -5 l-8 5 l2 -10 l-7 -7 l10 -1 Z" fill="#FFB3C6" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+</svg>

@@ -26,6 +26,7 @@ window.EG = window.EG || {};
       button2:        'assets/elevator/button-2f.svg',
       button3:        'assets/elevator/button-3f.svg',
       button4:        'assets/elevator/button-4f.svg',
+      button5:        'assets/elevator/button-5f.svg',
       arrowUp:        'assets/elevator/arrow-up.svg',
       arrowDown:      'assets/elevator/arrow-down.svg',
       mapBuilding:    'assets/elevator/map-building.svg',
@@ -53,7 +54,23 @@ window.EG = window.EG || {};
       1: 'assets/rooms/room-candy.svg',
       2: 'assets/rooms/room-icecream.svg',
       3: 'assets/rooms/room-coffee.svg',
-      4: 'assets/rooms/room-closet.svg'
+      4: 'assets/rooms/room-closet.svg',
+      5: 'assets/rooms/room-pet.svg'
+    },
+    /* 5F 宠物层：三只小宠物和它们的零食 */
+    pets: {
+      bowl:      'assets/pets/bowl.svg',
+      heart:     'assets/ui/heart.svg',
+      foods: {
+        fish:   'assets/pets/food-fish.svg',
+        bone:   'assets/pets/food-bone.svg',
+        carrot: 'assets/pets/food-carrot.svg'
+      },
+      list: {
+        cat:    { idle: 'assets/pets/pet-cat-idle.svg',    happy: 'assets/pets/pet-cat-happy.svg' },
+        dog:    { idle: 'assets/pets/pet-dog-idle.svg',    happy: 'assets/pets/pet-dog-happy.svg' },
+        rabbit: { idle: 'assets/pets/pet-rabbit-idle.svg', happy: 'assets/pets/pet-rabbit-happy.svg' }
+      }
     },
     /* 4F 衣帽间可以换的部件：每个部件都是一张独立的 SVG 图层，
        和身体用同一个 300×350 画布，所以直接叠上去就对齐了 */
@@ -195,7 +212,33 @@ window.EG = window.EG || {};
       }
     },
 
-    /* 四层楼（数组顺序 = 楼层从低到高，电梯靠它判断上/下行） */
+    /* 5F 宠物层的玩法数值 */
+    pets: {
+      coinPet: 1,             // 摸一下给的星星糖
+      coinFeed: 3,            // 喂对零食给的星星糖
+      affinityPerPet: 8,      // 摸一下加的好感度
+      affinityPerFeed: 20,    // 喂对零食加的好感度
+      affinityWrong: 2,       // 喂错零食只加一点点
+      levelAt: 100,           // 每攒满 100 好感升一级
+      maxLevel: 2,            // 最高 2 级（0 刚认识 → 1 好朋友 → 2 最好朋友）
+      levelBonus: [5, 8],     // 升到 1 级 / 2 级各给多少星星糖
+      petBottom: 155,         // 宠物底边距舞台底部（px）
+      bowlLeft: 39.2,         // 食盆横向位置（%）
+      foodLeft: [51, 59, 67], // 三个零食的横向位置（%）
+      foodBottom: 70,         // 零食底边距舞台底部（px）
+      list: [
+        { id: 'cat',    name: '团子', kind: '小猫', food: 'fish',   x: 35 },
+        { id: 'dog',    name: '豆豆', kind: '小狗', food: 'bone',   x: 53.3 },
+        { id: 'rabbit', name: '雪球', kind: '小兔', food: 'carrot', x: 71.7 }
+      ],
+      foods: [
+        { id: 'fish',   name: '小鱼干' },
+        { id: 'bone',   name: '肉骨头' },
+        { id: 'carrot', name: '胡萝卜' }
+      ]
+    },
+
+    /* 五层楼（数组顺序 = 楼层从低到高，电梯靠它判断上/下行） */
     floors: [
       {
         id: 1,
@@ -204,7 +247,7 @@ window.EG = window.EG || {};
         color: '#FF8FAB',
         room: 'assets/rooms/room-candy.svg',
         button: 'assets/elevator/button-1f.svg',
-        mapY: 84.8,          /* 小地图里轿厢停靠的纵向位置（%） */
+        mapY: 86.8,          /* 小地图里轿厢停靠的纵向位置（%） */
         tip: '点糖果罐里的 <b>糖果</b> 收星星糖，金色糖果值 5 颗',
         lines: ['欢迎来到糖果屋～', '糖果甜甜的，我最喜欢啦！', '看到金色的糖果别放过哦！']
       },
@@ -215,7 +258,7 @@ window.EG = window.EG || {};
         color: '#7FD8BE',
         room: 'assets/rooms/room-icecream.svg',
         button: 'assets/elevator/button-2f.svg',
-        mapY: 63.7,
+        mapY: 69.9,
         tip: '选一个 <b>冰淇淋球</b> + 一个 <b>配料</b>，做好后点一下卖出去',
         lines: ['冰淇淋屋到啦～', '推荐配方可以卖更贵哦！', '草莓加樱桃，最搭啦！']
       },
@@ -226,7 +269,7 @@ window.EG = window.EG || {};
         color: '#F2B880',
         room: 'assets/rooms/room-coffee.svg',
         button: 'assets/elevator/button-3f.svg',
-        mapY: 42.7,
+        mapY: 53.1,
         tip: '<b>按住</b> 萃取按钮，在绿色 <b>完美区</b> 松手最值钱，再点杯子喝掉',
         lines: ['好香的味道呀～', '苦一点也很棒哦！', '慢慢来，别烫到小爪爪～']
       },
@@ -237,9 +280,20 @@ window.EG = window.EG || {};
         color: '#B79BF0',
         room: 'assets/rooms/room-closet.svg',
         button: 'assets/elevator/button-4f.svg',
-        mapY: 21.6,
+        mapY: 36.3,
         tip: '点右边的按钮换 <b>发型 / 头饰 / 衣服 / 鞋子</b>，镜子里马上变样',
         lines: ['衣帽间到啦～', '换一套新衣服试试？', '新搭配会有星星糖奖励哦！']
+      },
+      {
+        id: 5,
+        tag: '5F',
+        name: '宠物层',
+        color: '#7FC8F0',
+        room: 'assets/rooms/room-pet.svg',
+        button: 'assets/elevator/button-5f.svg',
+        mapY: 19.5,
+        tip: '点宠物 <b>摸一摸</b>，或先去食盆拿零食再点它 <b>喂它</b>；好感满了变好朋友',
+        lines: ['宠物层到啦～', '摸摸它们会开心的！', '喂对零食好感涨得更快哦～']
       }
     ]
   };

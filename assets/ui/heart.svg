@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 110" width="120" height="110">
+  <!-- 好感度用心形 -->
+  <path d="M60 102 C4 64 4 22 32 12 C50 6 60 22 60 30 C60 22 70 6 88 12 C116 22 116 64 60 102 Z"
+        fill="#FF5D8F" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <ellipse cx="36" cy="36" rx="10" ry="7" fill="#FFFFFF" opacity="0.65" transform="rotate(-30 36 36)"/>
+</svg>

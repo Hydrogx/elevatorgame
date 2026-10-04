@@ -14,9 +14,10 @@
       skin: EG.CONFIG.defaultSkin,     // 当前主角形象
       outfit: Object.assign({}, EG.CONFIG.closet.defaultOutfit),  // 4F 换装结果
       outfitsSeen: {},      // 穿过的搭配（第一次有新搭配奖励）
-      stats: { candy: 0, gold: 0, icecream: 0, coffee: 0, perfect: 0, dress: 0 },
+      stats: { candy: 0, gold: 0, icecream: 0, coffee: 0, perfect: 0, dress: 0, pet: 0, feed: 0 },
       recipes: {},          // 做过的配方
-      visits: { 1: 0, 2: 0, 3: 0, 4: 0 }
+      pets: {},             // 5F 每只宠物的好感度 { cat: {aff, lv} }
+      visits: { 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 }
     };
   };
 

@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+  <!-- 宠物·小猫「团子」待机 -->
+  <path d="M148 152 q42 -6 34 -42 q-4 -18 -18 -13" fill="none" stroke="#6B4A45" stroke-width="22" stroke-linecap="round"/>
+  <path d="M148 152 q42 -6 34 -42 q-4 -18 -18 -13" fill="none" stroke="#FFF3DC" stroke-width="13" stroke-linecap="round"/>
+  <ellipse cx="100" cy="138" rx="52" ry="42" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="100" cy="176" rx="18" ry="11" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="124" cy="176" rx="18" ry="11" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M64 56 L56 16 L92 42 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M136 56 L144 16 L108 42 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M67 48 L63 28 L82 42 Z" fill="#FFB3C6"/>
+  <path d="M133 48 L137 28 L118 42 Z" fill="#FFB3C6"/>
+  <circle cx="100" cy="90" r="48" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7"/>
+  <g stroke="#F2B880" stroke-width="6" stroke-linecap="round">
+    <path d="M100 46 v13"/><path d="M84 50 l4 12"/><path d="M116 50 l-4 12"/>
+  </g>
+  <ellipse cx="62" cy="104" rx="12" ry="8" fill="#FFB3C6" opacity="0.9"/>
+  <ellipse cx="138" cy="104" rx="12" ry="8" fill="#FFB3C6" opacity="0.9"/>
+  <circle cx="82" cy="88" r="9" fill="#5A3E3A"/>
+  <circle cx="118" cy="88" r="9" fill="#5A3E3A"/>
+  <circle cx="85" cy="84" r="3.4" fill="#FFFFFF"/>
+  <circle cx="121" cy="84" r="3.4" fill="#FFFFFF"/>
+  <path d="M100 100 l-6 -5 h12 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M100 102 q-7 8 -15 2" fill="none" stroke="#6B4A45" stroke-width="4" stroke-linecap="round"/>
+  <path d="M100 102 q7 8 15 2" fill="none" stroke="#6B4A45" stroke-width="4" stroke-linecap="round"/>
+  <path d="M56 96 L28 90 M56 106 L26 108" stroke="#E8B9A0" stroke-width="3.5" stroke-linecap="round"/>
+  <path d="M144 96 L172 90 M144 106 L174 108" stroke="#E8B9A0" stroke-width="3.5" stroke-linecap="round"/>
+</svg>

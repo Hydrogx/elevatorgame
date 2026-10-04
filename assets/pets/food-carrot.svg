@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90" width="120" height="90">
+  <!-- 零食·胡萝卜（小兔最爱） -->
+  <path d="M40 34 L80 34 L64 82 q-4 10 -8 0 Z" fill="#F2953F" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <g stroke="#D97A22" stroke-width="5" stroke-linecap="round">
+    <path d="M50 48 h12"/><path d="M54 62 h10"/>
+  </g>
+  <path d="M60 34 q-16 -18 -26 -12 q4 16 22 18 Z" fill="#7FD8BE" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M60 34 q16 -18 26 -12 q-4 16 -22 18 Z" fill="#A8E6CF" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M60 32 q-4 -20 2 -26 q8 8 4 26 Z" fill="#8FD3B6" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+</svg>

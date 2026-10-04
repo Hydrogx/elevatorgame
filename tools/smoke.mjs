@@ -83,10 +83,10 @@ check('可爱字体已加载', await ev(`document.fonts.check('16px KuaiLe')`));
 
 /* 按键竖排：3F 在最上、1F 在最下 */
 const btnOrder = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => b.dataset.floor).join(',')`);
-check('按键 DOM 顺序是 4F → 3F → 2F → 1F', btnOrder === '4,3,2,1', '实际: ' + btnOrder);
+check('按键 DOM 顺序是 5F → 4F → 3F → 2F → 1F', btnOrder === '5,4,3,2,1', '实际: ' + btnOrder);
 const btnTops = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => Math.round(b.getBoundingClientRect().top)).join(',')`);
 const tops = btnTops.split(',').map(Number);
-check('按键纵向排列（4F 最高、1F 最低）', tops.every((v, i) => i === 0 || v > tops[i - 1]), 'top 坐标: ' + btnTops);
+check('按键纵向排列（5F 最高、1F 最低）', tops.every((v, i) => i === 0 || v > tops[i - 1]), 'top 坐标: ' + btnTops);
 const panelTop = await ev(`Math.round(document.querySelector('.panel').getBoundingClientRect().top)`);
 const stageTop = await ev(`Math.round(document.querySelector('#stage').getBoundingClientRect().top)`);
 check('面板在右侧、与舞台顶部基本对齐', Math.abs(panelTop - stageTop) < 20, `面板 top=${panelTop}, 舞台 top=${stageTop}`);
@@ -201,9 +201,67 @@ check('换装结果写进存档（和界面一致）', await ev(`(() => {
   return ['hair', 'headwear', 'clothes', 'shoes'].every(k => (s[k] || '') === (dom[k] || ''));
 })()`), '存档=' + (await ev(`JSON.stringify(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).outfit)`)));
 
+/* --- 去 5F 宠物层 --- */
+await ev(`document.querySelector('.floorbtn[data-floor="5"]').click()`);
+await sleep(4600);
+check('5F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('room-pet'));
+check('5F 三只宠物已生成', (await ev(`document.querySelectorAll('.pet').length`)) === 3,
+  '宠物数=' + (await ev(`document.querySelectorAll('.pet').length`)));
+check('5F 三样零食已生成', (await ev(`document.querySelectorAll('.food').length`)) === 3);
+check('每只宠物都有好感度条', (await ev(`document.querySelectorAll('.pet__meter').length`)) === 3);
+await shot('13-5F');
+
+/* 摸一摸：+1 星星糖、好感度上升 */
+const coinPet0 = await ev(`+document.querySelector('#coin-count').textContent`);
+await ev(`document.querySelector('.pet--cat').click()`);
+await sleep(450);
+const coinPet1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('摸宠物加星星糖', coinPet1 - coinPet0 === 1, `+${coinPet1 - coinPet0}`);
+check('好感度条有进度', parseFloat(await ev(`document.querySelector('.pet--cat .pet__meter i').style.width`)) > 0,
+  '宽度=' + (await ev(`document.querySelector('.pet--cat .pet__meter i').style.width`)));
+await shot('14-5F-摸一摸');
+
+/* 喂对零食：+3 星星糖、好感度大涨 */
+await ev(`document.querySelectorAll('.food')[0].click()`);   // 小鱼干
+await sleep(200);
+check('拿起零食会高亮', await ev(`document.querySelectorAll('.food')[0].classList.contains('is-held')`));
+const coinFeed0 = await ev(`+document.querySelector('#coin-count').textContent`);
+await ev(`document.querySelector('.pet--cat').click()`);
+await sleep(450);
+const coinFeed1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('喂对零食加 3 颗星星糖', coinFeed1 - coinFeed0 === 3, `+${coinFeed1 - coinFeed0}`);
+check('喂完零食会放回食盆', !(await ev(`document.querySelectorAll('.food')[0].classList.contains('is-held')`)));
+
+/* 喂错零食：不给钱、零食还拿在手上 */
+await ev(`document.querySelectorAll('.food')[1].click()`);   // 肉骨头给小猫
+await sleep(200);
+const coinWrong0 = await ev(`+document.querySelector('#coin-count').textContent`);
+await ev(`document.querySelector('.pet--cat').click()`);
+await sleep(400);
+check('喂错零食不给星星糖、零食还在手上',
+  (await ev(`+document.querySelector('#coin-count').textContent`)) === coinWrong0 &&
+  (await ev(`document.querySelectorAll('.food')[1].classList.contains('is-held')`)));
+await shot('15-5F-喂错零食');
+
+/* 连喂 5 次把好感度攒满 → 应该升级 + 给奖励 */
+const coinLv0 = await ev(`+document.querySelector('#coin-count').textContent`);
+for (let i = 0; i < 5; i++) {
+  await ev(`document.querySelectorAll('.food')[0].click()`);
+  await sleep(130);
+  await ev(`document.querySelector('.pet--cat').click()`);
+  await sleep(190);
+}
+await sleep(500);
+const coinLv1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('好感度满会升级并给奖励', coinLv1 - coinLv0 >= 20, `这一轮 +${coinLv1 - coinLv0}（5 次喂食 15 + 升级奖励 5）`);
+check('升级后出现星级徽章', await ev(`document.querySelector('.pet--cat .pet__badge').classList.contains('is-show')`),
+  '徽章=' + (await ev(`document.querySelector('.pet--cat .pet__badge').textContent`)));
+check('宠物好感度写进存档', await ev(`!!(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).pets || {}).cat`));
+await shot('16-5F-升级');
+
 /* --- 回 1F --- */
 await ev(`document.querySelector('.floorbtn[data-floor="1"]').click()`);
-await sleep(4600);
+await sleep(5200);
 check('回到 1F', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('candy'));
 check('显示屏显示 1F', (await ev(`document.querySelector('#indicator-text').textContent`)) === '1F');
 check('存档写入了 localStorage', await ev(`!!localStorage.getItem('meow-elevator-save-v1')`));

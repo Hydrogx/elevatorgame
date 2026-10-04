@@ -18,7 +18,7 @@
   function floorById(id) { return C.floors[idx(id)]; }
 
   /* 楼房原稿尺寸（map-building.svg 的 viewBox），轿厢在井道里的中心 x = 217 */
-  var MAP = { w: 260, h: 470, shaftX: 217, carW: 64 };
+  var MAP = { w: 260, h: 470, shaftX: 217, carW: 50 };
 
   /* 小地图里的楼房用 object-fit: contain 显示，
      所以轿厢位置要按「实际渲染出来的图片尺寸」算 */
