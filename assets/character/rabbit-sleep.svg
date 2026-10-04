@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 主角 · 小兔子（打瞌睡）：和猪猪兔共用同一套骨架，所以换装图层都能穿 -->
+  <!-- 圆圆的兔尾巴 -->
+  <circle cx="250" cy="288" r="26" fill="#FBF8FF" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="150" cy="266" rx="84" ry="70" fill="#F0E8FF" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="150" cy="284" rx="54" ry="44" fill="#FBF8FF"/>
+  <ellipse cx="112" cy="322" rx="28" ry="18" fill="#F0E8FF" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="188" cy="322" rx="28" ry="18" fill="#F0E8FF" stroke="#6B4A45" stroke-width="7"/>
+  <!-- 又长又软的兔耳 -->
+  <ellipse cx="104" cy="48" rx="21" ry="66" transform="rotate(-12 104 48)" fill="#F0E8FF" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="196" cy="48" rx="21" ry="66" transform="rotate(12 196 48)" fill="#F0E8FF" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="104" cy="50" rx="10" ry="47" transform="rotate(-12 104 50)" fill="#FFB3C6"/>
+  <ellipse cx="196" cy="50" rx="10" ry="47" transform="rotate(12 196 50)" fill="#FFB3C6"/>
+  <circle cx="150" cy="162" r="82" fill="#F0E8FF" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="84" cy="186" rx="24" ry="18" fill="#FFA8CE" opacity="0.8"/>
+  <ellipse cx="216" cy="186" rx="24" ry="18" fill="#FFA8CE" opacity="0.8"/>
+  <!-- 闭着的眼睛 -->
+  <path d="M100 144 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M172 144 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <!-- 小鼻子 + 三瓣嘴 -->
+  <path d="M150 196 q-12 -4 -12 -13 q0 -9 12 -9 q12 0 12 9 q0 9 -12 13 Z"
+        fill="#FFB3C6" stroke="#6B4A45" stroke-width="5" stroke-linejoin="round"/>
+  <path d="M150 196 v8" stroke="#6B4A45" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M150 204 q-11 11 -20 2" fill="none" stroke="#6B4A45" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M150 204 q11 11 20 2" fill="none" stroke="#6B4A45" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M142 212 h7 v11 q-3.5 4 -7 0 Z" fill="#FFFFFF" stroke="#6B4A45" stroke-width="3.5" stroke-linejoin="round"/>
+  <path d="M151 212 h7 v11 q-3.5 4 -7 0 Z" fill="#FFFFFF" stroke="#6B4A45" stroke-width="3.5" stroke-linejoin="round"/>
+  <!-- 胡须 -->
+  <g stroke="#FFB3C6" stroke-width="3.5" stroke-linecap="round" opacity="0.9">
+    <path d="M66 176 h-24"/><path d="M66 190 l-24 7"/>
+    <path d="M234 176 h24"/><path d="M234 190 l24 7"/>
+  </g>
+  <ellipse cx="150" cy="216" rx="13" ry="11" fill="#C97A90" stroke="#6B4A45" stroke-width="5"/>
+  <!-- 打呼噜 -->
+  <g fill="#9FC9E0" font-family="sans-serif" font-weight="bold">
+    <text x="236" y="96" font-size="30">z</text>
+    <text x="256" y="70" font-size="40">z</text>
+  </g>
+</svg>

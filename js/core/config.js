@@ -61,6 +61,22 @@ window.EG = window.EG || {};
         wave:  'assets/character/cat-wave.svg',
         sleep: 'assets/character/cat-sleep.svg',
         avatar: 'assets/ui/avatar-cat.svg'
+      },
+      /* 小兔子（软软长耳 + 三瓣嘴） */
+      rabbit: {
+        idle:  'assets/character/rabbit-idle.svg',
+        happy: 'assets/character/rabbit-happy.svg',
+        wave:  'assets/character/rabbit-wave.svg',
+        sleep: 'assets/character/rabbit-sleep.svg',
+        avatar: 'assets/ui/avatar-rabbit.svg'
+      },
+      /* 小马（鬃毛 + 小蹄子） */
+      pony: {
+        idle:  'assets/character/pony-idle.svg',
+        happy: 'assets/character/pony-happy.svg',
+        wave:  'assets/character/pony-wave.svg',
+        sleep: 'assets/character/pony-sleep.svg',
+        avatar: 'assets/ui/avatar-pony.svg'
       }
     },
     /* 2F 的顾客（每人一张独立 SVG） */
@@ -187,6 +203,16 @@ window.EG = window.EG || {};
         id: 'cat',
         name: '咪咪',
         hello: '欢迎光临喵喵电梯公寓！我是电梯小姐咪咪，想去哪一层呀？'
+      },
+      rabbit: {
+        id: 'rabbit',
+        name: '小兔子',
+        hello: '欢迎光临喵喵电梯公寓！我是小兔子，耳朵很灵哦，想去哪一层？'
+      },
+      pony: {
+        id: 'pony',
+        name: '小马',
+        hello: '欢迎光临喵喵电梯公寓！我是小马，今天想去哪一层玩呀？'
       }
     },
 

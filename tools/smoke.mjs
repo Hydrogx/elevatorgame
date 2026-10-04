@@ -249,6 +249,25 @@ check('换装结果写进存档（和界面一致）', await ev(`(() => {
 })()`), '存档=' + (await ev(`JSON.stringify(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).outfit)`)));
 
 /* 换主角时，镜子里的「自己」也要跟着换（这是之前固定显示猪猪兔的 bug） */
+const skinIds = await ev(`Object.keys(EG.ASSETS.character).join(',')`);
+check('四位主角都在（猪猪兔 / 咪咪 / 小兔子 / 小马）', skinIds === 'pigbunny,cat,rabbit,pony', skinIds);
+check('四位主角的图都能加载（没有 404）', await ev(`(async () => {
+  const list = [];
+  Object.keys(EG.ASSETS.character).forEach(function (k) {
+    const s = EG.ASSETS.character[k];
+    list.push(s.avatar, s.idle, s.happy, s.wave, s.sleep);
+  });
+  const res = await Promise.all(list.map(function (src) {
+    return new Promise(function (r) {
+      const im = new Image();
+      im.onload = function () { r(im.naturalWidth > 0); };
+      im.onerror = function () { r(false); };
+      im.src = src;
+    });
+  }));
+  return res.every(Boolean);
+})()`) === true);
+
 const mirrorBefore = await ev(`document.querySelector('.mirror__body').getAttribute('src')`);
 await ev(`document.querySelector('#skin-toggle').click()`);
 await sleep(500);
@@ -258,8 +277,18 @@ check('4F 镜子里的人跟着主角一起换', !!mirrorAfter && mirrorAfter !=
 check('换成猫猫后镜子里的衣服自动隐藏', await ev(`document.body.classList.contains('skin-cat') &&
   getComputedStyle(document.querySelector('.mirror .wear--clothes')).display === 'none'`));
 await shot('13-4F-换主角后的镜子');
-await ev(`document.querySelector('#skin-toggle').click()`);   // 换回猪猪兔
+
+/* 再点两下到小兔子：它和猪猪兔共用骨架，所以衣服要正常显示 */
+await ev(`document.querySelector('#skin-toggle').click()`);
 await sleep(400);
+check('切到小兔子', (await ev(`EG.Say.skin()`)) === 'rabbit', await ev(`EG.Say.skin()`));
+check('小兔子能穿衣服（镜子里的衣服图层没被隐藏）',
+  await ev(`getComputedStyle(document.querySelector('.mirror .wear--clothes')).display !== 'none'`));
+await shot('13b-4F-小兔子');
+
+/* 再点两下到小马，然后回到猪猪兔 */
+for (let i = 0; i < 2; i++) { await ev(`document.querySelector('#skin-toggle').click()`); await sleep(400); }
+check('一圈点完回到猪猪兔', (await ev(`EG.Say.skin()`)) === 'pigbunny', await ev(`EG.Say.skin()`));
 check('换回猪猪兔后镜子也跟着回来', (await ev(`document.querySelector('.mirror__body').getAttribute('src')`)).indexOf('pigbunny') >= 0);
 
 /* --- 4F 商店：买衣服 + 买宠物装扮 --- */

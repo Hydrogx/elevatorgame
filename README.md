@@ -43,7 +43,7 @@ HUD 上的小头像可以随时换成另一位角色 **猫猫咪咪**。两个�
 | 4F `🐾 宠物装扮` | 给团子 / 豆豆 / 雪球挑饰品，买过的才能戴；装扮好去 5F 就能看到 |
 | 5F 点宠物 / 先拿零食再点宠物 | 摸一摸 / 喂零食，好感度攒满会升级 |
 | 6F 点三个摊位 | 玩小游戏赚星星糖：🏀 投篮、🏸 羽毛球、🎰 老虎机 |
-| HUD 小头像 | 切换主角形象（猪猪兔 ⇄ 咪咪），**4F 镜子里的自己也会跟着换** |
+| HUD 小头像 | 切换主角形象（**猪猪兔 → 咪咪 → 小兔子 → 小马** 循环），**4F 镜子里的自己也会跟着换** |
 | HUD 🔊 | 音效开关 |
 | HUD ↺ | 清空进度重新开始 |
 
@@ -108,7 +108,7 @@ elevatorgame/
 │   │   └── arcade.js           # 6F 游乐区玩法（三个小游戏）
 │   └── main.js                 # 启动、面板交互、楼层切换
 ├── assets/
-│   ├── character/              # ★ 主角表情（猪猪兔 4 张 + 猫猫 4 张）
+│   ├── character/              # ★ 四位主角表情（猪猪兔 / 咪咪 / 小兔子 / 小马，各 4 张）
 │   ├── closet/                 # ★ 可换装部件：发型 / 头饰 / 衣服 / 鞋子（各 4 件，最后一件要买）
 │   ├── pets/                   # ★ 5F 宠物（3 只 × 待机/开心）+ 3 样零食 + 食盆 + 4 件宠物饰品
 │   ├── arcade/                 # ★ 6F 小游戏道具（篮球、篮筐、羽毛球、球拍）
@@ -135,7 +135,7 @@ elevatorgame/
 
 | 想改什么 | 改这里 |
 | --- | --- |
-| **主角形象 / 表情** | `assets/character/pigbunny-*.svg`（再加一张就复制同尺寸的 SVG，改配色即可） |
+| **主角形象 / 表情** | `assets/character/<角色>-{idle,happy,wave,sleep}.svg` + `assets/ui/avatar-<角色>.svg`（四位主角共用 300×350 骨架，所以**换装图层四个人都能穿**） |
 | **给 4F 加一件新衣服 / 新发型** | 在 `assets/closet/` 里加一张 300×350 的 SVG（照着现成的改最省事），再到 `js/core/config.js` 的 `closet.items` 里加一项（`EG.ASSETS.closet` 里同步加路径）；带 `price` 就变成商店商品 |
 | **加一件宠物饰品** | 在 `assets/pets/` 里加一张 200×190 的 SVG（和宠物同画布就自动对齐），再到 `js/core/config.js` 的 `petwear.items` 和 `EG.ASSETS.petwear` 里各加一项；取景在 `styles/shop.css` 的 `.pw--*` |
 | **商店 / 宠物装扮弹窗的外观** | `styles/shop.css`（商品卡片、装扮行） |
@@ -153,8 +153,8 @@ elevatorgame/
 | **楼层指示条** | 格子由 `js/main.js` 按 `floors` 自动生成，样式在 `styles/layout.css` 的 `.floors*` |
 | **商店卖什么 / 卖多少钱** | 在 `js/core/config.js` 的 `closet.items` 或 `petwear.items` 里给商品加 `price` 就会出现在商店（**不写 price 就是免费的**）；商品清单是自动推导的，不用另外登记 |
 | 按键面板的底板花纹 | `assets/elevator/panel-plate-v.svg` |
-| 换回猫猫当默认主角 | `js/core/config.js` 里的 `defaultSkin: 'cat'` |
-| 新增第三种角色 | `assets/character/新角色/` 放 4 张 + 头像，然后在 `EG.ASSETS.character` 和 `EG.CONFIG.skins` 里各加一项 |
+| 换默认主角 | `js/core/config.js` 里的 `defaultSkin`（`pigbunny` / `cat` / `rabbit` / `pony`） |
+| **新增一位主角** | `assets/character/新名字-{idle,happy,wave,sleep}.svg` 放 4 张 + `assets/ui/avatar-新名字.svg`，再在 `EG.ASSETS.character` 和 `EG.CONFIG.skins`（名字 + 开场白）里各加一项；HUD 头像是按 `EG.ASSETS.character` 的键自动循环的 |
 | **某一层的房间样子** | `assets/rooms/room-candy.svg` / `room-icecream.svg` / `room-coffee.svg` / `room-closet.svg` / `room-pet.svg` / `room-arcade.svg`（画布 1200×675） |
 | 某一层的玩法道具 | `assets/items/`、`assets/closet/`、`assets/pets/` 里对应的 SVG（每件一个文件） |
 | 道具在房间里的位置 / 大小 | `styles/floors.css`（坐标是百分比，对应 1200×675 原稿） |
@@ -248,6 +248,9 @@ node tools/mobile-check.mjs
   全部共用 300×350 画布，所以换表情也不会错位；猫猫咪咪没有对应部件，所以穿衣服时会看不到（镜子里照常显示）。
 - **5F 宠物**同理：每只宠物一对图（待机 / 开心），点一下临时换成开心表情，好感度和等级存在存档里，
   每只最高 2 级（★ 好朋友 → ★★ 最好朋友）。
+- **四位主角共用同一套 300×350 骨架**（小兔子和小马就是照猪猪兔的骨架画的，只改五官和毛色），
+  所以 4F 的换装图层、商店买来的衣服，四个人都能穿；只有猫猫咪咪的体型不一样，
+  穿衣服时会自动隐藏（镜子里照常显示）。
 - **4F 商店是「配置驱动」的**：`config.closet.items` / `config.petwear.items` 里凡是写了 `price` 的条目，
   会自动出现在商店里（不写 `price` 就是免费的默认款）；买过的记在存档 `owned` 里，
   换装面板和宠物装扮面板里没买的会显示 🔒 + 价格，点第一次问价、点第二次才扣钱。

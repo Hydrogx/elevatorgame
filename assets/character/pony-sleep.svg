@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 主角 · 小马（打瞌睡）：和猪猪兔共用同一套骨架，所以换装图层都能穿 -->
+  <!-- 飘起来的鬃毛尾巴 -->
+  <path d="M226 248 q46 6 42 44 q-4 32 -34 26 q-22 -6 -14 -26 q6 -14 20 -8"
+        fill="none" stroke="#6B4A45" stroke-width="30" stroke-linecap="round"/>
+  <path d="M226 248 q46 6 42 44 q-4 32 -34 26 q-22 -6 -14 -26 q6 -14 20 -8"
+        fill="none" stroke="#CDB4F6" stroke-width="19" stroke-linecap="round"/>
+  <ellipse cx="150" cy="266" rx="84" ry="70" fill="#F7DEC4" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="150" cy="284" rx="54" ry="44" fill="#FFF0DC"/>
+  <ellipse cx="112" cy="320" rx="28" ry="20" fill="#F7DEC4" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="188" cy="320" rx="28" ry="20" fill="#F7DEC4" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="112" cy="330" rx="24" ry="12" fill="#C98F6A" stroke="#6B4A45" stroke-width="5"/>
+  <ellipse cx="188" cy="330" rx="24" ry="12" fill="#C98F6A" stroke="#6B4A45" stroke-width="5"/>
+  <!-- 细长的马耳 -->
+  <ellipse cx="110" cy="74" rx="16" ry="44" transform="rotate(-19 110 74)" fill="#F7DEC4" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="190" cy="74" rx="16" ry="44" transform="rotate(19 190 74)" fill="#F7DEC4" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="110" cy="76" rx="7" ry="28" transform="rotate(-19 110 76)" fill="#FFB08F" opacity="0.8"/>
+  <ellipse cx="190" cy="76" rx="7" ry="28" transform="rotate(19 190 76)" fill="#FFB08F" opacity="0.8"/>
+  <circle cx="150" cy="162" r="82" fill="#F7DEC4" stroke="#6B4A45" stroke-width="8"/>
+  <!-- 鬃毛：额前一撮 + 顺着头两侧流到肩膀（戴帽子/头发时会被自然盖住） -->
+  <path d="M122 90 q28 -16 56 0 q-8 28 -28 34 q-20 -6 -28 -34 Z" fill="#CDB4F6" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M80 126 q-28 42 -12 96 q4 20 20 24 q6 -26 -4 -54 q-10 -28 -4 -66 Z" fill="#CDB4F6" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M220 126 q28 42 12 96 q-4 20 -20 24 q-6 -26 4 -54 q10 -28 4 -66 Z" fill="#CDB4F6" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <ellipse cx="88" cy="180" rx="22" ry="16" fill="#FFB08F" opacity="0.75"/>
+  <ellipse cx="212" cy="180" rx="22" ry="16" fill="#FFB08F" opacity="0.75"/>
+  <!-- 闭着的眼睛 -->
+  <path d="M100 144 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M172 144 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <!-- 浅色的口鼻 + 鼻孔 -->
+  <ellipse cx="150" cy="206" rx="36" ry="28" fill="#FFF0DC" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="136" cy="196" rx="5.5" ry="7.5" fill="#C98F6A" opacity="0.85"/>
+  <ellipse cx="164" cy="196" rx="5.5" ry="7.5" fill="#C98F6A" opacity="0.85"/>
+  <ellipse cx="150" cy="218" rx="11" ry="9" fill="#C98F6A" opacity="0.6" stroke="#6B4A45" stroke-width="4.5"/>
+  <!-- 打呼噜 -->
+  <g fill="#9FC9E0" font-family="sans-serif" font-weight="bold">
+    <text x="236" y="96" font-size="30">z</text>
+    <text x="256" y="70" font-size="40">z</text>
+  </g>
+</svg>

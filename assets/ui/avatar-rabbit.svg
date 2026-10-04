@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 小兔子 头像（HUD 里切换角色用） -->
+  <ellipse cx="36" cy="24" rx="12" ry="30" transform="rotate(-13 36 24)" fill="#F0E8FF" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="84" cy="24" rx="12" ry="30" transform="rotate(13 84 24)" fill="#F0E8FF" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="36" cy="26" rx="5.5" ry="20" transform="rotate(-13 36 26)" fill="#FFB3C6"/>
+  <ellipse cx="84" cy="26" rx="5.5" ry="20" transform="rotate(13 84 26)" fill="#FFB3C6"/>
+  <circle cx="60" cy="70" r="44" fill="#F0E8FF" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="28" cy="80" rx="11" ry="8" fill="#FFA8CE" opacity="0.85"/>
+  <ellipse cx="92" cy="80" rx="11" ry="8" fill="#FFA8CE" opacity="0.85"/>
+  <circle cx="42" cy="62" r="7" fill="#5A3E3A"/>
+  <circle cx="78" cy="62" r="7" fill="#5A3E3A"/>
+  <circle cx="44" cy="59" r="2.6" fill="#FFFFFF"/>
+  <circle cx="80" cy="59" r="2.6" fill="#FFFFFF"/>
+  <circle cx="60" cy="80" r="9" fill="#FFB3C6" stroke="#6B4A45" stroke-width="5"/>
+</svg>
