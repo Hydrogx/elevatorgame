@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 400" width="1200" height="400">
+  <!-- 远景小山丘 -->
+  <ellipse cx="160" cy="430" rx="440" ry="210" fill="#B7E4C7"/>
+  <ellipse cx="640" cy="470" rx="520" ry="240" fill="#A2DCC3"/>
+  <ellipse cx="1070" cy="430" rx="400" ry="200" fill="#8FD3B6"/>
+  <ellipse cx="640" cy="500" rx="640" ry="200" fill="#7FC8A9"/>
+</svg>

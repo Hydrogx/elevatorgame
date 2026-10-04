@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 3F 按钮：咖啡 -->
+  <defs>
+    <radialGradient id="g3" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#FFE6C2"/>
+      <stop offset="1" stop-color="#E0A96D"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="#FFFFFF" stroke="#6B4A45" stroke-width="8"/>
+  <circle cx="100" cy="100" r="74" fill="url(#g3)" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="72" cy="66" rx="24" ry="15" fill="#FFFFFF" opacity="0.45" transform="rotate(-30 72 66)"/>
+  <g transform="translate(100 100)">
+    <path d="M-30 -6 h60 v20 a30 30 0 0 1 -30 30 h0 a30 30 0 0 1 -30 -30 Z" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M-30 -6 h60 v8 h-60 Z" fill="#A9714B"/>
+    <path d="M30 2 q22 2 18 20 q-4 16 -22 14" fill="none" stroke="#6B4A45" stroke-width="6" stroke-linecap="round"/>
+    <path d="M-14 -22 q6 -10 0 -20 M6 -22 q6 -10 0 -20" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round" opacity="0.7"/>
+    <rect x="-44" y="46" width="88" height="12" rx="6" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6"/>
+  </g>
+</svg>

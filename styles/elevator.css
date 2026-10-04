@@ -1,0 +1,314 @@
+/* ============================================================
+   elevator.css —— 轿厢、电梯门、显示屏、猫猫、气泡、控制面板
+   舞台 1008×567 = 房间原稿 1200×675 × 0.84
+
+   图层顺序（从后到前）：
+     1  房间背景 .room
+     2  猫猫 .cat          ← 站在柜台后面，道具会盖住它
+     3  房间道具 .room__props
+     4  电梯门 .doors
+     5  轿厢框 .cabin
+     9  楼层显示屏 / 11 气泡 / 20 飘字粒子
+   ============================================================ */
+
+/* ---------- 电梯门（盖住轿厢门洞 90,105 → 1110,610 原稿坐标） ---------- */
+.doors {
+  position: absolute;
+  left: 75.6px;
+  top: 88.2px;
+  width: 856.8px;
+  height: 424.2px;
+  z-index: 4;
+  pointer-events: none;
+}
+
+.doors__leaf {
+  position: absolute;
+  top: 0;
+  width: 50%;
+  height: 100%;
+  transition: transform 0.62s cubic-bezier(0.5, 0.02, 0.3, 1);
+}
+
+.doors__leaf--left  { left: 0;  transform: translateX(-101%); }
+.doors__leaf--right { right: 0; transform: translateX(101%); }
+
+.stage.is-closed .doors__leaf--left  { transform: translateX(0); }
+.stage.is-closed .doors__leaf--right { transform: translateX(0); }
+
+/* 门关着的时候，房间里的道具不给点（避免隔着门点到东西） */
+.stage.is-closed .room__props { pointer-events: none; }
+
+/* ---------- 轿厢前景框 ---------- */
+.cabin {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 5;
+  pointer-events: none;
+}
+
+/* ---------- 楼层显示屏 ---------- */
+.indicator {
+  position: absolute;
+  left: 424px;
+  top: 9px;
+  width: 160px;
+  height: 67px;
+  z-index: 9;
+}
+
+.indicator__plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.indicator__text {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 22px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  font-family: var(--font-num);
+  font-size: 30px;
+  font-weight: 800;
+  color: #FFE066;
+  text-shadow: 0 0 10px rgba(255, 224, 102, 0.75);
+  letter-spacing: 1px;
+}
+
+.indicator__text .dir {
+  font-size: 18px;
+  color: var(--c-mint);
+  text-shadow: 0 0 8px rgba(127, 216, 190, 0.9);
+  opacity: 0;
+}
+.indicator.is-up .dir--up,
+.indicator.is-down .dir--down { opacity: 1; }
+.indicator.is-ding .indicator__text { animation: dingflash 0.5s ease 2; }
+
+/* ---------- 电梯小姐 · 猫猫 ---------- */
+.cat {
+  position: absolute;
+  left: 92px;
+  bottom: 55px;
+  width: 190px;
+  z-index: 2;
+  transition: transform 0.2s ease;
+}
+
+.cat img {
+  width: 100%;
+  filter: drop-shadow(0 8px 0 rgba(107, 74, 69, 0.18));
+}
+
+.cat.is-hop { animation: hop 0.6s ease; }
+.cat.is-shake { animation: shake 0.5s ease; }
+
+/* ---------- 说话气泡 ---------- */
+.bubble {
+  position: absolute;
+  left: 226px;
+  bottom: 254px;
+  max-width: 300px;
+  padding: 14px 20px;
+  background: var(--c-cream);
+  border: 5px solid var(--c-outline);
+  border-radius: 22px;
+  font-size: 17px;
+  line-height: 1.4;
+  color: var(--c-ink);
+  box-shadow: 0 6px 0 rgba(107, 74, 69, 0.22);
+  z-index: 11;
+  opacity: 0;
+  transform: translateY(8px) scale(0.9);
+  transform-origin: 20% 120%;
+  transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.2, 1.6, 0.4, 1);
+  pointer-events: none;
+}
+
+.bubble.is-show { opacity: 1; transform: translateY(0) scale(1); }
+
+.bubble::after {
+  content: '';
+  position: absolute;
+  left: 34px;
+  bottom: -22px;
+  width: 0;
+  height: 0;
+  border: 12px solid transparent;
+  border-top-color: var(--c-outline);
+  border-bottom: 0;
+}
+
+.bubble::before {
+  content: '';
+  position: absolute;
+  left: 38px;
+  bottom: -12px;
+  width: 0;
+  height: 0;
+  border: 8px solid transparent;
+  border-top-color: var(--c-cream);
+  border-bottom: 0;
+  z-index: 2;
+}
+
+/* ---------- 控制面板 ---------- */
+.panel {
+  position: relative;
+  height: 132px;
+  flex: 0 0 132px;
+  margin-top: 14px;
+}
+
+.panel__plate {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.panel__inner {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 26px;
+}
+
+.panel__arrow {
+  width: 62px;
+  height: 62px;
+  cursor: pointer;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+.panel__arrow:active { transform: translateY(3px) scale(0.96); }
+.panel__arrow.is-disabled { filter: grayscale(1) opacity(0.45); cursor: not-allowed; }
+
+.floorbtn {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  height: 96px;
+  padding: 0 20px 0 12px;
+  border-radius: 26px;
+  border: 5px solid transparent;
+  background: rgba(255, 255, 255, 0.55);
+  transition: transform 0.14s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.floorbtn img { width: 62px; height: 62px; }
+
+.floorbtn__label {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  line-height: 1.15;
+}
+
+.floorbtn__label b {
+  font-family: var(--font-num);
+  font-size: 26px;
+  color: var(--c-outline);
+}
+
+.floorbtn__label span {
+  font-size: 15px;
+  color: var(--c-ink-soft);
+}
+
+.floorbtn:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.85); }
+.floorbtn:active { transform: translateY(2px); }
+
+.floorbtn.is-active {
+  background: #FFFBEF;
+  border-color: var(--c-pink);
+  box-shadow: 0 0 0 5px rgba(255, 143, 171, 0.28), 0 8px 0 rgba(107, 74, 69, 0.18);
+}
+
+.floorbtn.is-active .floorbtn__label b { color: var(--c-pink); }
+
+.floorbtn.is-active::after {
+  content: '';
+  position: absolute;
+  top: -12px;
+  right: -10px;
+  width: 34px;
+  height: 34px;
+  background: url('../assets/ui/sparkle.svg') center/contain no-repeat;
+  animation: spin 3s linear infinite;
+}
+
+.floorbtn.is-arriving { animation: bump 0.5s ease; }
+
+.panel__hint {
+  flex: 1;
+  margin: 0;
+  text-align: right;
+  font-size: 16px;
+  line-height: 1.5;
+  color: var(--c-ink-soft);
+  max-width: 300px;
+}
+
+.panel__hint b { color: var(--c-coffee); }
+.panel__hint .k {
+  display: inline-block;
+  padding: 1px 9px;
+  margin: 0 2px;
+  border-radius: 10px;
+  background: #FFF0F5;
+  border: 3px solid var(--c-outline);
+  font-family: var(--font-num);
+  color: var(--c-pink);
+}
+
+/* ---------- 飘字 / 粒子层 ---------- */
+.fx {
+  position: absolute;
+  inset: 0;
+  z-index: 20;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fx__float {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  font-family: var(--font-num);
+  font-size: 30px;
+  font-weight: 800;
+  color: #fff;
+  text-shadow: 2px 2px 0 var(--c-outline), -2px -2px 0 var(--c-outline),
+               2px -2px 0 var(--c-outline), -2px 2px 0 var(--c-outline);
+  animation: floatup 1s ease-out forwards;
+  white-space: nowrap;
+}
+
+.fx__sparkle {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  transform: translate(-50%, -50%);
+  animation: sparkleout 0.75s ease-out forwards;
+}
+
+.fx__ring {
+  position: absolute;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px;
+  border-radius: 50%;
+  border: 6px solid rgba(255, 255, 255, 0.9);
+  animation: ringout 0.55s ease-out forwards;
+}

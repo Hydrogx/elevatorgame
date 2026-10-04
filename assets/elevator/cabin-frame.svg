@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <!-- 电梯轿厢前景框：中间 (90,105)-(1110,610) 是镂空的门洞 -->
+  <defs>
+    <linearGradient id="canopy" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF0F5"/>
+      <stop offset="1" stop-color="#FFD9E6"/>
+    </linearGradient>
+    <linearGradient id="pillar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#FFE7F0"/>
+      <stop offset="1" stop-color="#F8C9DA"/>
+    </linearGradient>
+    <linearGradient id="pillarR" x1="1" y1="0" x2="0" y2="0">
+      <stop offset="0" stop-color="#FFE7F0"/>
+      <stop offset="1" stop-color="#F8C9DA"/>
+    </linearGradient>
+    <linearGradient id="sill" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F7B7CC"/>
+      <stop offset="1" stop-color="#E791AE"/>
+    </linearGradient>
+    <linearGradient id="topShade" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#000000" stop-opacity="0.16"/>
+      <stop offset="1" stop-color="#000000" stop-opacity="0"/>
+    </linearGradient>
+  </defs>
+
+  <!-- 顶部天棚 -->
+  <path d="M0 0 H1200 V96 q0 20 -22 20 H22 Q0 116 0 96 Z" fill="url(#canopy)" stroke="#6B4A45" stroke-width="8"/>
+  <!-- 吊灯 -->
+  <line x1="300" y1="0" x2="300" y2="42" stroke="#6B4A45" stroke-width="6"/>
+  <circle cx="300" cy="78" r="34" fill="#FFF3C4" stroke="#6B4A45" stroke-width="8"/>
+  <circle cx="300" cy="72" r="18" fill="#FFE066" opacity="0.9"/>
+  <line x1="900" y1="0" x2="900" y2="42" stroke="#6B4A45" stroke-width="6"/>
+  <circle cx="900" cy="78" r="34" fill="#FFF3C4" stroke="#6B4A45" stroke-width="8"/>
+  <circle cx="900" cy="72" r="18" fill="#FFE066" opacity="0.9"/>
+
+  <!-- 左立柱 -->
+  <path d="M0 116 H70 q20 0 20 20 V590 q0 20 -20 20 H0 Z" fill="url(#pillar)" stroke="#6B4A45" stroke-width="8"/>
+  <rect x="26" y="300" width="44" height="130" rx="22" fill="#FFC93C" stroke="#6B4A45" stroke-width="7"/>
+
+  <!-- 右立柱 -->
+  <path d="M1200 116 H1130 q-20 0 -20 20 V590 q0 20 20 20 H1200 Z" fill="url(#pillarR)" stroke="#6B4A45" stroke-width="8"/>
+  <rect x="1130" y="300" width="44" height="130" rx="22" fill="#FFC93C" stroke="#6B4A45" stroke-width="7"/>
+
+  <!-- 底部门槛 -->
+  <path d="M0 610 H1200 V675 H0 Z" fill="url(#sill)" stroke="#6B4A45" stroke-width="8"/>
+  <rect x="60" y="626" width="1080" height="14" rx="7" fill="#FFF0F5" opacity="0.75"/>
+
+  <!-- 门洞上方的一点阴影，增加纵深 -->
+  <rect x="90" y="105" width="1020" height="60" fill="url(#topShade)"/>
+</svg>

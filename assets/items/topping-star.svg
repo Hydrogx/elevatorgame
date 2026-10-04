@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 140 80" width="140" height="80">
+  <!-- 星星糖碎（配料） -->
+  <g stroke="#6B4A45" stroke-width="5" stroke-linejoin="round">
+    <path d="M34 8 L42 24 L60 26 L47 38 L50 56 L34 47 L18 56 L21 38 L8 26 L26 24 Z" fill="#FFE066"/>
+    <path d="M78 30 L84 43 L98 45 L88 54 L90 68 L78 61 L66 68 L68 54 L58 45 L72 43 Z" fill="#FFB3C6"/>
+    <path d="M112 6 L118 20 L132 22 L122 31 L124 46 L112 39 L100 46 L102 31 L92 22 L106 20 Z" fill="#A8E6CF"/>
+  </g>
+</svg>

@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 260 470" width="260" height="470">
+  <!-- 小地图：整栋楼剖面，右侧是电梯井 -->
+  <defs>
+    <linearGradient id="shaft" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#EFE7FA"/>
+      <stop offset="1" stop-color="#DCCFF3"/>
+    </linearGradient>
+  </defs>
+  <!-- 楼体 -->
+  <rect x="6" y="34" width="248" height="424" rx="26" fill="#FFF6E5" stroke="#6B4A45" stroke-width="8"/>
+  <!-- 屋顶 -->
+  <path d="M6 46 q60 -40 124 -40 q64 0 124 40 Z" fill="#FFB3C6" stroke="#6B4A45" stroke-width="8" stroke-linejoin="round"/>
+  <line x1="130" y1="6" x2="130" y2="-24" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M130 -24 l40 12 l-40 12 Z" fill="#FFD166" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <!-- 三层房间 -->
+  <rect x="18" y="52" width="158" height="128" rx="14" fill="#FFD9E6" stroke="#6B4A45" stroke-width="6"/>
+  <rect x="18" y="186" width="158" height="128" rx="14" fill="#CFEEDF" stroke="#6B4A45" stroke-width="6"/>
+  <rect x="18" y="320" width="158" height="128" rx="14" fill="#F6DCC0" stroke="#6B4A45" stroke-width="6"/>
+  <!-- 房间图标 -->
+  <circle cx="97" cy="116" r="30" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6"/>
+  <circle cx="97" cy="116" r="14" fill="#FFFFFF" opacity="0.85"/>
+  <path d="M97 250 q24 0 24 -22 q0 -16 -24 -16 q-24 0 -24 16 q0 22 24 22 Z" fill="#7FD8BE" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M73 250 l24 46 l24 -46 Z" fill="#F2B880" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M73 384 h48 q10 0 10 12 q0 16 -12 22 h-44 q-12 -6 -12 -22 q0 -12 10 -12 Z" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M69 384 h56 v10 h-56 Z" fill="#A9714B"/>
+  <!-- 电梯井 -->
+  <rect x="186" y="52" width="62" height="396" rx="16" fill="url(#shaft)" stroke="#6B4A45" stroke-width="8"/>
+  <!-- 井道横梁 -->
+  <g stroke="#6B4A45" stroke-width="5" opacity="0.35">
+    <line x1="190" y1="184" x2="244" y2="184"/>
+    <line x1="190" y1="318" x2="244" y2="318"/>
+  </g>
+  <!-- 大门口 -->
+  <rect x="84" y="420" width="30" height="38" rx="10" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6"/>
+</svg>

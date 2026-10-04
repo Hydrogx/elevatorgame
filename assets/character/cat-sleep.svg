@@ -1,0 +1,30 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 320" width="300" height="320">
+  <!-- 电梯小姐 · 猫猫（打瞌睡） -->
+  <path d="M226 262 q64 -6 46 -70 q-8 -26 -28 -18" fill="none" stroke="#6B4A45" stroke-width="30" stroke-linecap="round"/>
+  <path d="M226 262 q64 -6 46 -70 q-8 -26 -28 -18" fill="none" stroke="#FFF3DC" stroke-width="18" stroke-linecap="round"/>
+  <ellipse cx="150" cy="252" rx="80" ry="68" fill="#FFF3DC" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="112" cy="306" rx="27" ry="18" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="188" cy="306" rx="27" ry="18" fill="#FFF3DC" stroke="#6B4A45" stroke-width="7"/>
+  <path d="M92 76 L80 18 L142 54 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M208 76 L220 18 L158 54 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="8" stroke-linejoin="round"/>
+  <path d="M96 66 L90 34 L124 54 Z" fill="#FFB3C6"/>
+  <path d="M204 66 L210 34 L176 54 Z" fill="#FFB3C6"/>
+  <circle cx="150" cy="130" r="80" fill="#FFF3DC" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="96" cy="158" rx="16" ry="10" fill="#FFB3C6" opacity="0.9"/>
+  <ellipse cx="204" cy="158" rx="16" ry="10" fill="#FFB3C6" opacity="0.9"/>
+  <!-- 闭着的眼睛 -->
+  <path d="M104 134 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M168 134 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M150 150 l-9 -7 h18 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M150 152 q-11 13 -23 3" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <path d="M150 152 q11 13 23 3" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <path d="M96 148 L56 138 M96 160 L54 162" stroke="#E8B9A0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M204 148 L244 138 M204 160 L246 162" stroke="#E8B9A0" stroke-width="4" stroke-linecap="round"/>
+  <path d="M110 62 q40 -22 80 0 q-40 8 -80 0 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M104 60 q46 -26 92 0" fill="none" stroke="#6B4A45" stroke-width="7" stroke-linecap="round"/>
+  <path d="M150 34 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 Z" fill="#FFE066" stroke="#6B4A45" stroke-width="3.5"/>
+  <g fill="#9FC9E0" font-family="sans-serif" font-weight="bold">
+    <text x="238" y="88" font-size="30">z</text>
+    <text x="258" y="62" font-size="40">z</text>
+  </g>
+</svg>

@@ -1,0 +1,300 @@
+/* ============================================================
+   floors.css —— 三层楼各自的玩法道具
+   坐标说明：left/top 用百分比，对应房间原稿 1200×675 的坐标，
+             尺寸用 px（舞台 1008×567 = 原稿 ×0.84）。
+   ============================================================ */
+
+.room__props > * { position: absolute; }
+
+/* ============================================================
+   1F 糖果屋：点糖果收星星糖
+   ============================================================ */
+.candy {
+  width: 5.6%;
+  transform: translate(-50%, -50%);
+  animation: bob 2.6s ease-in-out infinite;
+  cursor: pointer;
+  z-index: 3;
+}
+
+.candy img {
+  width: 100%;
+  transition: transform 0.14s ease, filter 0.14s ease;
+  filter: drop-shadow(0 4px 0 rgba(107, 74, 69, 0.18));
+}
+
+.candy:hover img { transform: scale(1.18); filter: drop-shadow(0 6px 0 rgba(107,74,69,0.22)) brightness(1.06); }
+.candy:active img { transform: scale(0.9); }
+
+.candy.is-gold {
+  width: 6.4%;
+  animation: bob 1.7s ease-in-out infinite, glowpulse 1.6s ease-in-out infinite;
+  border-radius: 50%;
+}
+
+.candy.is-taken {
+  animation: none;
+  transition: opacity 0.32s ease, transform 0.32s cubic-bezier(0.3, -0.4, 0.6, 1.4);
+  opacity: 0;
+  transform: translate(-50%, -50%) translateY(-40px) scale(1.5) rotate(20deg);
+  pointer-events: none;
+}
+
+/* 收集进度的糖果罐标签 */
+.jarhint {
+  left: 50%;
+  top: 88%;
+  transform: translate(-50%, -50%);
+  padding: 4px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.86);
+  border: 4px solid var(--c-outline);
+  font-size: 14px;
+  white-space: nowrap;
+  z-index: 4;
+}
+
+/* ============================================================
+   2F 冰淇淋屋：选球 + 选配料 → 自动做好 → 点一下卖出去
+   ============================================================ */
+.pick {
+  transform: translate(-50%, -50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  z-index: 4;
+}
+
+.pick__btn {
+  position: relative;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  background: #FFFDF7;
+  border: 5px solid var(--c-outline);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 6px 0 rgba(107, 74, 69, 0.2);
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.2s ease;
+}
+
+.pick__btn img { max-width: 82%; max-height: 76%; object-fit: contain; }
+
+.pick__label {
+  margin-top: 4px;
+  padding: 1px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid var(--c-outline);
+  font-size: 13px;
+  white-space: nowrap;
+}
+
+.pick:hover .pick__btn { transform: translateY(-5px); box-shadow: 0 10px 0 rgba(107, 74, 69, 0.2); }
+.pick:active .pick__btn { transform: translateY(2px); box-shadow: 0 3px 0 rgba(107, 74, 69, 0.2); }
+
+.pick.is-active .pick__btn {
+  background: #FFF3F8;
+  border-color: var(--c-pink);
+  box-shadow: 0 0 0 6px rgba(255, 143, 171, 0.35), 0 8px 0 rgba(107, 74, 69, 0.18);
+  animation: breathe 1.6s ease-in-out infinite;
+}
+
+.pick.is-active .pick__label { background: var(--c-pink); color: #fff; }
+
+/* 展示台上的冰淇淋（DOM 顺序 = 配料 → 球 → 蛋筒，从上往下叠） */
+.icecream {
+  left: 51.7%;
+  bottom: 160px;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 3;
+  pointer-events: none;
+}
+
+.icecream.is-ready { pointer-events: auto; cursor: pointer; }
+
+.icecream > * { animation: bobslow 2.8s ease-in-out infinite; position: relative; }
+
+.icecream__topping { width: 104px; margin-bottom: -20px; z-index: 3; }
+.icecream__scoop   { width: 128px; margin-bottom: -36px; z-index: 2; }
+.icecream__cone    { width: 118px; z-index: 1; }
+
+.icecream__price {
+  position: absolute;
+  left: calc(50% + 82px);
+  top: 42%;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 12px;
+  border-radius: 14px;
+  background: var(--c-butter);
+  border: 4px solid var(--c-outline);
+  font-family: var(--font-num);
+  font-size: 20px;
+  font-weight: 700;
+  animation: breathe 1.6s ease-in-out infinite;
+}
+
+.icecream__price img { width: 22px; height: 22px; }
+
+.icecream.is-pop { animation: bump 0.5s ease; }
+
+/* 配方提示 */
+.recipe {
+  left: 51.7%;
+  top: 6%;
+  transform: translateX(-50%);
+  padding: 6px 18px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.88);
+  border: 4px solid var(--c-outline);
+  font-size: 15px;
+  white-space: nowrap;
+  z-index: 4;
+  text-align: center;
+}
+
+.recipe b { color: var(--c-pink); }
+
+/* ============================================================
+   3F 咖啡屋：按住萃取，松手看浓淡
+   ============================================================ */
+.brew {
+  left: 73.3%;
+  top: 56.3%;
+  transform: translate(-50%, -50%);
+  width: 142px;
+  height: 142px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 35% 30%, #FFF3D6, #FFC93C 70%);
+  border: 7px solid var(--c-outline);
+  box-shadow: 0 10px 0 rgba(107, 74, 69, 0.28);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.brew__icon { font-size: 40px; line-height: 1; }
+.brew__label { font-size: 17px; color: #7A4A2B; }
+
+.brew:hover { transform: translate(-50%, -50%) translateY(-4px); }
+.brew.is-press {
+  transform: translate(-50%, -50%) translateY(4px) scale(0.97);
+  box-shadow: 0 4px 0 rgba(107, 74, 69, 0.28), 0 0 0 12px rgba(255, 209, 102, 0.35);
+}
+
+/* 浓度表 */
+.gauge {
+  left: 88.3%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 54px;
+  height: 230px;
+  border-radius: 27px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 6px solid var(--c-outline);
+  box-shadow: 0 8px 0 rgba(107, 74, 69, 0.2);
+  overflow: hidden;
+  z-index: 5;
+}
+
+.gauge__perfect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 45%;
+  height: 30%;
+  background: repeating-linear-gradient(45deg, rgba(127, 216, 190, 0.85) 0 8px, rgba(168, 230, 207, 0.85) 8px 16px);
+  border-top: 3px dashed #4FA98A;
+  border-bottom: 3px dashed #4FA98A;
+}
+
+.gauge__fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 0%;
+  background: linear-gradient(180deg, #D9A66C, #7A4A2B);
+  transition: height 0.06s linear;
+}
+
+.gauge__mark {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 45%;
+  height: 30%;
+  display: grid;
+  place-items: center;
+  font-size: 11px;
+  color: #3E6C58;
+  z-index: 2;
+  writing-mode: vertical-rl;
+  letter-spacing: 2px;
+}
+
+/* 吧台上的咖啡杯 */
+.cup {
+  left: 26.5%;
+  top: 74%;
+  transform: translate(-50%, -50%);
+  width: 128px;
+  z-index: 4;
+}
+.cup img { width: 100%; filter: drop-shadow(0 5px 0 rgba(107, 74, 69, 0.18)); }
+.cup.is-ready { cursor: pointer; }
+.cup.is-ready:hover img { transform: translateY(-4px) scale(1.04); }
+.cup.is-pour { animation: wiggle 0.4s ease-in-out infinite; }
+
+.cup__steam {
+  position: absolute;
+  left: 50%;
+  bottom: 74%;
+  width: 92px;
+  transform: translateX(-50%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cup.is-full .cup__steam { opacity: 0.75; }
+.cup.is-full .cup__steam img { animation: steamup 2.4s ease-in-out infinite; }
+.cup__steam img:nth-child(2) { animation-delay: 0.5s; }
+
+/* 评价泡泡（放在杯子右边吧台上） */
+.verdict {
+  left: 41%;
+  top: 72%;
+  transform: translate(-50%, -50%);
+  padding: 6px 16px;
+  border-radius: 16px;
+  background: #FFFDF7;
+  border: 4px solid var(--c-outline);
+  font-size: 15px;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease, transform 0.24s cubic-bezier(0.2, 1.6, 0.4, 1);
+  z-index: 6;
+}
+
+.verdict.is-show { opacity: 1; }
+
+/* 咖啡豆装饰（点击也可以有反馈） */
+.bean {
+  width: 4.4%;
+  transform: translate(-50%, -50%) rotate(-12deg);
+  cursor: pointer;
+  z-index: 3;
+  animation: bob 3.2s ease-in-out infinite;
+}
+.bean img { width: 100%; }

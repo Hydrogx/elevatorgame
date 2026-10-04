@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 180" width="120" height="180">
+  <!-- 热气 -->
+  <g fill="none" stroke="#FFFFFF" stroke-width="11" stroke-linecap="round" opacity="0.85">
+    <path d="M32 160 q22 -22 0 -44 q-22 -22 0 -44"/>
+    <path d="M62 168 q22 -24 0 -48 q-22 -24 0 -48"/>
+    <path d="M92 160 q22 -22 0 -44 q-22 -22 0 -44"/>
+  </g>
+</svg>

@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 1F 按钮：棒棒糖 -->
+  <defs>
+    <radialGradient id="g1" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#FFD1E0"/>
+      <stop offset="1" stop-color="#FF8FAB"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="#FFFFFF" stroke="#6B4A45" stroke-width="8"/>
+  <circle cx="100" cy="100" r="74" fill="url(#g1)" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="72" cy="66" rx="24" ry="15" fill="#FFFFFF" opacity="0.45" transform="rotate(-30 72 66)"/>
+  <g transform="translate(100 100)">
+    <rect x="-6" y="4" width="12" height="52" rx="6" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6"/>
+    <circle cx="0" cy="-16" r="34" fill="#FF5D8F" stroke="#6B4A45" stroke-width="6"/>
+    <path d="M0 -16 m-24 0 a24 24 0 0 1 24 -24 a12 12 0 0 1 12 12 a12 12 0 0 0 12 12 a24 24 0 0 1 -24 24 a12 12 0 0 0 -12 -12 a12 12 0 0 1 -12 -12 Z"
+          fill="#FFFFFF" opacity="0.9"/>
+    <circle cx="0" cy="-16" r="34" fill="none" stroke="#6B4A45" stroke-width="6"/>
+  </g>
+</svg>

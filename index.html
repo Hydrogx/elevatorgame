@@ -1,0 +1,146 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>喵喵电梯公寓 · 1F 糖果屋 / 2F 冰淇淋屋 / 3F 咖啡屋</title>
+<meta name="description" content="可爱风的电梯模拟小游戏：坐电梯去不同楼层，每一层都有不同的小玩法。">
+<link rel="icon" href="assets/ui/favicon.svg">
+<link rel="stylesheet" href="styles/base.css">
+<link rel="stylesheet" href="styles/layout.css">
+<link rel="stylesheet" href="styles/elevator.css">
+<link rel="stylesheet" href="styles/floors.css">
+<link rel="stylesheet" href="styles/animations.css">
+<link rel="stylesheet" href="styles/backdrop.css">
+</head>
+<body>
+
+<!-- 背景天空装饰（窗口比游戏画布大时露出来的部分） -->
+<div class="backdrop" aria-hidden="true">
+  <img class="backdrop__sun" src="assets/bg/sun.svg" alt="">
+  <img class="backdrop__cloud backdrop__cloud--1 cloud" src="assets/bg/cloud.svg" alt="">
+  <img class="backdrop__cloud backdrop__cloud--2 cloud" src="assets/bg/cloud.svg" alt="">
+  <img class="backdrop__cloud backdrop__cloud--3 cloud" src="assets/bg/cloud.svg" alt="">
+  <img class="backdrop__cloud backdrop__cloud--4 cloud" src="assets/bg/cloud.svg" alt="">
+  <img class="backdrop__city" src="assets/bg/city.svg" alt="">
+  <img class="backdrop__hills" src="assets/bg/hills.svg" alt="">
+</div>
+
+<div class="app" id="app">
+
+  <!-- ===== 顶部：标题 / 星星糖 / 音效 ===== -->
+  <header class="hud">
+    <h1 class="hud__title">
+      喵喵电梯公寓
+      <small>Meow Elevator</small>
+    </h1>
+    <div class="hud__spacer"></div>
+    <div class="hud__coins" id="coin-box">
+      <img src="assets/ui/coin-sugar.svg" alt="星星糖">
+      <span id="coin-count">0</span>
+    </div>
+    <button class="hud__sound" id="sound-toggle" type="button">
+      <img id="sound-img" src="assets/ui/sound-on.svg" alt="音效开关">
+    </button>
+    <button class="hud__skin" id="skin-toggle" type="button" title="换个主角形象">
+      <img id="skin-img" src="assets/ui/avatar-pigbunny.svg" alt="切换主角">
+    </button>
+    <button class="hud__reset" id="reset-btn" type="button" title="清空进度，重新开始">↺</button>
+  </header>
+
+  <!-- ===== 中间：电梯门里的房间 + 楼层小地图 ===== -->
+  <main class="world">
+    <section class="stage" id="stage">
+      <div class="room">
+        <img class="room__bg" id="room-bg" src="assets/rooms/room-candy.svg" alt="">
+      </div>
+
+      <!-- 房间里的可交互道具单独一层，盖在猫猫前面（猫猫站在柜台后面） -->
+      <div class="room__props" id="room-props"></div>
+
+      <div class="stage__curtain"></div>
+
+      <div class="doors">
+        <img class="doors__leaf doors__leaf--left" src="assets/elevator/door-left.svg" alt="">
+        <img class="doors__leaf doors__leaf--right" src="assets/elevator/door-right.svg" alt="">
+      </div>
+
+      <img class="cabin" src="assets/elevator/cabin-frame.svg" alt="">
+
+      <div class="cat" id="cat">
+        <img id="cat-img" src="assets/character/pigbunny-idle.svg" alt="主角 猪猪兔">
+      </div>
+
+      <div class="indicator" id="indicator">
+        <img class="indicator__plate" src="assets/elevator/indicator-plate.svg" alt="">
+        <div class="indicator__text">
+          <span class="dir dir--up">▲</span>
+          <span id="indicator-text">1F</span>
+          <span class="dir dir--down">▼</span>
+        </div>
+      </div>
+
+      <div class="bubble" id="bubble"><span id="bubble-text"></span></div>
+
+      <div class="fx" id="fx"></div>
+    </section>
+
+    <aside class="side">
+      <div class="minimap">
+        <img class="minimap__bg" src="assets/elevator/map-building.svg" alt="楼层小地图">
+        <img class="minimap__car" id="map-car" src="assets/elevator/map-car.svg" alt="">
+      </div>
+
+      <div class="tipcard">
+        <h2 class="tipcard__title" id="tip-title">1F 糖果屋</h2>
+        <p class="tipcard__text" id="tip-text"></p>
+      </div>
+    </aside>
+  </main>
+
+  <!-- ===== 底部：电梯控制面板 ===== -->
+  <footer class="panel">
+    <img class="panel__plate" src="assets/elevator/panel-plate.svg" alt="">
+    <div class="panel__inner">
+      <img class="panel__arrow" id="btn-up" src="assets/elevator/arrow-up.svg" alt="上一层" title="上一层">
+
+      <button class="floorbtn is-active" data-floor="1" type="button">
+        <img src="assets/elevator/button-1f.svg" alt="">
+        <span class="floorbtn__label"><b>1F</b><span>糖果屋</span></span>
+      </button>
+
+      <button class="floorbtn" data-floor="2" type="button">
+        <img src="assets/elevator/button-2f.svg" alt="">
+        <span class="floorbtn__label"><b>2F</b><span>冰淇淋屋</span></span>
+      </button>
+
+      <button class="floorbtn" data-floor="3" type="button">
+        <img src="assets/elevator/button-3f.svg" alt="">
+        <span class="floorbtn__label"><b>3F</b><span>咖啡屋</span></span>
+      </button>
+
+      <img class="panel__arrow" id="btn-down" src="assets/elevator/arrow-down.svg" alt="下一层" title="下一层">
+
+      <p class="panel__hint">
+        点按钮就能坐电梯去别的楼层<br>
+        键盘 <span class="k">↑</span><span class="k">↓</span><span class="k">1</span><span class="k">2</span><span class="k">3</span> 也可以喵～
+      </p>
+    </div>
+  </footer>
+
+</div>
+
+<!-- 按顺序加载：配置 → 存档 → 音频 → 特效 → 电梯 → 各楼层玩法 → 启动 -->
+<script src="js/core/config.js"></script>
+<script src="js/core/state.js"></script>
+<script src="js/core/audio.js"></script>
+<script src="js/core/fx.js"></script>
+<script src="js/core/dialogue.js"></script>
+<script src="js/core/elevator.js"></script>
+<script src="js/floors/registry.js"></script>
+<script src="js/floors/candy.js"></script>
+<script src="js/floors/icecream.js"></script>
+<script src="js/floors/coffee.js"></script>
+<script src="js/main.js"></script>
+</body>
+</html>

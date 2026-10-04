@@ -1,0 +1,124 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <!-- 1F 糖果屋 场景 -->
+  <defs>
+    <linearGradient id="candyWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFF3F8"/>
+      <stop offset="1" stop-color="#FFE1EE"/>
+    </linearGradient>
+    <linearGradient id="candySky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#9FE0FF"/>
+      <stop offset="1" stop-color="#EAF9FF"/>
+    </linearGradient>
+    <linearGradient id="glass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.75"/>
+      <stop offset="0.5" stop-color="#CDEBFF" stop-opacity="0.35"/>
+      <stop offset="1" stop-color="#FFFFFF" stop-opacity="0.6"/>
+    </linearGradient>
+    <pattern id="candyFloor" width="120" height="120" patternUnits="userSpaceOnUse">
+      <rect width="120" height="120" fill="#FFEEDC"/>
+      <rect width="60" height="60" fill="#FFDCC4"/>
+      <rect x="60" y="60" width="60" height="60" fill="#FFDCC4"/>
+    </pattern>
+  </defs>
+
+  <!-- 墙面 -->
+  <rect width="1200" height="675" fill="url(#candyWall)"/>
+  <g fill="#FFFFFF" opacity="0.5">
+    <rect x="40" y="0" width="30" height="520" rx="15"/>
+    <rect x="190" y="0" width="30" height="520" rx="15"/>
+    <rect x="340" y="0" width="30" height="520" rx="15"/>
+    <rect x="490" y="0" width="30" height="520" rx="15"/>
+    <rect x="640" y="0" width="30" height="520" rx="15"/>
+    <rect x="790" y="0" width="30" height="520" rx="15"/>
+    <rect x="940" y="0" width="30" height="520" rx="15"/>
+    <rect x="1090" y="0" width="30" height="520" rx="15"/>
+  </g>
+
+  <!-- 彩旗 -->
+  <path d="M0 112 q300 60 600 0 q300 -60 600 0" fill="none" stroke="#FFB3C6" stroke-width="6"/>
+  <g stroke="#6B4A45" stroke-width="5" stroke-linejoin="round">
+    <path d="M110 126 l30 6 l-16 34 Z" fill="#FF8FAB"/>
+    <path d="M250 150 l30 2 l-16 34 Z" fill="#FFE066"/>
+    <path d="M390 166 l30 0 l-15 34 Z" fill="#A8E6CF"/>
+    <path d="M530 170 l30 -2 l-15 34 Z" fill="#CDB4F6"/>
+    <path d="M670 166 l30 -2 l-15 34 Z" fill="#FFB3C6"/>
+    <path d="M810 152 l30 -4 l-14 34 Z" fill="#FFE066"/>
+    <path d="M950 132 l30 -6 l-15 34 Z" fill="#A8E6CF"/>
+    <path d="M1080 118 l30 -6 l-15 34 Z" fill="#FF8FAB"/>
+  </g>
+
+  <!-- 护墙板 -->
+  <rect x="0" y="520" width="1200" height="155" fill="#FFD6E4"/>
+  <rect x="0" y="508" width="1200" height="20" rx="10" fill="#FFC2D6" stroke="#6B4A45" stroke-width="5"/>
+
+  <!-- 地板 -->
+  <rect x="0" y="612" width="1200" height="63" fill="url(#candyFloor)"/>
+  <rect x="0" y="606" width="1200" height="12" fill="#F0C4A0"/>
+
+  <!-- 窗户 -->
+  <rect x="120" y="150" width="320" height="290" rx="24" fill="url(#candySky)" stroke="#6B4A45" stroke-width="10"/>
+  <path d="M280 150 V440 M120 295 H440" stroke="#FFFFFF" stroke-width="14" stroke-linecap="round"/>
+  <g fill="#FFFFFF" opacity="0.9">
+    <circle cx="196" cy="238" r="26"/>
+    <circle cx="232" cy="222" r="34"/>
+    <circle cx="272" cy="240" r="24"/>
+  </g>
+  <circle cx="386" cy="212" r="34" fill="#FFE066" stroke="#F7B733" stroke-width="5"/>
+  <!-- 窗帘 -->
+  <path d="M120 150 q40 40 0 80 q40 40 0 80 q40 40 0 80 q40 40 0 50 h-30 V150 Z" fill="#FF9FB6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M440 150 q-40 40 0 80 q-40 40 0 80 q-40 40 0 80 q-40 40 0 50 h30 V150 Z" fill="#FF9FB6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <!-- 窗台小盆栽 -->
+  <rect x="150" y="440" width="120" height="18" rx="9" fill="#FFFFFF" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M186 440 q-6 -40 24 -56 q10 30 -6 56 Z" fill="#A8E6CF" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M222 440 q14 -34 -6 -60 q-24 22 -10 60 Z" fill="#7FD8BE" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M176 440 h72 l-10 46 h-52 Z" fill="#FFB3C6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+
+  <!-- 右侧糖果架 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <rect x="790" y="200" width="300" height="20" rx="10" fill="#F2B880"/>
+    <rect x="790" y="330" width="300" height="20" rx="10" fill="#F2B880"/>
+    <rect x="790" y="460" width="300" height="20" rx="10" fill="#F2B880"/>
+  </g>
+  <g stroke="#6B4A45" stroke-width="6" stroke-linejoin="round">
+    <!-- 上层罐子 -->
+    <rect x="812" y="140" width="70" height="60" rx="16" fill="#FFD9E6"/>
+    <rect x="806" y="128" width="82" height="18" rx="9" fill="#FF8FAB"/>
+    <circle cx="847" cy="170" r="12" fill="#FFE066"/>
+    <rect x="906" y="150" width="64" height="50" rx="14" fill="#CDEBFF"/>
+    <rect x="900" y="138" width="76" height="16" rx="8" fill="#7FD8BE"/>
+    <circle cx="938" cy="176" r="10" fill="#FF8FAB"/>
+    <rect x="996" y="132" width="70" height="68" rx="18" fill="#FFF3C4"/>
+    <rect x="990" y="120" width="82" height="18" rx="9" fill="#FFC93C"/>
+    <!-- 中层罐子 -->
+    <rect x="806" y="266" width="80" height="64" rx="16" fill="#E6D6FF"/>
+    <rect x="800" y="254" width="92" height="18" rx="9" fill="#CDB4F6"/>
+    <circle cx="846" cy="298" r="12" fill="#FFFFFF"/>
+    <rect x="910" y="274" width="72" height="56" rx="16" fill="#FFE0C7"/>
+    <rect x="904" y="262" width="84" height="18" rx="9" fill="#F2B880"/>
+    <rect x="1006" y="270" width="66" height="60" rx="16" fill="#FFD9E6"/>
+    <rect x="1000" y="258" width="78" height="18" rx="9" fill="#FF8FAB"/>
+    <!-- 下层罐子 -->
+    <rect x="818" y="400" width="76" height="60" rx="16" fill="#CDEBFF"/>
+    <rect x="812" y="388" width="88" height="18" rx="9" fill="#7FD8BE"/>
+    <rect x="916" y="394" width="80" height="66" rx="16" fill="#FFF3C4"/>
+    <rect x="910" y="382" width="92" height="18" rx="9" fill="#FFC93C"/>
+    <rect x="1016" y="404" width="60" height="56" rx="14" fill="#FFD9E6"/>
+    <rect x="1010" y="392" width="72" height="18" rx="9" fill="#FF8FAB"/>
+  </g>
+
+  <!-- 中间的大糖果罐（糖果是独立资源，叠在这上面） -->
+  <g>
+    <path d="M470 314 q0 -26 26 -26 h208 q26 0 26 26 v212 q0 40 -40 40 h-180 q-40 0 -40 -40 Z"
+          fill="url(#glass)" stroke="#6B4A45" stroke-width="9" stroke-linejoin="round"/>
+    <path d="M496 300 v260 M704 300 v260" stroke="#FFFFFF" stroke-width="10" opacity="0.6" stroke-linecap="round"/>
+    <rect x="452" y="272" width="296" height="34" rx="17" fill="#FF8FAB" stroke="#6B4A45" stroke-width="9"/>
+    <circle cx="600" cy="264" r="20" fill="#FFC93C" stroke="#6B4A45" stroke-width="8"/>
+    <ellipse cx="530" cy="360" rx="16" ry="60" fill="#FFFFFF" opacity="0.5"/>
+  </g>
+
+  <!-- 左右糖果柱 -->
+  <g stroke="#6B4A45" stroke-width="8" stroke-linejoin="round">
+    <path d="M56 520 h60 l-60 92 h60" fill="#FFFFFF" transform="translate(-10 0)"/>
+    <path d="M40 520 h80 l-80 92 h80" fill="none" stroke-width="10"/>
+  </g>
+</svg>

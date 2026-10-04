@@ -1,0 +1,97 @@
+/* ============================================================
+   animations.css —— 所有关键帧动画
+   ============================================================ */
+
+@keyframes bump {
+  0%   { transform: scale(1); }
+  35%  { transform: scale(1.16); }
+  60%  { transform: scale(0.96); }
+  100% { transform: scale(1); }
+}
+
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-9px) rotate(-0.6deg); }
+  40% { transform: translateX(8px) rotate(0.6deg); }
+  60% { transform: translateX(-6px) rotate(-0.4deg); }
+  80% { transform: translateX(4px); }
+}
+
+@keyframes rumble {
+  0%   { transform: translate(0, 0); }
+  25%  { transform: translate(-2px, 1px); }
+  50%  { transform: translate(1px, -2px); }
+  75%  { transform: translate(2px, 2px); }
+  100% { transform: translate(0, 0); }
+}
+
+@keyframes hop {
+  0%   { transform: translateY(0) scale(1); }
+  30%  { transform: translateY(-26px) scale(1.06, 0.94); }
+  55%  { transform: translateY(0) scale(0.94, 1.06); }
+  75%  { transform: translateY(-9px) scale(1.02, 0.98); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+@keyframes carbbob {
+  0%, 100% { transform: translate(-50%, -50%); }
+  50%      { transform: translate(-50%, calc(-50% - 5px)); }
+}
+
+@keyframes dingflash {
+  0%, 100% { opacity: 1; }
+  50%      { opacity: 0.25; }
+}
+
+@keyframes floatup {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  25%  { opacity: 1; transform: translate(-50%, -80%) scale(1.15); }
+  100% { opacity: 0; transform: translate(-50%, -230%) scale(1); }
+}
+
+@keyframes sparkleout {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
+  40%  { opacity: 1; transform: translate(-50%, -50%) scale(1.25) rotate(90deg); }
+  100% { opacity: 0; transform: translate(-50%, -50%) scale(0.5) rotate(200deg); }
+}
+
+@keyframes ringout {
+  0%   { opacity: 0.95; transform: scale(0.4); }
+  100% { opacity: 0; transform: scale(2.6); }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes bob {
+  0%, 100% { transform: translateY(0) rotate(-3deg); }
+  50%      { transform: translateY(-9px) rotate(3deg); }
+}
+
+@keyframes bobslow {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-14px); }
+}
+
+@keyframes breathe {
+  0%, 100% { transform: scale(1); }
+  50%      { transform: scale(1.04); }
+}
+
+@keyframes steamup {
+  0%   { opacity: 0; transform: translateY(10px) scale(0.85); }
+  35%  { opacity: 0.85; }
+  100% { opacity: 0; transform: translateY(-42px) scale(1.15); }
+}
+
+@keyframes wiggle {
+  0%, 100% { transform: rotate(-4deg); }
+  50%      { transform: rotate(4deg); }
+}
+
+@keyframes glowpulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(255, 209, 102, 0.8); }
+  50%      { box-shadow: 0 0 0 14px rgba(255, 209, 102, 0); }
+}

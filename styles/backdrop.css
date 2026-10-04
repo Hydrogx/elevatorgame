@@ -1,0 +1,60 @@
+/* ============================================================
+   backdrop.css —— 窗口比设计稿大时露出来的那片天空装饰
+   （游戏画布是居中的 1280×812，四周就是这些云和山）
+   ============================================================ */
+
+.backdrop {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
+.backdrop__sun {
+  position: absolute;
+  right: 6%;
+  top: 5%;
+  width: 180px;
+  animation: breathe 5s ease-in-out infinite;
+}
+
+.backdrop__cloud {
+  position: absolute;
+  opacity: 0.95;
+  animation: drift linear infinite;
+}
+
+.backdrop__cloud--1 { width: 260px; top: 8%;  animation-duration: 88s;  animation-delay: -10s; }
+.backdrop__cloud--2 { width: 180px; top: 26%; animation-duration: 120s; animation-delay: -52s; }
+.backdrop__cloud--3 { width: 320px; top: 44%; animation-duration: 150s; animation-delay: -96s; opacity: 0.8; }
+.backdrop__cloud--4 { width: 150px; top: 62%; animation-duration: 100s; animation-delay: -30s; opacity: 0.7; }
+
+.backdrop__city {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  opacity: 0.75;
+}
+
+.backdrop__hills {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+}
+
+@keyframes drift {
+  from { transform: translateX(-30vw); }
+  to   { transform: translateX(130vw); }
+}
+
+/* 小屏幕（手机）上，游戏会整体缩小；这里顺手把装饰云收小一点 */
+@media (max-width: 900px) {
+  .backdrop__sun { width: 110px; }
+  .backdrop__cloud--1 { width: 160px; }
+  .backdrop__cloud--3 { width: 190px; }
+}

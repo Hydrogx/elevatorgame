@@ -1,0 +1,219 @@
+/* ============================================================
+   base.css —— 字体、配色变量、整体框架
+   设计稿固定 1280 × 812，由 js 等比缩放铺满窗口，
+   所以下面所有尺寸都可以放心用 px。
+   ============================================================ */
+
+/* ---------- 可爱字体（本地文件，可随时替换 fonts/ 里的字体） ---------- */
+@font-face {
+  font-family: 'KuaiLe';
+  src: url('../fonts/ZCOOLKuaiLe-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: 'Baloo';
+  src: url('../fonts/Baloo2.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* 主色板：想让游戏换个气氛，改这里就行 */
+  --c-outline: #6B4A45;
+  --c-cream: #FFF6E5;
+  --c-pink: #FF8FAB;
+  --c-pink-light: #FFD9E6;
+  --c-mint: #7FD8BE;
+  --c-mint-light: #CFEEDF;
+  --c-butter: #FFD166;
+  --c-caramel: #F2B880;
+  --c-coffee: #A9714B;
+  --c-lavender: #CDB4F6;
+  --c-ink: #6B4A45;
+  --c-ink-soft: #9A7C72;
+
+  --font-cute: 'KuaiLe', 'Baloo', 'Chalkboard SE', 'PingFang SC',
+               'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
+  --font-num: 'Baloo', 'KuaiLe', 'PingFang SC', sans-serif;
+
+  --shadow-cute: 0 6px 0 rgba(107, 74, 69, 0.22);
+  --radius: 24px;
+
+  /* 舞台尺寸（16:9）与房间原稿 1200×675 的缩放比 = 0.84 */
+  --stage-w: 1008px;
+  --stage-h: 567px;
+  --scale: 0.84;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  background: #BEE9FF;
+  font-family: var(--font-cute);
+  color: var(--c-ink);
+  -webkit-font-smoothing: antialiased;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* 视口外的底色天空（窗口比设计稿更宽/更高时露出来的部分） */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background: linear-gradient(180deg, #8FD8FF 0%, #BFE9FF 45%, #FFE9F2 78%, #FFF6E5 100%);
+  z-index: 0;
+}
+
+button {
+  font-family: inherit;
+  color: inherit;
+  border: none;
+  background: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+img { display: block; -webkit-user-drag: none; }
+
+/* ---------- 整个游戏画布：等比缩放居中 ---------- */
+.app {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  z-index: 1;
+  width: 1280px;
+  height: 812px;
+  padding: 8px 12px 15px;
+  transform: translate(-50%, -50%);
+  transform-origin: center center;
+  display: flex;
+  flex-direction: column;
+}
+
+/* ---------- 顶部 HUD ---------- */
+.hud {
+  height: 64px;
+  flex: 0 0 64px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 0 8px;
+}
+
+.hud__title {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 30px;
+  letter-spacing: 2px;
+  color: #fff;
+  text-shadow:
+     3px 3px 0 var(--c-outline),
+    -2px -2px 0 var(--c-outline),
+     2px -2px 0 var(--c-outline),
+    -2px  2px 0 var(--c-outline),
+     0 6px 0 rgba(107, 74, 69, 0.35);
+}
+
+.hud__title small {
+  font-size: 15px;
+  letter-spacing: 0;
+  color: #FFF3C4;
+  text-shadow: 2px 2px 0 var(--c-outline);
+}
+
+.hud__spacer { flex: 1; }
+
+.hud__coins {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 50px;
+  padding: 0 20px 0 12px;
+  background: var(--c-cream);
+  border: 5px solid var(--c-outline);
+  border-radius: 26px;
+  box-shadow: var(--shadow-cute);
+  font-family: var(--font-num);
+  font-size: 26px;
+  font-weight: 700;
+  color: var(--c-coffee);
+}
+
+.hud__coins img { width: 34px; height: 34px; }
+
+.hud__coins.is-bump { animation: bump 0.42s ease-out; }
+
+.hud__sound {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--c-cream);
+  border: 5px solid var(--c-outline);
+  box-shadow: var(--shadow-cute);
+  display: grid;
+  place-items: center;
+  transition: transform 0.12s ease;
+}
+.hud__sound img { width: 30px; height: 30px; }
+.hud__sound:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(107,74,69,0.22); }
+
+.hud__reset {
+  width: 44px;
+  height: 44px;
+  margin-left: 8px;  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.7);
+  border: 4px solid var(--c-outline);
+  font-size: 22px;
+  line-height: 1;
+  color: var(--c-ink-soft);
+  display: grid;
+  place-items: center;
+  box-shadow: 0 5px 0 rgba(107, 74, 69, 0.2);
+}
+
+.hud__reset:hover { background: var(--c-pink); color: #fff; }
+.hud__reset:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(107,74,69,0.2); }
+
+/* 换主角形象：猪猪兔 / 猫猫咪咪 */
+.hud__skin {
+  width: 54px;
+  height: 54px;
+  margin-left: 10px;
+  border-radius: 50%;
+  background: #FFF3F8;
+  border: 5px solid var(--c-outline);
+  box-shadow: var(--shadow-cute);
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  transition: transform 0.12s ease;
+}
+.hud__skin img { width: 44px; height: 44px; }
+.hud__skin:hover { transform: rotate(-8deg) scale(1.06); }
+.hud__skin:active { transform: translateY(3px) scale(0.96); box-shadow: 0 2px 0 rgba(107,74,69,0.2); }
+
+.hud__badge {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  height: 44px;
+  padding: 0 16px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 4px solid var(--c-outline);
+  font-size: 16px;
+  color: var(--c-ink);
+}
+.hud__badge b { font-family: var(--font-num); font-size: 20px; color: var(--c-pink); }

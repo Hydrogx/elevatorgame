@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 92" width="120" height="92">
+  <!-- 包装糖果 -->
+  <path d="M32 30 L10 10 q-8 36 0 72 L32 62 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M88 30 L110 10 q8 36 0 72 L88 62 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <ellipse cx="60" cy="46" rx="30" ry="28" fill="#FFB3C6" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="50" cy="34" rx="9" ry="6" fill="#FFFFFF" opacity="0.7" transform="rotate(-28 50 34)"/>
+  <circle cx="50" cy="44" r="4.4" fill="#5A3E3A"/>
+  <circle cx="70" cy="44" r="4.4" fill="#5A3E3A"/>
+  <ellipse cx="41" cy="55" rx="6" ry="4" fill="#FF5D8F" opacity="0.75"/>
+  <ellipse cx="79" cy="55" rx="6" ry="4" fill="#FF5D8F" opacity="0.75"/>
+  <path d="M54 55 q6 7 12 0" fill="none" stroke="#5A3E3A" stroke-width="4" stroke-linecap="round"/>
+</svg>

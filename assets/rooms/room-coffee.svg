@@ -1,0 +1,119 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <!-- 3F 咖啡屋 场景 -->
+  <defs>
+    <linearGradient id="cofWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F8E7D2"/>
+      <stop offset="1" stop-color="#EDD3B4"/>
+    </linearGradient>
+    <linearGradient id="cofSky" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFD9A8"/>
+      <stop offset="1" stop-color="#FFEFD6"/>
+    </linearGradient>
+    <pattern id="cofFloor" width="140" height="140" patternUnits="userSpaceOnUse">
+      <rect width="140" height="140" fill="#E7C9A5"/>
+      <rect width="140" height="10" fill="#D9B48C"/>
+      <rect width="10" height="140" fill="#D9B48C"/>
+    </pattern>
+  </defs>
+
+  <rect width="1200" height="675" fill="url(#cofWall)"/>
+  <!-- 墙上木纹 -->
+  <g stroke="#E0BE98" stroke-width="8" stroke-linecap="round" opacity="0.7">
+    <path d="M60 140 q60 30 0 60"/>
+    <path d="M1080 220 q-70 30 0 60"/>
+    <path d="M700 140 q60 26 0 52"/>
+  </g>
+
+  <!-- 顶部吊挂的杯子架 -->
+  <rect x="0" y="118" width="1200" height="22" rx="11" fill="#C98F5E" stroke="#6B4A45" stroke-width="7"/>
+  <g stroke="#6B4A45" stroke-width="6" stroke-linejoin="round">
+    <g>
+      <path d="M180 140 v22"/>
+      <path d="M156 162 h48 v34 q0 14 -24 14 q-24 0 -24 -14 Z" fill="#FFF6E5"/>
+      <path d="M204 170 q18 4 0 22" fill="none"/>
+    </g>
+    <g>
+      <path d="M320 140 v22"/>
+      <path d="M296 162 h48 v34 q0 14 -24 14 q-24 0 -24 -14 Z" fill="#CDEBFF"/>
+      <path d="M344 170 q18 4 0 22" fill="none"/>
+    </g>
+    <g>
+      <path d="M880 140 v22"/>
+      <path d="M856 162 h48 v34 q0 14 -24 14 q-24 0 -24 -14 Z" fill="#FFD9E6"/>
+      <path d="M904 170 q18 4 0 22" fill="none"/>
+    </g>
+    <g>
+      <path d="M1020 140 v22"/>
+      <path d="M996 162 h48 v34 q0 14 -24 14 q-24 0 -24 -14 Z" fill="#E6D6FF"/>
+      <path d="M1044 170 q18 4 0 22" fill="none"/>
+    </g>
+  </g>
+
+  <!-- 窗户（暖阳） -->
+  <rect x="720" y="200" width="300" height="250" rx="22" fill="url(#cofSky)" stroke="#6B4A45" stroke-width="10"/>
+  <path d="M870 200 V450 M720 325 H1020" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+  <circle cx="790" cy="270" r="30" fill="#FFD166" stroke="#F7B733" stroke-width="5"/>
+  <g fill="#FFFFFF" opacity="0.85">
+    <circle cx="920" cy="260" r="22"/>
+    <circle cx="954" cy="248" r="29"/>
+    <circle cx="988" cy="264" r="20"/>
+  </g>
+  <!-- 窗台绿植 -->
+  <rect x="740" y="450" width="260" height="16" rx="8" fill="#FFFFFF" stroke="#6B4A45" stroke-width="6"/>
+  <g stroke="#6B4A45" stroke-width="6" stroke-linejoin="round">
+    <path d="M812 450 q-10 -46 22 -66 q14 34 -6 66 Z" fill="#8FD3B6"/>
+    <path d="M856 450 q16 -40 -6 -70 q-28 26 -12 70 Z" fill="#7FC8A9"/>
+    <path d="M800 450 h84 l-12 50 h-60 Z" fill="#E08A6B"/>
+  </g>
+
+  <!-- 黑板菜单 -->
+  <g stroke="#6B4A45" stroke-width="9" stroke-linejoin="round">
+    <rect x="120" y="212" width="290" height="240" rx="20" fill="#4B5D52"/>
+    <rect x="106" y="196" width="318" height="24" rx="12" fill="#C98F5E"/>
+  </g>
+  <g stroke="#FFF3C4" stroke-width="8" stroke-linecap="round" opacity="0.9">
+    <path d="M156 262 h120"/>
+    <path d="M156 306 h180"/>
+    <path d="M156 350 h96"/>
+    <path d="M156 394 h150"/>
+  </g>
+  <circle cx="356" cy="262" r="13" fill="#FFB3C6"/>
+
+  <!-- 护墙板与地板 -->
+  <rect x="0" y="530" width="1200" height="145" fill="#D9B48C"/>
+  <rect x="0" y="518" width="1200" height="20" rx="10" fill="#C08F62" stroke="#6B4A45" stroke-width="5"/>
+  <rect x="0" y="616" width="1200" height="59" fill="url(#cofFloor)"/>
+
+  <!-- 木质吧台 -->
+  <g stroke="#6B4A45" stroke-width="9" stroke-linejoin="round">
+    <rect x="80" y="470" width="1040" height="34" rx="17" fill="#C98F5E"/>
+    <rect x="110" y="504" width="980" height="112" rx="16" fill="#B37B4E"/>
+  </g>
+  <g stroke="#8E5F3A" stroke-width="6" opacity="0.8">
+    <path d="M240 504 v112 M420 504 v112 M600 504 v112 M780 504 v112 M960 504 v112"/>
+  </g>
+
+  <!-- 咖啡机（独立元素也有一份，这里是场景里的大机器） -->
+  <g stroke="#6B4A45" stroke-width="9" stroke-linejoin="round">
+    <rect x="170" y="260" width="300" height="210" rx="26" fill="#9FB8C9"/>
+    <rect x="196" y="288" width="248" height="70" rx="18" fill="#E8F1F6"/>
+    <circle cx="320" cy="323" r="24" fill="#FFF6E5" stroke="#6B4A45" stroke-width="5"/>
+    <g stroke="#B9A79C" stroke-width="4" stroke-linecap="round">
+      <path d="M320 303 v6"/>
+      <path d="M340 323 h-6"/>
+      <path d="M300 323 h6"/>
+      <path d="M307 310 l4 4"/>
+      <path d="M333 310 l-4 4"/>
+    </g>
+    <path d="M320 323 L331 314" stroke="#C0453F" stroke-width="5" stroke-linecap="round"/>
+    <rect x="240" y="392" width="160" height="34" rx="16" fill="#6F8697"/>
+    <rect x="286" y="426" width="70" height="26" rx="8" fill="#4E5F6C"/>
+    <path d="M300 452 q0 22 20 22 h12 q20 0 20 -22" fill="none" stroke-width="7"/>
+    <circle cx="440" cy="300" r="14" fill="#FFC93C"/>
+    <path d="M170 380 h-30 v60 h30" fill="#6F8697"/>
+  </g>
+  <g fill="#A9714B" stroke="#6B4A45" stroke-width="5">
+    <ellipse cx="250" cy="478" rx="16" ry="10" transform="rotate(-20 250 478)"/>
+    <ellipse cx="286" cy="482" rx="16" ry="10" transform="rotate(12 286 482)"/>
+  </g>
+</svg>

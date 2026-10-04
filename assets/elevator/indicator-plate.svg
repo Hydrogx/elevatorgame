@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 360 150" width="360" height="150">
+  <!-- 楼层显示屏外壳（中间深色区域用来放 HTML 文字） -->
+  <rect x="4" y="4" width="352" height="142" rx="30" fill="#FFD9E4" stroke="#6B4A45" stroke-width="8"/>
+  <rect x="28" y="26" width="304" height="94" rx="20" fill="#4B3846" stroke="#6B4A45" stroke-width="6"/>
+  <rect x="40" y="36" width="280" height="30" rx="15" fill="#FFFFFF" opacity="0.08"/>
+  <circle cx="52" cy="46" r="6" fill="#FFD166"/>
+  <circle cx="308" cy="46" r="6" fill="#A8E6CF"/>
+</svg>

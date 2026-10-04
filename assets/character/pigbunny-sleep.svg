@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 主角 · 猪猪兔（打瞌睡）：耳朵耷拉下来 -->
+  <path d="M224 272 q44 -2 42 -28 q-2 -22 -20 -20 q-16 2 -14 16 q2 12 14 9"
+        fill="none" stroke="#6B4A45" stroke-width="26" stroke-linecap="round"/>
+  <path d="M224 272 q44 -2 42 -28 q-2 -22 -20 -20 q-16 2 -14 16 q2 12 14 9"
+        fill="none" stroke="#FFD9E6" stroke-width="15" stroke-linecap="round"/>
+  <ellipse cx="150" cy="266" rx="84" ry="70" fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="150" cy="284" rx="54" ry="44" fill="#FFF3F6"/>
+  <ellipse cx="112" cy="322" rx="28" ry="18" fill="#FFE3EA" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="188" cy="322" rx="28" ry="18" fill="#FFE3EA" stroke="#6B4A45" stroke-width="7"/>
+  <!-- 耷拉的耳朵 -->
+  <ellipse cx="102" cy="72" rx="23" ry="58" transform="rotate(-30 102 72)" fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="198" cy="72" rx="23" ry="58" transform="rotate(30 198 72)" fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="104" cy="76" rx="11" ry="40" transform="rotate(-30 104 76)" fill="#FFB3C6"/>
+  <ellipse cx="196" cy="76" rx="11" ry="40" transform="rotate(30 196 76)" fill="#FFB3C6"/>
+  <circle cx="150" cy="162" r="82" fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="86" cy="184" rx="23" ry="17" fill="#FF9FB6" opacity="0.8"/>
+  <ellipse cx="214" cy="184" rx="23" ry="17" fill="#FF9FB6" opacity="0.8"/>
+  <!-- 闭着的眼睛 -->
+  <path d="M100 144 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <path d="M172 144 q14 14 28 0" fill="none" stroke="#5A3E3A" stroke-width="7" stroke-linecap="round"/>
+  <ellipse cx="150" cy="186" rx="36" ry="26" fill="#FFB3C6" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="139" cy="186" rx="5.5" ry="8" fill="#C97A90"/>
+  <ellipse cx="161" cy="186" rx="5.5" ry="8" fill="#C97A90"/>
+  <path d="M150 214 q-9 10 -18 2" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <path d="M150 214 q9 10 18 2" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <g transform="translate(104 106)">
+    <path d="M0 0 L-27 -15 L-27 15 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M0 0 L27 -15 L27 15 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="0" cy="0" r="9" fill="#FFC93C" stroke="#6B4A45" stroke-width="5"/>
+  </g>
+  <g fill="#9FC9E0" font-family="sans-serif" font-weight="bold">
+    <text x="236" y="96" font-size="30">z</text>
+    <text x="256" y="70" font-size="40">z</text>
+  </g>
+</svg>

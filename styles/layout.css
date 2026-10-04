@@ -1,0 +1,144 @@
+/* ============================================================
+   layout.css —— 主区域布局：舞台 + 右侧小地图
+   ============================================================ */
+
+.world {
+  height: 567px;
+  flex: 0 0 567px;
+  margin-top: 12px;
+  display: flex;
+  gap: 16px;
+}
+
+/* ---------- 舞台（电梯门里的房间） ---------- */
+.stage {
+  position: relative;
+  width: var(--stage-w);
+  height: var(--stage-h);
+  flex: 0 0 var(--stage-w);
+  border: 6px solid var(--c-outline);
+  border-radius: 26px;
+  background: #FFF6E5;
+  overflow: hidden;
+  box-shadow: 0 10px 0 rgba(107, 74, 69, 0.25), inset 0 0 0 6px rgba(255, 255, 255, 0.5);
+  transition: transform 0.12s ease;
+}
+
+.stage.is-shake { animation: shake 0.4s ease; }
+.stage.is-moving { animation: rumble 0.35s linear infinite; }
+
+/* 楼层切换时的黑幕（门关着的时候用来换房间，避免闪一下） */
+.stage__curtain {
+  position: absolute;
+  inset: 0;
+  background: #5A4450;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.18s ease;
+  z-index: 5;
+}
+.stage.is-curtain .stage__curtain { opacity: 1; }
+
+/* ---------- 房间 ---------- */
+.room {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+}
+
+.room__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+/* 房间里的可交互道具都挂在这一层（坐标用百分比，对应 1200×675 原稿）
+   具体 z 序见 elevator.css 顶部说明 */
+.room__props {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+}
+
+/* ---------- 右侧栏 ---------- */
+.side {
+  width: 232px;
+  flex: 0 0 232px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* ---------- 小地图：整栋楼剖面 ---------- */
+.minimap {
+  position: relative;
+  width: 232px;
+  height: 419px;
+  flex: 0 0 419px;
+  border: 6px solid var(--c-outline);
+  border-radius: 26px;
+  background: linear-gradient(180deg, #BFE9FF, #FFF0F6);
+  overflow: hidden;
+  box-shadow: 0 10px 0 rgba(107, 74, 69, 0.25);
+}
+
+.minimap__bg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.minimap__car {
+  position: absolute;
+  left: 83.4%;
+  width: 50px;
+  transform: translate(-50%, -50%);
+  transition: top 0.6s cubic-bezier(0.45, 0.05, 0.35, 1.1);
+  filter: drop-shadow(0 3px 0 rgba(107, 74, 69, 0.25));
+  z-index: 2;
+}
+
+.minimap__car.is-move { animation: carbob 0.28s ease-in-out infinite; }
+
+/* 楼层小标签 */
+.minimap__tag {
+  position: absolute;
+  left: 8px;
+  padding: 3px 10px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.9);
+  border: 3px solid var(--c-outline);
+  font-size: 13px;
+  line-height: 1.1;
+  color: var(--c-ink);
+  z-index: 3;
+}
+
+/* ---------- 小贴士卡片 ---------- */
+.tipcard {
+  flex: 1;
+  border: 6px solid var(--c-outline);
+  border-radius: 26px;
+  background: var(--c-cream);
+  box-shadow: 0 10px 0 rgba(107, 74, 69, 0.25);
+  padding: 12px 14px;
+  overflow: hidden;
+}
+
+.tipcard__title {
+  font-size: 16px;
+  color: var(--c-pink);
+  margin: 0 0 6px;
+  letter-spacing: 1px;
+}
+
+.tipcard__text {
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--c-ink-soft);
+  margin: 0;
+}
+
+.tipcard__text b { color: var(--c-coffee); }

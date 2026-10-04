@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 220 180" width="220" height="180">
+  <!-- 咖啡杯（拉花爱心） -->
+  <ellipse cx="110" cy="152" rx="86" ry="22" fill="#FFFFFF" stroke="#6B4A45" stroke-width="8"/>
+  <path d="M44 40 h132 l-14 82 q-4 22 -26 22 h-52 q-22 0 -26 -22 Z"
+        fill="#FFFBF2" stroke="#6B4A45" stroke-width="9" stroke-linejoin="round"/>
+  <path d="M52 48 h116 l-10 60 q-3 16 -20 16 h-56 q-17 0 -20 -16 Z" fill="#8A5A3B"/>
+  <path d="M54 48 h112 l-2 12 h-108 Z" fill="#D9A66C" opacity="0.9"/>
+  <path d="M110 96 C88 82 86 66 96 61 C104 57 110 64 110 68 C110 64 116 57 124 61 C134 66 132 82 110 96 Z"
+        fill="#FFF6E5" opacity="0.95"/>
+  <path d="M44 40 h132" stroke="#6B4A45" stroke-width="9" stroke-linecap="round"/>
+  <path d="M176 62 q30 2 26 26 q-4 24 -34 22" fill="none" stroke="#6B4A45" stroke-width="9" stroke-linecap="round"/>
+</svg>

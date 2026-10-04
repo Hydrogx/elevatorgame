@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 金糖果（稀有，值更多星星糖） -->
+  <path d="M60 6 L78 44 L120 48 L89 76 L98 118 L60 95 L22 118 L31 76 L0 48 L42 44 Z"
+        fill="#FFC93C" stroke="#B8770F" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M60 24 L73 50 L104 53 L80 74 L87 104 L60 88 L33 104 L40 74 L16 53 L47 50 Z"
+        fill="#FFE9A8"/>
+  <circle cx="50" cy="58" r="5.4" fill="#8A5A44"/>
+  <circle cx="72" cy="58" r="5.4" fill="#8A5A44"/>
+  <circle cx="52" cy="56" r="1.8" fill="#FFFFFF"/>
+  <circle cx="74" cy="56" r="1.8" fill="#FFFFFF"/>
+  <ellipse cx="40" cy="68" rx="7" ry="4.4" fill="#FF9FB6"/>
+  <ellipse cx="82" cy="68" rx="7" ry="4.4" fill="#FF9FB6"/>
+  <path d="M52 69 q8 9 16 0" fill="none" stroke="#8A5A44" stroke-width="5" stroke-linecap="round"/>
+  <path d="M16 16 l4 10 l11 1 l-8 8 l2 11 l-9 -6 l-9 6 l2 -11 l-8 -8 l11 -1 Z" fill="#FFFFFF" opacity="0.9"/>
+</svg>

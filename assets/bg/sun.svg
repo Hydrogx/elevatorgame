@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 笑眯眯的太阳 -->
+  <g stroke="#F7B733" stroke-width="11" stroke-linecap="round" opacity="0.95">
+    <line x1="100" y1="6" x2="100" y2="26"/>
+    <line x1="100" y1="174" x2="100" y2="194"/>
+    <line x1="6" y1="100" x2="26" y2="100"/>
+    <line x1="174" y1="100" x2="194" y2="100"/>
+    <line x1="33" y1="33" x2="47" y2="47"/>
+    <line x1="153" y1="153" x2="167" y2="167"/>
+    <line x1="167" y1="33" x2="153" y2="47"/>
+    <line x1="47" y1="153" x2="33" y2="167"/>
+  </g>
+  <circle cx="100" cy="100" r="60" fill="#FFE066" stroke="#F7B733" stroke-width="7"/>
+  <ellipse cx="72" cy="114" rx="11" ry="7" fill="#FFB3C6"/>
+  <ellipse cx="128" cy="114" rx="11" ry="7" fill="#FFB3C6"/>
+  <path d="M76 92 q9 -13 18 0" fill="none" stroke="#8A5A44" stroke-width="6" stroke-linecap="round"/>
+  <path d="M106 92 q9 -13 18 0" fill="none" stroke="#8A5A44" stroke-width="6" stroke-linecap="round"/>
+  <path d="M88 116 q12 12 24 0" fill="none" stroke="#8A5A44" stroke-width="6" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 96" width="160" height="96">
+  <!-- 巧克力酱（配料） -->
+  <path d="M6 22 q22 -18 40 0 q20 20 40 0 q20 -18 40 0 q14 12 28 6"
+        fill="none" stroke="#7A4A2B" stroke-width="20" stroke-linecap="round"/>
+  <path d="M6 22 q22 -18 40 0 q20 20 40 0 q20 -18 40 0 q14 12 28 6"
+        fill="none" stroke="#A9714B" stroke-width="10" stroke-linecap="round" opacity="0.65"/>
+  <g fill="#7A4A2B">
+    <circle cx="40" cy="62" r="9"/>
+    <circle cx="86" cy="72" r="7"/>
+    <circle cx="118" cy="58" r="6"/>
+    <circle cx="64" cy="84" r="5"/>
+  </g>
+</svg>

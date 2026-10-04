@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 150 172" width="150" height="172">
+  <!-- 华夫蛋筒 -->
+  <path d="M18 24 H132 L84 152 q-9 16 -18 0 Z" fill="#F2B880" stroke="#6B4A45" stroke-width="8" stroke-linejoin="round"/>
+  <g stroke="#D99A66" stroke-width="6" stroke-linecap="round" opacity="0.95">
+    <path d="M34 52 L96 116"/>
+    <path d="M58 42 L94 82"/>
+    <path d="M110 52 L66 100"/>
+    <path d="M92 40 L122 74"/>
+    <path d="M44 76 L76 112"/>
+  </g>
+  <rect x="12" y="16" width="126" height="18" rx="9" fill="#FFF6E5" stroke="#6B4A45" stroke-width="7"/>
+</svg>

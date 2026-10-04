@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 猫猫 头像（HUD 里切换角色用） -->
+  <path d="M20 44 L26 12 L52 32 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M100 44 L94 12 L68 32 Z" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M28 40 L32 22 L44 32 Z" fill="#FFB3C6"/>
+  <path d="M92 40 L88 22 L76 32 Z" fill="#FFB3C6"/>
+  <circle cx="60" cy="70" r="44" fill="#FFF3DC" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="28" cy="80" rx="12" ry="9" fill="#FFB3C6" opacity="0.85"/>
+  <ellipse cx="92" cy="80" rx="12" ry="9" fill="#FFB3C6" opacity="0.85"/>
+  <circle cx="42" cy="64" r="7" fill="#5A3E3A"/>
+  <circle cx="78" cy="64" r="7" fill="#5A3E3A"/>
+  <circle cx="44" cy="61" r="2.6" fill="#FFFFFF"/>
+  <circle cx="80" cy="61" r="2.6" fill="#FFFFFF"/>
+  <path d="M60 82 l-6 -5 h12 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round"/>
+  <path d="M60 84 q-8 9 -16 2" fill="none" stroke="#6B4A45" stroke-width="4.5" stroke-linecap="round"/>
+  <path d="M60 84 q8 9 16 2" fill="none" stroke="#6B4A45" stroke-width="4.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# 本地测试用的无头 Chrome 用户目录、临时截图、日志
+.chrome-*/
+*.log
+
+# 编辑器 / 依赖（本项目零依赖，纯静态）
+.vscode/
+.idea/
+node_modules/

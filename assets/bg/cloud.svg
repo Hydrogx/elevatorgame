@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 160" width="300" height="160">
+  <!-- 会笑的云朵（只用色块拼，边缘柔和） -->
+  <g fill="#FFFFFF">
+    <circle cx="78" cy="96" r="40"/>
+    <circle cx="146" cy="72" r="52"/>
+    <circle cx="212" cy="98" r="38"/>
+    <rect x="58" y="94" width="174" height="44" rx="22"/>
+  </g>
+  <rect x="58" y="118" width="174" height="20" rx="10" fill="#E7F4FF"/>
+  <path d="M118 84 q8 -11 16 0" fill="none" stroke="#9FC9E0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M166 84 q8 -11 16 0" fill="none" stroke="#9FC9E0" stroke-width="5" stroke-linecap="round"/>
+  <path d="M138 100 q12 10 24 0" fill="none" stroke="#9FC9E0" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="108" cy="104" rx="9" ry="5" fill="#FFD3E2"/>
+  <ellipse cx="192" cy="104" rx="9" ry="5" fill="#FFD3E2"/>
+</svg>

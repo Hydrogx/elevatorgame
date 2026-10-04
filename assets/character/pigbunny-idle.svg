@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 主角 · 猪猪兔（待机）：长兔耳 + 猪鼻子 + 胖脸颊 -->
+  <!-- 卷卷的猪尾巴 -->
+  <path d="M224 272 q44 -2 42 -28 q-2 -22 -20 -20 q-16 2 -14 16 q2 12 14 9"
+        fill="none" stroke="#6B4A45" stroke-width="26" stroke-linecap="round"/>
+  <path d="M224 272 q44 -2 42 -28 q-2 -22 -20 -20 q-16 2 -14 16 q2 12 14 9"
+        fill="none" stroke="#FFD9E6" stroke-width="15" stroke-linecap="round"/>
+  <!-- 身体 -->
+  <ellipse cx="150" cy="266" rx="84" ry="70" fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="150" cy="284" rx="54" ry="44" fill="#FFF3F6"/>
+  <!-- 小脚 -->
+  <ellipse cx="112" cy="322" rx="28" ry="18" fill="#FFE3EA" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="188" cy="322" rx="28" ry="18" fill="#FFE3EA" stroke="#6B4A45" stroke-width="7"/>
+  <!-- 长兔耳 -->
+  <ellipse cx="110" cy="56" rx="23" ry="60" transform="rotate(-13 110 56)"
+           fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="190" cy="56" rx="23" ry="60" transform="rotate(13 190 56)"
+           fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="110" cy="58" rx="11" ry="42" transform="rotate(-13 110 58)" fill="#FFB3C6"/>
+  <ellipse cx="190" cy="58" rx="11" ry="42" transform="rotate(13 190 58)" fill="#FFB3C6"/>
+  <!-- 头 -->
+  <circle cx="150" cy="162" r="82" fill="#FFE3EA" stroke="#6B4A45" stroke-width="8"/>
+  <!-- 胖脸颊 -->
+  <ellipse cx="86" cy="184" rx="23" ry="17" fill="#FF9FB6" opacity="0.8"/>
+  <ellipse cx="214" cy="184" rx="23" ry="17" fill="#FF9FB6" opacity="0.8"/>
+  <!-- 眼睛 -->
+  <circle cx="114" cy="142" r="13" fill="#5A3E3A"/>
+  <circle cx="186" cy="142" r="13" fill="#5A3E3A"/>
+  <circle cx="118" cy="137" r="5" fill="#FFFFFF"/>
+  <circle cx="190" cy="137" r="5" fill="#FFFFFF"/>
+  <circle cx="110" cy="148" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+  <circle cx="182" cy="148" r="2.6" fill="#FFFFFF" opacity="0.85"/>
+  <!-- 猪鼻子 -->
+  <ellipse cx="150" cy="186" rx="36" ry="26" fill="#FFB3C6" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="139" cy="186" rx="5.5" ry="8" fill="#C97A90"/>
+  <ellipse cx="161" cy="186" rx="5.5" ry="8" fill="#C97A90"/>
+  <ellipse cx="136" cy="176" rx="11" ry="6" fill="#FFFFFF" opacity="0.35" transform="rotate(-16 136 176)"/>
+  <!-- 嘴 -->
+  <path d="M150 214 q-12 12 -22 2" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <path d="M150 214 q12 12 22 2" fill="none" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <!-- 耳朵上的蝴蝶结 -->
+  <g transform="translate(104 106)">
+    <path d="M0 0 L-27 -15 L-27 15 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+    <path d="M0 0 L27 -15 L27 15 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+    <circle cx="0" cy="0" r="9" fill="#FFC93C" stroke="#6B4A45" stroke-width="5"/>
+  </g>
+</svg>
