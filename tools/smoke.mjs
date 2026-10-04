@@ -83,10 +83,10 @@ check('可爱字体已加载', await ev(`document.fonts.check('16px KuaiLe')`));
 
 /* 按键竖排：3F 在最上、1F 在最下 */
 const btnOrder = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => b.dataset.floor).join(',')`);
-check('按键 DOM 顺序是 3F → 2F → 1F', btnOrder === '3,2,1', '实际: ' + btnOrder);
+check('按键 DOM 顺序是 4F → 3F → 2F → 1F', btnOrder === '4,3,2,1', '实际: ' + btnOrder);
 const btnTops = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => Math.round(b.getBoundingClientRect().top)).join(',')`);
 const tops = btnTops.split(',').map(Number);
-check('按键纵向排列（3F 最高、1F 最低）', tops.every((v, i) => i === 0 || v > tops[i - 1]), 'top 坐标: ' + btnTops);
+check('按键纵向排列（4F 最高、1F 最低）', tops.every((v, i) => i === 0 || v > tops[i - 1]), 'top 坐标: ' + btnTops);
 const panelTop = await ev(`Math.round(document.querySelector('.panel').getBoundingClientRect().top)`);
 const stageTop = await ev(`Math.round(document.querySelector('#stage').getBoundingClientRect().top)`);
 check('面板在右侧、与舞台顶部基本对齐', Math.abs(panelTop - stageTop) < 20, `面板 top=${panelTop}, 舞台 top=${stageTop}`);
@@ -153,13 +153,61 @@ check('喝咖啡收星星糖', coin5 - coin4 === 5, `+${coin5 - coin4}`);
 check('杯子已清空', await ev(`document.querySelector('.cup img').getAttribute('src').includes('empty')`));
 await shot('09-3F-喝完');
 
+/* --- 去 4F 衣帽间 --- */
+await ev(`document.querySelector('.floorbtn[data-floor="4"]').click()`);
+await sleep(4000);
+check('4F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('closet'));
+check('4F 玩法已挂载（16 个换装按钮）', (await ev(`document.querySelectorAll('.garment').length`)) === 16,
+  '按钮数=' + (await ev(`document.querySelectorAll('.garment').length`)));
+check('镜子里的预览已生成', await ev(`!!document.querySelector('.mirror__body')`));
+await shot('10-4F');
+
+/* 换发型：主角图层应该跟着变 */
+const hairBefore = await ev(`document.querySelector('.cat .wear--hair').getAttribute('src')`);
+await ev(`document.querySelector('.garment[data-slot="hair"][data-item="curly"]').click()`);
+await sleep(400);
+const hairAfter = await ev(`document.querySelector('.cat .wear--hair').getAttribute('src')`);
+check('换发型会更新主角身上的图层', !!hairAfter && hairAfter !== hairBefore,
+  (hairBefore || '(无)') + ' → ' + hairAfter);
+
+/* 一次换整套（也是第一次凑出这套搭配 → 应该有奖励） */
+const coinBefore = await ev(`+document.querySelector('#coin-count').textContent`);
+await ev(`document.querySelector('.garment[data-slot="clothes"][data-item="dress"]').click()`);
+await sleep(250);
+await ev(`document.querySelector('.garment[data-slot="shoes"][data-item="mary"]').click()`);
+await sleep(250);
+await ev(`document.querySelector('.garment[data-slot="headwear"][data-item="crown"]').click()`);
+await sleep(600);
+const coinAfter = await ev(`+document.querySelector('#coin-count').textContent`);
+check('凑出新搭配有星星糖奖励', coinAfter > coinBefore, `${coinBefore} → ${coinAfter}`);
+check('镜子预览同步换装',
+  (await ev(`document.querySelector('.mirror .wear--clothes').getAttribute('src')`)).includes('clothes-dress') &&
+  (await ev(`document.querySelector('.mirror .wear--headwear').getAttribute('src')`)).includes('headwear-crown'));
+check('当前搭配高亮（按钮 is-active）',
+  await ev(`document.querySelector('.garment[data-slot="shoes"][data-item="mary"]').classList.contains('is-active')`));
+await shot('11-4F-换好衣服');
+
+/* 随机搭配按钮 */
+await ev(`document.querySelector('.dice').click()`);
+await sleep(500);
+check('随机搭配能一键换整套', await ev(`document.querySelectorAll('.garment.is-active').length`) === 4,
+  '高亮数量=' + (await ev(`document.querySelectorAll('.garment.is-active').length`)));
+await shot('12-4F-随机搭配');
+
+check('换装结果写进存档（和界面一致）', await ev(`(() => {
+  const s = JSON.parse(localStorage.getItem('meow-elevator-save-v1')).outfit || {};
+  const dom = {};
+  document.querySelectorAll('.garment.is-active').forEach(b => { dom[b.dataset.slot] = b.dataset.item; });
+  return ['hair', 'headwear', 'clothes', 'shoes'].every(k => (s[k] || '') === (dom[k] || ''));
+})()`), '存档=' + (await ev(`JSON.stringify(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).outfit)`)));
+
 /* --- 回 1F --- */
 await ev(`document.querySelector('.floorbtn[data-floor="1"]').click()`);
-await sleep(3300);
+await sleep(4600);
 check('回到 1F', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('candy'));
 check('显示屏显示 1F', (await ev(`document.querySelector('#indicator-text').textContent`)) === '1F');
 check('存档写入了 localStorage', await ev(`!!localStorage.getItem('meow-elevator-save-v1')`));
-await shot('10-回到1F');
+await shot('13-回到1F');
 
 console.log('\n===== 自检结果 =====');
 console.log(report.join('\n'));

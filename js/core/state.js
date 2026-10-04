@@ -12,9 +12,11 @@
       floor: 1,
       sound: true,
       skin: EG.CONFIG.defaultSkin,     // 当前主角形象
-      stats: { candy: 0, gold: 0, icecream: 0, coffee: 0, perfect: 0 },
+      outfit: Object.assign({}, EG.CONFIG.closet.defaultOutfit),  // 4F 换装结果
+      outfitsSeen: {},      // 穿过的搭配（第一次有新搭配奖励）
+      stats: { candy: 0, gold: 0, icecream: 0, coffee: 0, perfect: 0, dress: 0 },
       recipes: {},          // 做过的配方
-      visits: { 1: 0, 2: 0, 3: 0 }
+      visits: { 1: 0, 2: 0, 3: 0, 4: 0 }
     };
   };
 
@@ -32,6 +34,8 @@
           this.data.stats = Object.assign(base.stats, saved.stats || {});
           this.data.recipes = saved.recipes || {};
           this.data.visits = Object.assign(base.visits, saved.visits || {});
+          this.data.outfit = Object.assign(base.outfit, saved.outfit || {});
+          this.data.outfitsSeen = saved.outfitsSeen || {};
         }
       } catch (e) {
         /* 存档坏了就用新的，不影响玩 */

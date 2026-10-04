@@ -25,6 +25,7 @@ window.EG = window.EG || {};
       button1:        'assets/elevator/button-1f.svg',
       button2:        'assets/elevator/button-2f.svg',
       button3:        'assets/elevator/button-3f.svg',
+      button4:        'assets/elevator/button-4f.svg',
       arrowUp:        'assets/elevator/arrow-up.svg',
       arrowDown:      'assets/elevator/arrow-down.svg',
       mapBuilding:    'assets/elevator/map-building.svg',
@@ -51,7 +52,32 @@ window.EG = window.EG || {};
     rooms: {
       1: 'assets/rooms/room-candy.svg',
       2: 'assets/rooms/room-icecream.svg',
-      3: 'assets/rooms/room-coffee.svg'
+      3: 'assets/rooms/room-coffee.svg',
+      4: 'assets/rooms/room-closet.svg'
+    },
+    /* 4F 衣帽间可以换的部件：每个部件都是一张独立的 SVG 图层，
+       和身体用同一个 300×350 画布，所以直接叠上去就对齐了 */
+    closet: {
+      hair: {
+        bangs: 'assets/closet/hair-bangs.svg',
+        curly: 'assets/closet/hair-curly.svg',
+        side:  'assets/closet/hair-side.svg'
+      },
+      headwear: {
+        bow:   'assets/closet/headwear-bow.svg',
+        crown: 'assets/closet/headwear-crown.svg',
+        cap:   'assets/closet/headwear-cap.svg'
+      },
+      clothes: {
+        dress:  'assets/closet/clothes-dress.svg',
+        sailor: 'assets/closet/clothes-sailor.svg',
+        hoodie: 'assets/closet/clothes-hoodie.svg'
+      },
+      shoes: {
+        mary:    'assets/closet/shoes-mary.svg',
+        sneaker: 'assets/closet/shoes-sneaker.svg',
+        boot:    'assets/closet/shoes-boot.svg'
+      }
     },
     items: {
       candyLollipop: 'assets/items/candy-lollipop.svg',
@@ -124,7 +150,52 @@ window.EG = window.EG || {};
       minTravel: 700    // 最短运行时间
     },
 
-    /* 三层楼 */
+    /* 4F 衣帽间的换装配置：类别、可选项、每行在房间里的位置（%） */
+    closet: {
+      defaultOutfit: { hair: '', headwear: 'bow', clothes: '', shoes: '' },
+      comboBonus: 2,          // 第一次穿出全新搭配的奖励
+      categories: [
+        { key: 'hair',     label: '发型' },
+        { key: 'headwear', label: '头饰' },
+        { key: 'clothes',  label: '衣服' },
+        { key: 'shoes',    label: '鞋子' }
+      ],
+      items: {
+        hair: [
+          { id: '',      name: '原样' },
+          { id: 'bangs', name: '奶茶刘海' },
+          { id: 'curly', name: '草莓卷卷' },
+          { id: 'side',  name: '香芋侧分' }
+        ],
+        headwear: [
+          { id: '',      name: '不戴' },
+          { id: 'bow',   name: '蝴蝶结' },
+          { id: 'crown', name: '小皇冠' },
+          { id: 'cap',   name: '贝雷帽' }
+        ],
+        clothes: [
+          { id: '',       name: '不穿' },
+          { id: 'dress',  name: '小裙子' },
+          { id: 'sailor', name: '水手服' },
+          { id: 'hoodie', name: '连帽衫' }
+        ],
+        shoes: [
+          { id: '',        name: '光脚' },
+          { id: 'mary',    name: '玛丽珍' },
+          { id: 'sneaker', name: '运动鞋' },
+          { id: 'boot',    name: '小雨靴' }
+        ]
+      },
+      /* 每行选项在房间里的位置（left / top，百分比，对应 1200×675 原稿） */
+      rows: {
+        hair:     { x: 78.4, y: 19.6 },
+        headwear: { x: 78.4, y: 35.2 },
+        clothes:  { x: 78.4, y: 50.7 },
+        shoes:    { x: 78.4, y: 66.3 }
+      }
+    },
+
+    /* 四层楼（数组顺序 = 楼层从低到高，电梯靠它判断上/下行） */
     floors: [
       {
         id: 1,
@@ -133,7 +204,7 @@ window.EG = window.EG || {};
         color: '#FF8FAB',
         room: 'assets/rooms/room-candy.svg',
         button: 'assets/elevator/button-1f.svg',
-        mapY: 24.7,          /* 小地图里轿厢停靠的纵向位置（%） */
+        mapY: 84.8,          /* 小地图里轿厢停靠的纵向位置（%） */
         tip: '点糖果罐里的 <b>糖果</b> 收星星糖，金色糖果值 5 颗',
         lines: ['欢迎来到糖果屋～', '糖果甜甜的，我最喜欢啦！', '看到金色的糖果别放过哦！']
       },
@@ -144,7 +215,7 @@ window.EG = window.EG || {};
         color: '#7FD8BE',
         room: 'assets/rooms/room-icecream.svg',
         button: 'assets/elevator/button-2f.svg',
-        mapY: 53.2,
+        mapY: 63.7,
         tip: '选一个 <b>冰淇淋球</b> + 一个 <b>配料</b>，做好后点一下卖出去',
         lines: ['冰淇淋屋到啦～', '推荐配方可以卖更贵哦！', '草莓加樱桃，最搭啦！']
       },
@@ -155,9 +226,20 @@ window.EG = window.EG || {};
         color: '#F2B880',
         room: 'assets/rooms/room-coffee.svg',
         button: 'assets/elevator/button-3f.svg',
-        mapY: 81.7,
+        mapY: 42.7,
         tip: '<b>按住</b> 萃取按钮，在绿色 <b>完美区</b> 松手最值钱，再点杯子喝掉',
         lines: ['好香的味道呀～', '苦一点也很棒哦！', '慢慢来，别烫到小爪爪～']
+      },
+      {
+        id: 4,
+        tag: '4F',
+        name: '衣帽间',
+        color: '#B79BF0',
+        room: 'assets/rooms/room-closet.svg',
+        button: 'assets/elevator/button-4f.svg',
+        mapY: 21.6,
+        tip: '点右边的按钮换 <b>发型 / 头饰 / 衣服 / 鞋子</b>，镜子里马上变样',
+        lines: ['衣帽间到啦～', '换一套新衣服试试？', '新搭配会有星星糖奖励哦！']
       }
     ]
   };

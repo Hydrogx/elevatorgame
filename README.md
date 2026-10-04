@@ -7,15 +7,19 @@
 - **1F 糖果屋**：点糖果罐里的糖果收星星糖，金色糖果一颗值 5 颗
 - **2F 冰淇淋屋**：选一个冰淇淋球 + 一个配料，自动做好，点一下卖出去（推荐搭配更值钱）
 - **3F 咖啡屋**：按住「萃取」按钮，在绿色完美区松手最值钱，再点杯子喝掉
+- **4F 衣帽间**：换发型 / 头饰 / 衣服 / 鞋子，镜子里实时预览，凑出全新搭配还有星星糖奖励
 
-主角是 **猪猪兔**（长兔耳 + 猪鼻子 + 胖脸颊），HUD 上的小头像可以随时换成另一位角色
-**猫猫咪咪**，两个角色都各有 4 种表情、4 张独立 SVG。
+主角是 **猪猪兔**（长兔耳 + 猪鼻子 + 胖脸颊），身上能穿 4 件可替换的部件；
+HUD 上的小头像可以随时换成另一位角色 **猫猫咪咪**。两个角色各有 4 种表情、4 张独立 SVG。
 
 ![1F 糖果屋](docs/screenshot-candy-1f.png)
 
-| 2F 冰淇淋屋 | 3F 咖啡屋 | 电梯行进中 | 角色表情对照 |
+| 2F 冰淇淋屋 | 3F 咖啡屋 | 4F 衣帽间 | 电梯行进中 |
 | --- | --- | --- | --- |
-| ![2F](docs/screenshot-icecream-2f.png) | ![3F](docs/screenshot-coffee-3f.png) | ![电梯](docs/screenshot-elevator-doors.png) | ![角色](docs/character-sheet.png) |
+| ![2F](docs/screenshot-icecream-2f.png) | ![3F](docs/screenshot-coffee-3f.png) | ![4F](docs/screenshot-closet-4f.png) | ![电梯](docs/screenshot-elevator-doors.png) |
+
+角色表情对照见 [docs/character-sheet.png](docs/character-sheet.png)，
+所有可换装部件（发型 / 头饰 / 衣服 / 鞋子）的对位图见 [docs/outfit-parts.png](docs/outfit-parts.png)。
 
 ---
 
@@ -23,15 +27,16 @@
 
 | 操作 | 说明 |
 | --- | --- |
-| 点右侧**竖排**楼层按钮 | 坐电梯去各层（**3F 在最上，1F 在最下**，跟真电梯一样） |
+| 点右侧**竖排**楼层按钮 | 坐电梯去各层（**4F 在最上，1F 在最下**，跟真电梯一样） |
 | `↑` `↓` 键 | 上一层 / 下一层 |
-| `1` `2` `3` 键 | 直接去对应楼层 |
+| `1` `2` `3` `4` 键 | 直接去对应楼层 |
 | 点糖果 / 冰淇淋 / 咖啡杯 | 各楼层的玩法 |
+| 4F 点圆按钮 | 换发型 / 头饰 / 衣服 / 鞋子；`🎲 随机搭配` 一键乱配 |
 | HUD 小头像 | 切换主角形象（猪猪兔 ⇄ 咪咪） |
 | HUD 🔊 | 音效开关 |
 | HUD ↺ | 清空进度重新开始 |
 
-进度（星星糖、做过的配方、当前楼层、主角形象）会自动存在浏览器 localStorage 里，
+进度（星星糖、做过的配方、当前楼层、主角形象、身上这套衣服）会自动存在浏览器 localStorage 里，
 存档键名：`meow-elevator-save-v1`。
 
 ---
@@ -65,26 +70,29 @@ elevatorgame/
 │   ├── base.css                # 配色变量、字体、整体画布缩放
 │   ├── layout.css              # 舞台 + 右侧竖排面板 + 小地图的布局
 │   ├── elevator.css            # 电梯门 / 轿厢 / 显示屏 / 主角 / 竖排按键面板
-│   ├── floors.css              # 三层楼各自的可交互道具
+│   ├── floors.css              # 各楼层各自的可交互道具（含 4F 换装界面）
 │   ├── animations.css          # 所有关键帧动画
 │   └── backdrop.css            # 窗口外那圈天空装饰
 ├── js/
 │   ├── core/
 │   │   ├── config.js           # ★ 资源清单 + 楼层配置 + 各种数值
-│   │   ├── state.js            # 存档（星星糖 / 进度 / 设置）
+│   │   ├── state.js            # 存档（星星糖 / 进度 / 换装 / 设置）
 │   │   ├── audio.js            # 音效与 BGM 播放
 │   │   ├── fx.js               # 飘字、闪光、光圈
 │   │   ├── dialogue.js         # 主角表情 + 对话气泡
+│   │   ├── outfit.js           # ★ 换装系统（身体 + 4 个可换图层）
 │   │   └── elevator.js         # 电梯运行流程（关门→走→叮→开门）
 │   ├── floors/
 │   │   ├── registry.js         # 楼层玩法注册表
 │   │   ├── candy.js            # 1F 糖果屋玩法
 │   │   ├── icecream.js         # 2F 冰淇淋屋玩法
-│   │   └── coffee.js           # 3F 咖啡屋玩法
+│   │   ├── coffee.js           # 3F 咖啡屋玩法
+│   │   └── closet.js           # 4F 衣帽间玩法
 │   └── main.js                 # 启动、面板交互、楼层切换
 ├── assets/
 │   ├── character/              # ★ 主角表情（猪猪兔 4 张 + 猫猫 4 张）
-│   ├── rooms/                  # 三层楼的房间背景（1200×675）
+│   ├── closet/                 # ★ 可换装部件：发型 / 头饰 / 衣服 / 鞋子（各 3 件）
+│   ├── rooms/                  # 四层楼的房间背景（1200×675）
 │   ├── elevator/               # 门、轿厢框、楼层按钮、竖排面板底板、显示屏、小地图
 │   ├── items/                  # 糖果、冰淇淋球、配料、咖啡杯…每个一件
 │   ├── ui/                     # 星星糖币、闪光、音效图标、头像、站点图标
@@ -93,8 +101,10 @@ elevatorgame/
 └── tools/                      # 开发用的小工具（不参与游戏运行）
     ├── generate_audio.py       # 用 Python 标准库合成所有音效/BGM
     ├── smoke.mjs               # 无头 Chrome 自动点一遍的自检脚本
-    ├── asset-preview.html      # 所有 SVG 资源总览页
-    └── character-sheet.html    # 角色表情对照表
+    ├── build-asset-preview.mjs # 生成所有 SVG 资源总览页
+    ├── asset-preview.html      # 资源总览（上面那个脚本生成的）
+    ├── character-sheet.html    # 角色表情对照表
+    └── outfit-preview.html     # 换装部件对位预览（改完衣服用它检查有没有错位）
 ```
 
 ---
@@ -104,12 +114,17 @@ elevatorgame/
 | 想改什么 | 改这里 |
 | --- | --- |
 | **主角形象 / 表情** | `assets/character/pigbunny-*.svg`（再加一张就复制同尺寸的 SVG，改配色即可） |
-| **楼层按键（竖排顺序 / 大小 / 高亮）** | `index.html` 里的 `.panel` 段（顺序就是 DOM 顺序，3F 在最前）+ `styles/elevator.css` 的 `.panel` / `.floorbtn` |
+| **给 4F 加一件新衣服 / 新发型** | 在 `assets/closet/` 里加一张 300×350 的 SVG（照着现成的改最省事），再到 `js/core/config.js` 的 `closet.items` 里加一项（`EG.ASSETS.closet` 里同步加路径） |
+| 换装部位的位置 / 缩放取景 | 身体比例在 SVG 里（同一画布就自动对齐）；按钮取景在 `styles/floors.css` 的 `.garment--*` |
+| 4F 每行选项的位置 | `js/core/config.js` 的 `closet.rows`（百分比） |
+| 换装奖励 / 默认穿着 | `js/core/config.js` 的 `closet.comboBonus` 和 `closet.defaultOutfit` |
+| **加一层新楼层（比如 5F）** | ① `assets/rooms/` 放房间图 ② `assets/elevator/button-5f.svg` 放按钮图 ③ `assets/elevator/map-building.svg` 里加一层 ④ `js/core/config.js` 的 `floors` 数组加一项（含 `mapY`）⑤ `index.html` 面板最前面插一个按钮 ⑥ 抄 `js/floors/closet.js` 写一个新玩法文件并挂上 |
+| **楼层按键（竖排顺序 / 大小 / 高亮）** | `index.html` 里的 `.panel` 段（顺序就是 DOM 顺序，4F 在最前）+ `styles/elevator.css` 的 `.panel` / `.floorbtn` |
 | 按键面板的底板花纹 | `assets/elevator/panel-plate-v.svg` |
 | 换回猫猫当默认主角 | `js/core/config.js` 里的 `defaultSkin: 'cat'` |
 | 新增第三种角色 | `assets/character/新角色/` 放 4 张 + 头像，然后在 `EG.ASSETS.character` 和 `EG.CONFIG.skins` 里各加一项 |
-| **某一层的房间样子** | `assets/rooms/room-candy.svg` / `room-icecream.svg` / `room-coffee.svg`（画布 1200×675） |
-| 某一层的玩法道具 | `assets/items/` 里对应的 SVG（每件一个文件） |
+| **某一层的房间样子** | `assets/rooms/room-candy.svg` / `room-icecream.svg` / `room-coffee.svg` / `room-closet.svg`（画布 1200×675） |
+| 某一层的玩法道具 | `assets/items/`、`assets/closet/` 里对应的 SVG（每件一个文件） |
 | 道具在房间里的位置 / 大小 | `styles/floors.css`（坐标是百分比，对应 1200×675 原稿） |
 | 楼层名字 / 提示文案 / 台词 | `js/core/config.js` 的 `floors` 数组 |
 | 玩法数值（糖果分值、冰淇淋售价、咖啡区间） | `js/floors/candy.js`、`icecream.js`、`coffee.js` 顶部常量 |
@@ -133,17 +148,19 @@ elevatorgame/
   --user-data-dir="$PWD/.chrome-cdp" --window-size=1400,900 \
   "file://$PWD/index.html" &
 
-# 2) 自动点一遍三层玩法，截图存到 /tmp/eg-shots，并报告页面报错
+# 2) 自动点一遍四层玩法，截图存到 /tmp/eg-shots，并报告页面报错
 node tools/smoke.mjs
 ```
 
-`tools/smoke.mjs` 会检查：糖果能加星星糖、电梯关门/开门、房间切换、
-冰淇淋做好并卖出、咖啡萃取到完美区、喝咖啡收钱、存档写入、以及**页面零报错**。
+`tools/smoke.mjs` 会检查：按键竖排顺序、糖果能加星星糖、电梯关门/开门、房间切换、
+冰淇淋做好并卖出、咖啡萃取到完美区、喝咖啡收钱、**4F 换装是否同时更新主角与镜子、新搭配奖励、换装存档**、
+以及**页面零报错**。
 
-在浏览器里直接打开这两个页面可以肉眼检查美术资源：
+在浏览器里直接打开这几个页面可以肉眼检查美术资源：
 
-- `tools/asset-preview.html` —— 所有 SVG 资源总览
+- `tools/asset-preview.html` —— 所有 SVG 资源总览（`node tools/build-asset-preview.mjs` 重新生成）
 - `tools/character-sheet.html` —— 两个角色的全部表情对照
+- `tools/outfit-preview.html` —— 换装部件对位预览（改完衣服先用它检查有没有错位）
 
 ---
 
@@ -153,7 +170,9 @@ node tools/smoke.mjs
 - 音效全部是脚本合成的（没有任何版权素材），BGM 是一段 19 秒的循环小曲。
 - 电梯行进时主角会躲到门后打瞌睡（门关着看不见房间和道具，这是故意的）。
 - 游戏画面固定 1280×680 设计稿，等比缩放居中，所以窗口任意大小都不会错位。
-- 右侧控制面板是**竖排**的：3F 在最上、1F 在最下（DOM 顺序即显示顺序，想加 4F 就往最前面插一个按钮）。
+- 右侧控制面板是**竖排**的：4F 在最上、1F 在最下（DOM 顺序即显示顺序，想加楼层就往最前面插一个按钮）。
+- **换装是「图层叠加」**：身体（含 4 种表情）是一层，发型 / 头饰 / 衣服 / 鞋子各一层，
+  全部共用 300×350 画布，所以换表情也不会错位；猫猫咪咪没有对应部件，所以穿衣服时会看不到（镜子里照常显示）。
 
 ---
 

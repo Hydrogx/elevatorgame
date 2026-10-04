@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 发型·奶茶齐刘海（下缘停在眼睛上方，不会挡脸） -->
+  <path d="M68 155 A84 84 0 0 1 232 155 Q224 138 210 130 Q198 116 180 124 Q166 110 150 120 Q134 110 120 124 Q102 116 90 130 Q76 138 68 155 Z"
+        fill="#C98F5E" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M104 110 q24 -16 46 -16 q22 0 46 16" fill="none" stroke="#E8B98A" stroke-width="7" stroke-linecap="round"/>
+</svg>

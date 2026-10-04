@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 发型·香芋侧分（左边留一撮长一点的，但不出眼睛那条线） -->
+  <path d="M66 158 A84 84 0 0 1 234 158 Q226 140 212 132 Q196 118 176 126 Q160 112 146 122 Q126 112 106 128 Q86 136 78 154 Q70 150 66 158 Z"
+        fill="#CDB4F6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M92 150 q-8 -26 4 -44" fill="none" stroke="#6B4A45" stroke-width="7" stroke-linecap="round"/>
+  <path d="M124 108 q28 -18 58 -12" fill="none" stroke="#E4D6FF" stroke-width="7" stroke-linecap="round"/>
+</svg>

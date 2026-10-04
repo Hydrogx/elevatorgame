@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 鞋子·小运动鞋 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <path d="M78 314 q0 -22 34 -22 q34 0 34 22 q0 24 -34 24 q-34 0 -34 -24 Z" fill="#FFF6E5"/>
+    <path d="M154 314 q0 -22 34 -22 q34 0 34 22 q0 24 -34 24 q-34 0 -34 -24 Z" fill="#FFF6E5"/>
+  </g>
+  <g stroke="#6B4A45" stroke-width="6" stroke-linejoin="round">
+    <path d="M78 328 h68 q0 14 -34 14 q-34 0 -34 -14 Z" fill="#FFB3C6"/>
+    <path d="M154 328 h68 q0 14 -34 14 q-34 0 -34 -14 Z" fill="#FFB3C6"/>
+  </g>
+  <g fill="none" stroke="#FF8FAB" stroke-width="6" stroke-linecap="round">
+    <path d="M96 306 l38 6"/><path d="M96 318 l38 4"/>
+    <path d="M172 306 l38 6"/><path d="M172 318 l38 4"/>
+  </g>
+</svg>

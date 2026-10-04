@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 衣服·小裙子（领口沿着脑袋的圆弧挖空，不会盖到脸） -->
+  <path d="M64 166 A86 86 0 0 0 236 166 L240 260 Q150 296 60 260 Z"
+        fill="#FFB3C6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M64 166 A86 86 0 0 0 236 166" fill="none" stroke="#FFF6E5" stroke-width="16"/>
+  <path d="M64 166 A86 86 0 0 0 236 166" fill="none" stroke="#6B4A45" stroke-width="5"/>
+  <path d="M60 254 Q150 290 240 254 L258 318 Q150 352 42 318 Z"
+        fill="#FF9FB6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <g fill="#FFF6E5" opacity="0.95">
+    <circle cx="106" cy="296" r="6"/><circle cx="150" cy="312" r="6"/><circle cx="194" cy="296" r="6"/>
+  </g>
+  <circle cx="150" cy="262" r="9" fill="#FFD166" stroke="#6B4A45" stroke-width="5"/>
+</svg>

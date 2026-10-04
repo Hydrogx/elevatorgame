@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 衣服·薄荷连帽衫 -->
+  <path d="M64 166 A86 86 0 0 0 236 166 L242 300 Q150 336 58 300 Z"
+        fill="#A8E6CF" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <!-- 帽子（沿着领口弧线的厚边） -->
+  <path d="M64 166 A86 86 0 0 0 236 166" fill="none" stroke="#7FD8BE" stroke-width="30"/>
+  <path d="M64 166 A86 86 0 0 0 236 166" fill="none" stroke="#6B4A45" stroke-width="7"/>
+  <!-- 抽绳 -->
+  <g fill="none" stroke="#FFF6E5" stroke-width="7" stroke-linecap="round">
+    <path d="M132 258 q-6 22 2 40"/>
+    <path d="M168 258 q6 22 -2 40"/>
+  </g>
+  <g fill="#FFF6E5" stroke="#6B4A45" stroke-width="5">
+    <circle cx="134" cy="302" r="7"/><circle cx="166" cy="302" r="7"/>
+  </g>
+  <!-- 口袋 -->
+  <path d="M96 268 q54 -14 108 0 l-8 40 q-46 12 -92 0 Z"
+        fill="#8FD9BE" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+</svg>

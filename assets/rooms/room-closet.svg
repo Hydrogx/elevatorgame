@@ -1,0 +1,90 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
+  <!-- 4F 衣帽间 场景（注意图层顺序：护墙板画在镜子之前，镜子才是站在地板上的） -->
+  <defs>
+    <linearGradient id="closetWall" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#F6F0FF"/>
+      <stop offset="1" stop-color="#EDE2FA"/>
+    </linearGradient>
+    <linearGradient id="mirrorGlass" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#EAF7FF"/>
+      <stop offset="0.5" stop-color="#D3ECFF"/>
+      <stop offset="1" stop-color="#F4FBFF"/>
+    </linearGradient>
+    <linearGradient id="board" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#FFFBF2"/>
+      <stop offset="1" stop-color="#FFEEDA"/>
+    </linearGradient>
+    <pattern id="closetFloor" width="120" height="120" patternUnits="userSpaceOnUse">
+      <rect width="120" height="120" fill="#F3E3D3"/>
+      <rect width="120" height="10" fill="#E6D2BE"/>
+      <rect width="10" height="120" fill="#E6D2BE"/>
+    </pattern>
+  </defs>
+
+  <!-- 墙 -->
+  <rect width="1200" height="675" fill="url(#closetWall)"/>
+  <g fill="#FFFFFF" opacity="0.6">
+    <circle cx="120" cy="230" r="9"/><circle cx="220" cy="300" r="7"/><circle cx="330" cy="220" r="8"/>
+    <circle cx="430" cy="310" r="7"/><circle cx="700" cy="150" r="8"/><circle cx="840" cy="230" r="7"/>
+    <circle cx="960" cy="180" r="9"/><circle cx="1080" cy="260" r="7"/><circle cx="180" cy="380" r="7"/>
+    <circle cx="640" cy="330" r="7"/><circle cx="1120" cy="380" r="8"/>
+  </g>
+
+  <!-- 左上：帽子架 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <rect x="60" y="180" width="280" height="18" rx="9" fill="#E7B183"/>
+    <path d="M96 180 q0 -22 26 -22 q26 0 26 22 Z" fill="#FF8FAB"/>
+    <path d="M90 158 q32 10 64 0" fill="none" stroke-width="6"/>
+    <path d="M162 180 q0 -20 24 -20 q24 0 24 20 Z" fill="#7FD8BE"/>
+    <rect x="232" y="140" width="84" height="40" rx="12" fill="#FFF6E5"/>
+    <rect x="226" y="132" width="96" height="14" rx="7" fill="#FFD166"/>
+  </g>
+
+  <!-- 左：衣服挂杆 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <line x1="56" y1="262" x2="352" y2="262" stroke-width="10"/>
+    <path d="M56 262 v-42 q0 -14 16 -14 h44" fill="none" stroke-width="8"/>
+    <path d="M104 262 v-6 l-30 40 h60 Z" fill="#FFB3C6"/>
+    <path d="M172 262 v-6 l-30 40 h60 Z" fill="#A8E6CF"/>
+    <path d="M240 262 v-6 l-30 40 h60 Z" fill="#CDB4F6"/>
+    <path d="M308 262 v-6 l-28 40 h56 Z" fill="#FFD166"/>
+  </g>
+  <g stroke="#6B4A45" stroke-width="6" fill="none" stroke-linecap="round">
+    <path d="M104 262 q0 -14 14 -14"/>
+    <path d="M172 262 q0 -14 14 -14"/>
+    <path d="M240 262 q0 -14 14 -14"/>
+    <path d="M308 262 q0 -14 14 -14"/>
+  </g>
+
+  <!-- 护墙板与地板（画在镜子之前，镜子才像站在地板上） -->
+  <rect x="0" y="530" width="1200" height="145" fill="#E2D0F0"/>
+  <rect x="0" y="518" width="1200" height="20" rx="10" fill="#CDB4F6" stroke="#6B4A45" stroke-width="5"/>
+  <rect x="0" y="616" width="1200" height="59" fill="url(#closetFloor)"/>
+  <ellipse cx="300" cy="622" rx="200" ry="34" fill="#FFB3C6" opacity="0.9"/>
+  <ellipse cx="300" cy="622" rx="150" ry="24" fill="#FFD9E6" opacity="0.9"/>
+
+  <!-- 右：换装选项板 -->
+  <rect x="748" y="126" width="388" height="494" rx="40" fill="url(#board)" stroke="#6B4A45" stroke-width="9"/>
+  <rect x="768" y="146" width="348" height="454" rx="30" fill="none" stroke="#F2BE8C"
+        stroke-width="5" stroke-dasharray="16 12"/>
+
+  <!-- 中：穿衣镜 -->
+  <g stroke="#6B4A45" stroke-linejoin="round">
+    <!-- 镜脚 -->
+    <path d="M448 566 l-26 34 h76 Z" fill="#E7B183" stroke-width="7"/>
+    <path d="M636 566 l26 34 h-76 Z" fill="#E7B183" stroke-width="7"/>
+    <rect x="392" y="180" width="296" height="392" rx="52" fill="#FFF6E5" stroke-width="9"/>
+    <rect x="392" y="180" width="296" height="392" rx="52" fill="none" stroke="#FFD166" stroke-width="9"/>
+    <rect x="412" y="200" width="256" height="352" rx="38" fill="url(#mirrorGlass)" stroke-width="8"/>
+    <g opacity="0.55" stroke="none" fill="#FFFFFF">
+      <path d="M436 234 L520 210 L446 524 L424 524 Z"/>
+      <path d="M640 234 L600 220 L560 252 L600 246 Z" opacity="0.7"/>
+    </g>
+    <!-- 镜框顶部的小蝴蝶结 -->
+    <g transform="translate(540 170)">
+      <path d="M0 0 L-30 -16 L-30 16 Z" fill="#FF8FAB" stroke-width="7"/>
+      <path d="M0 0 L30 -16 L30 16 Z" fill="#FF8FAB" stroke-width="7"/>
+      <circle cx="0" cy="0" r="10" fill="#FFC93C" stroke-width="6"/>
+    </g>
+  </g>
+</svg>

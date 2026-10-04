@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 4F 按钮：衣架 -->
+  <defs>
+    <radialGradient id="g4" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#E7DBFF"/>
+      <stop offset="1" stop-color="#B79BF0"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="#FFFFFF" stroke="#6B4A45" stroke-width="8"/>
+  <circle cx="100" cy="100" r="74" fill="url(#g4)" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="72" cy="66" rx="24" ry="15" fill="#FFFFFF" opacity="0.45" transform="rotate(-30 72 66)"/>
+  <g transform="translate(100 104)">
+    <path d="M0 -22 q0 -14 13 -14 q13 0 13 14" fill="none" stroke="#6B4A45" stroke-width="7" stroke-linecap="round"/>
+    <path d="M-38 10 L0 -18 L38 10 Z" fill="#FFF6E5" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  </g>
+</svg>

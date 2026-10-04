@@ -130,6 +130,10 @@
       var set = EG.ASSETS.character[skin];
       Object.keys(set).forEach(function (k) { (new Image()).src = set[k]; });
     });
+    Object.keys(EG.ASSETS.closet).forEach(function (slot) {
+      var set = EG.ASSETS.closet[slot];
+      Object.keys(set).forEach(function (k) { (new Image()).src = set[k]; });
+    });
   }
 
   /* ---------- 8. 启动 ---------- */
@@ -180,6 +184,11 @@
       mood: 'idle'
     });
 
+    /* 换装：主角身上挂 4 个可换图层，默认搭配读存档 */
+    EG.Outfit.load();
+    EG.Outfit.mount($('#cat'));
+    EG.Outfit.refresh();
+
     EG.Elevator.init({
       dom: {
         stage: dom.stage,
@@ -217,6 +226,7 @@
       EG.State.data.skin = next;
       EG.State.save();
       renderSkin();
+      EG.Outfit.refresh({ notify: true });
       EG.Audio.play('meow', 0.7);
       EG.Say.mood('happy');
       EG.Say.hop();

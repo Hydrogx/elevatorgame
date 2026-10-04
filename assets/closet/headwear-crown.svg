@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 头饰·小皇冠 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <path d="M104 104 L112 58 L132 86 L150 46 L168 86 L188 58 L196 104 Z" fill="#FFD166"/>
+    <rect x="100" y="100" width="100" height="18" rx="9" fill="#FFC93C"/>
+  </g>
+  <g stroke="#6B4A45" stroke-width="5">
+    <circle cx="112" cy="66" r="7" fill="#FF8FAB"/>
+    <circle cx="150" cy="54" r="8" fill="#7FD8BE"/>
+    <circle cx="188" cy="66" r="7" fill="#FF8FAB"/>
+  </g>
+</svg>

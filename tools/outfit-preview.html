@@ -1,0 +1,39 @@
+<!doctype html>
+<meta charset="utf-8">
+<title>换装部件对位预览</title>
+<style>
+  body{margin:0;padding:16px;background:#FFF6E5;font:13px -apple-system,"PingFang SC",sans-serif;color:#6B4A45}
+  h1{font-size:18px;margin:0 0 10px}
+  h2{font-size:14px;margin:14px 0 6px;color:#B08A72}
+  .row{display:flex;gap:10px;flex-wrap:wrap}
+  figure{margin:0;background:#fff;border:3px solid #6B4A45;border-radius:14px;padding:6px;width:150px}
+  .stack{position:relative;width:150px;height:175px;background:#FFF9F1;border-radius:10px;overflow:hidden}
+  .stack img{position:absolute;inset:0;width:100%;height:100%}
+  figcaption{margin-top:5px;font-size:11px;text-align:center}
+</style>
+<h1>猪猪兔换装图层对位预览（应该严丝合缝地贴在一起）</h1>
+<div id="out"></div>
+<script>
+  const BASE = 'character/pigbunny-idle.svg';
+  const HAIR = ['hair-bangs','hair-curly','hair-side'];
+  const HEAD = ['headwear-bow','headwear-crown','headwear-cap'];
+  const BODY = ['clothes-dress','clothes-sailor','clothes-hoodie'];
+  const FEET = ['shoes-mary','shoes-sneaker','shoes-boot'];
+  const out = document.getElementById('out');
+  const stack = (layers) => '<div class="stack">' +
+    [BASE, ...layers].map(s => `<img src="../assets/${s.startsWith('character') ? s : 'closet/' + s + '.svg'}">`).join('') + '</div>';
+  const row = (title, items) => `<h2>${title}</h2><div class="row">` + items.map(([label, layers]) =>
+    `<figure>${stack(layers)}<figcaption>${label}</figcaption></figure>`).join('') + '</div>';
+  out.innerHTML =
+    row('① 只穿身体（原始）', [['裸身体', []]]) +
+    row('② 单件头发', HAIR.map(h => [h, [h]])) +
+    row('③ 单件头饰', HEAD.map(h => [h, [h]])) +
+    row('④ 单件衣服', BODY.map(h => [h, [h]])) +
+    row('⑤ 单双鞋子', FEET.map(h => [h, [h]])) +
+    row('⑥ 整套搭配', [
+      ['裙子+玛丽珍', ['clothes-dress','shoes-mary','hair-curly','headwear-bow']],
+      ['水手服+雨靴', ['clothes-sailor','shoes-boot','hair-bangs','headwear-cap']],
+      ['连帽衫+运动鞋', ['clothes-hoodie','shoes-sneaker','hair-side','headwear-crown']],
+      ['只有头饰', ['headwear-crown']]
+    ]);
+</script>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 头饰·电梯员贝雷帽 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <ellipse cx="150" cy="98" rx="70" ry="34" fill="#7FD8BE"/>
+    <path d="M80 98 q70 30 140 0 q-8 22 -70 22 q-62 0 -70 -22 Z" fill="#5FC7A8"/>
+  </g>
+  <path d="M150 62 l5 12 l13 1 l-10 9 l3 13 l-11 -7 l-11 7 l3 -13 l-10 -9 l13 -1 Z"
+        fill="#FFE066" stroke="#6B4A45" stroke-width="5" stroke-linejoin="round"/>
+</svg>

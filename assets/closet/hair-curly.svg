@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 发型·草莓卷卷 -->
+  <g fill="#FF9FB6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <path d="M66 158 A84 84 0 0 1 234 158 Q226 142 212 134 Q198 120 180 128 Q166 114 150 124 Q134 114 120 128 Q102 120 88 134 Q74 142 66 158 Z"/>
+    <circle cx="84" cy="132" r="17"/>
+    <circle cx="216" cy="132" r="17"/>
+    <circle cx="150" cy="96" r="15"/>
+  </g>
+  <g fill="#FFD1E0">
+    <circle cx="96" cy="120" r="6"/>
+    <circle cx="204" cy="120" r="6"/>
+    <circle cx="146" cy="90" r="5"/>
+  </g>
+</svg>
