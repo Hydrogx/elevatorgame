@@ -17,8 +17,23 @@
   }
   function floorById(id) { return C.floors[idx(id)]; }
 
+  /* 楼房原稿尺寸（map-building.svg 的 viewBox），轿厢在井道里的中心 x = 217 */
+  var MAP = { w: 260, h: 470, shaftX: 217, carW: 64 };
+
+  /* 小地图里的楼房用 object-fit: contain 显示，
+     所以轿厢位置要按「实际渲染出来的图片尺寸」算 */
   function moveCar(id) {
-    dom.mapCar.style.top = floorById(id).mapY + '%';
+    var card = dom.mapCard;
+    if (!card) return;
+    var cw = card.clientWidth;
+    var ch = card.clientHeight;
+    var s = Math.min(cw / MAP.w, ch / MAP.h);
+    var ix = (cw - MAP.w * s) / 2;   // 图片居中后左边留白
+    var iy = (ch - MAP.h * s) / 2;
+    var y = iy + (floorById(id).mapY / 100) * MAP.h * s;
+    dom.mapCar.style.left = (ix + MAP.shaftX * s) + 'px';
+    dom.mapCar.style.top = y + 'px';
+    dom.mapCar.style.width = (MAP.carW * s) + 'px';
   }
 
   function setIndicator(text) {
@@ -54,6 +69,9 @@
 
     current: function () { return cur; },
     isBusy: function () { return busy; },
+
+    /* 重新按当前尺寸摆一次轿厢（字体加载完、尺寸变化时用） */
+    refreshMap: function () { moveCar(cur); },
 
     /* 立刻把电梯放到某一层（用于初始化 / 读档） */
     place: function (id) {

@@ -21,7 +21,7 @@ window.EG = window.EG || {};
       doorLeft:       'assets/elevator/door-left.svg',
       doorRight:      'assets/elevator/door-right.svg',
       indicatorPlate: 'assets/elevator/indicator-plate.svg',
-      panelPlate:     'assets/elevator/panel-plate.svg',
+      panelPlate:     'assets/elevator/panel-plate-v.svg',
       button1:        'assets/elevator/button-1f.svg',
       button2:        'assets/elevator/button-2f.svg',
       button3:        'assets/elevator/button-3f.svg',
@@ -96,7 +96,7 @@ window.EG = window.EG || {};
   };
 
   EG.CONFIG = {
-    design: { width: 1280, height: 812 },
+    design: { width: 1280, height: 680 },
     saveKey: 'meow-elevator-save-v1',
 
     audio: { master: 0.85, bgm: 0.32, sfx: 0.6 },
@@ -134,7 +134,7 @@ window.EG = window.EG || {};
         room: 'assets/rooms/room-candy.svg',
         button: 'assets/elevator/button-1f.svg',
         mapY: 24.7,          /* 小地图里轿厢停靠的纵向位置（%） */
-        tip: '点糖果罐里的 <b>糖果</b> 就能收星星糖，<br>金色糖果一颗值 <b>5 颗</b> 哦～',
+        tip: '点糖果罐里的 <b>糖果</b> 收星星糖，金色糖果值 5 颗',
         lines: ['欢迎来到糖果屋～', '糖果甜甜的，我最喜欢啦！', '看到金色的糖果别放过哦！']
       },
       {
@@ -145,7 +145,7 @@ window.EG = window.EG || {};
         room: 'assets/rooms/room-icecream.svg',
         button: 'assets/elevator/button-2f.svg',
         mapY: 53.2,
-        tip: '先选一个 <b>冰淇淋球</b>，再选一个 <b>配料</b>，<br>做好后点一下就能卖出去！',
+        tip: '选一个 <b>冰淇淋球</b> + 一个 <b>配料</b>，做好后点一下卖出去',
         lines: ['冰淇淋屋到啦～', '推荐配方可以卖更贵哦！', '草莓加樱桃，最搭啦！']
       },
       {
@@ -156,7 +156,7 @@ window.EG = window.EG || {};
         room: 'assets/rooms/room-coffee.svg',
         button: 'assets/elevator/button-3f.svg',
         mapY: 81.7,
-        tip: '<b>按住</b> 萃取按钮，在绿色 <b>完美区</b> 松手<br>最值钱，再点杯子喝掉它～',
+        tip: '<b>按住</b> 萃取按钮，在绿色 <b>完美区</b> 松手最值钱，再点杯子喝掉',
         lines: ['好香的味道呀～', '苦一点也很棒哦！', '慢慢来，别烫到小爪爪～']
       }
     ]

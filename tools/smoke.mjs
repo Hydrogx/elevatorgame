@@ -80,6 +80,17 @@ for (let i = 0; i < 40; i++) {
 check('游戏已启动（糖果已生成）', await ev(`document.querySelectorAll('.candy').length`) > 0,
   '糖果数=' + (await ev(`document.querySelectorAll('.candy').length`)));
 check('可爱字体已加载', await ev(`document.fonts.check('16px KuaiLe')`));
+
+/* 按键竖排：3F 在最上、1F 在最下 */
+const btnOrder = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => b.dataset.floor).join(',')`);
+check('按键 DOM 顺序是 3F → 2F → 1F', btnOrder === '3,2,1', '实际: ' + btnOrder);
+const btnTops = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => Math.round(b.getBoundingClientRect().top)).join(',')`);
+const tops = btnTops.split(',').map(Number);
+check('按键纵向排列（3F 最高、1F 最低）', tops.every((v, i) => i === 0 || v > tops[i - 1]), 'top 坐标: ' + btnTops);
+const panelTop = await ev(`Math.round(document.querySelector('.panel').getBoundingClientRect().top)`);
+const stageTop = await ev(`Math.round(document.querySelector('#stage').getBoundingClientRect().top)`);
+check('面板在右侧、与舞台顶部基本对齐', Math.abs(panelTop - stageTop) < 20, `面板 top=${panelTop}, 舞台 top=${stageTop}`);
+
 await shot('01-1F');
 
 /* --- 1F：点糖果 --- */

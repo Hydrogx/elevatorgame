@@ -93,7 +93,7 @@ img { display: block; -webkit-user-drag: none; }
   top: 50%;
   z-index: 1;
   width: 1280px;
-  height: 812px;
+  height: 680px;
   padding: 8px 12px 15px;
   transform: translate(-50%, -50%);
   transform-origin: center center;
@@ -133,7 +133,24 @@ img { display: block; -webkit-user-drag: none; }
   text-shadow: 2px 2px 0 var(--c-outline);
 }
 
-.hud__spacer { flex: 1; }
+/* 当前楼层的小提示（原来在右下角卡片里，现在放在顶栏中间） */
+.hud__tip {
+  flex: 1;
+  min-width: 0;
+  margin: 0 10px;
+  padding: 5px 18px;
+  border-radius: 20px;
+  background: rgba(255, 255, 255, 0.75);
+  border: 4px solid var(--c-outline);
+  font-size: 15px;
+  color: var(--c-ink-soft);
+  text-align: center;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.hud__tip b { color: var(--c-pink); }
 
 .hud__coins {
   display: flex;

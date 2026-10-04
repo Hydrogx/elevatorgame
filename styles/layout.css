@@ -1,12 +1,14 @@
 /* ============================================================
-   layout.css —— 主区域布局：舞台 + 右侧小地图
+   layout.css —— 主区域布局：舞台 + 右侧竖排电梯面板 + 楼层小地图
+   （面板竖排：3F 在上，1F 在下）
    ============================================================ */
 
 .world {
-  height: 567px;
-  flex: 0 0 567px;
+  height: 581px;
+  flex: 0 0 581px;
   margin-top: 12px;
   display: flex;
+  align-items: center;
   gap: 16px;
 }
 
@@ -61,21 +63,23 @@
   z-index: 3;
 }
 
-/* ---------- 右侧栏 ---------- */
+/* ---------- 右侧栏：竖排按键面板 + 小地图 ---------- */
 .side {
   width: 232px;
   flex: 0 0 232px;
+  height: 100%;
   display: flex;
   flex-direction: column;
   gap: 12px;
 }
 
-/* ---------- 小地图：整栋楼剖面 ---------- */
+/* ---------- 小地图：整栋楼剖面（右下角） ----------
+   楼房图用 object-fit: contain 撑满卡片，轿厢的位置由 elevator.js
+   按实际渲染尺寸算出来（避免百分比高度解析不到的坑） */
 .minimap {
   position: relative;
-  width: 232px;
-  height: 419px;
-  flex: 0 0 419px;
+  flex: 1 1 auto;
+  min-height: 0;
   border: 6px solid var(--c-outline);
   border-radius: 26px;
   background: linear-gradient(180deg, #BFE9FF, #FFF0F6);
@@ -84,61 +88,20 @@
 }
 
 .minimap__bg {
-  position: absolute;
-  inset: 0;
   width: 100%;
   height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 .minimap__car {
   position: absolute;
-  left: 83.4%;
-  width: 50px;
+  left: 0;
+  top: 0;
   transform: translate(-50%, -50%);
   transition: top 0.6s cubic-bezier(0.45, 0.05, 0.35, 1.1);
-  filter: drop-shadow(0 3px 0 rgba(107, 74, 69, 0.25));
+  filter: drop-shadow(0 2px 0 rgba(107, 74, 69, 0.25));
   z-index: 2;
 }
 
 .minimap__car.is-move { animation: carbob 0.28s ease-in-out infinite; }
-
-/* 楼层小标签 */
-.minimap__tag {
-  position: absolute;
-  left: 8px;
-  padding: 3px 10px;
-  border-radius: 12px;
-  background: rgba(255, 255, 255, 0.9);
-  border: 3px solid var(--c-outline);
-  font-size: 13px;
-  line-height: 1.1;
-  color: var(--c-ink);
-  z-index: 3;
-}
-
-/* ---------- 小贴士卡片 ---------- */
-.tipcard {
-  flex: 1;
-  border: 6px solid var(--c-outline);
-  border-radius: 26px;
-  background: var(--c-cream);
-  box-shadow: 0 10px 0 rgba(107, 74, 69, 0.25);
-  padding: 12px 14px;
-  overflow: hidden;
-}
-
-.tipcard__title {
-  font-size: 16px;
-  color: var(--c-pink);
-  margin: 0 0 6px;
-  letter-spacing: 1px;
-}
-
-.tipcard__text {
-  font-size: 14px;
-  line-height: 1.55;
-  color: var(--c-ink-soft);
-  margin: 0;
-}
-
-.tipcard__text b { color: var(--c-coffee); }

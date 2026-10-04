@@ -31,7 +31,6 @@
   function updateTip(id) {
     var f = C.floors.find(function (x) { return x.id === id; });
     if (!f) return;
-    dom.tipTitle.textContent = f.tag + ' ' + f.name;
     dom.tipText.innerHTML = f.tip;
   }
 
@@ -154,7 +153,6 @@
     dom.btnUp = $('#btn-up');
     dom.btnDown = $('#btn-down');
     dom.floorBtns = Array.prototype.slice.call(document.querySelectorAll('.floorbtn'));
-    dom.tipTitle = $('#tip-title');
     dom.tipText = $('#tip-text');
     dom.resetBtn = $('#reset-btn');
     dom.fx = $('#fx');
@@ -163,6 +161,13 @@
     window.addEventListener('resize', fitApp);
     decorateSky();
     preload();
+
+    /* 字体加载完再摆一次小地图里的轿厢（字体可能影响面板高度） */
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(function () {
+        if (EG.Elevator && EG.Elevator.refreshMap) EG.Elevator.refreshMap();
+      });
+    }
 
     EG.State.load();
     EG.FX.init(dom.fx);
@@ -180,6 +185,7 @@
         stage: dom.stage,
         roomBg: dom.roomBg,
         mapCar: dom.mapCar,
+        mapCard: $('#minimap'),
         indicator: dom.indicator,
         indicatorText: dom.indicatorText
       },

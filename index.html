@@ -34,7 +34,7 @@
       喵喵电梯公寓
       <small>Meow Elevator</small>
     </h1>
-    <div class="hud__spacer"></div>
+    <div class="hud__tip" id="tip-text"></div>
     <div class="hud__coins" id="coin-box">
       <img src="assets/ui/coin-sugar.svg" alt="星星糖">
       <span id="coin-count">0</span>
@@ -86,47 +86,40 @@
     </section>
 
     <aside class="side">
-      <div class="minimap">
+      <!-- 竖排电梯按键面板：3F 在最上，1F 在最下 -->
+      <div class="panel">
+        <img class="panel__plate" src="assets/elevator/panel-plate-v.svg" alt="">
+        <div class="panel__inner">
+          <div class="panel__arrows">
+            <img class="panel__arrow" id="btn-up" src="assets/elevator/arrow-up.svg" alt="上一层" title="上一层">
+            <img class="panel__arrow" id="btn-down" src="assets/elevator/arrow-down.svg" alt="下一层" title="下一层">
+          </div>
+
+          <button class="floorbtn" data-floor="3" type="button">
+            <img src="assets/elevator/button-3f.svg" alt="">
+            <span class="floorbtn__label"><b>3F</b><span>咖啡屋</span></span>
+          </button>
+
+          <button class="floorbtn" data-floor="2" type="button">
+            <img src="assets/elevator/button-2f.svg" alt="">
+            <span class="floorbtn__label"><b>2F</b><span>冰淇淋屋</span></span>
+          </button>
+
+          <button class="floorbtn is-active" data-floor="1" type="button">
+            <img src="assets/elevator/button-1f.svg" alt="">
+            <span class="floorbtn__label"><b>1F</b><span>糖果屋</span></span>
+          </button>
+
+          <p class="panel__hint">键盘 <span class="k">↑</span><span class="k">↓</span> 也能换层</p>
+        </div>
+      </div>
+
+      <div class="minimap" id="minimap">
         <img class="minimap__bg" src="assets/elevator/map-building.svg" alt="楼层小地图">
         <img class="minimap__car" id="map-car" src="assets/elevator/map-car.svg" alt="">
       </div>
-
-      <div class="tipcard">
-        <h2 class="tipcard__title" id="tip-title">1F 糖果屋</h2>
-        <p class="tipcard__text" id="tip-text"></p>
-      </div>
     </aside>
   </main>
-
-  <!-- ===== 底部：电梯控制面板 ===== -->
-  <footer class="panel">
-    <img class="panel__plate" src="assets/elevator/panel-plate.svg" alt="">
-    <div class="panel__inner">
-      <img class="panel__arrow" id="btn-up" src="assets/elevator/arrow-up.svg" alt="上一层" title="上一层">
-
-      <button class="floorbtn is-active" data-floor="1" type="button">
-        <img src="assets/elevator/button-1f.svg" alt="">
-        <span class="floorbtn__label"><b>1F</b><span>糖果屋</span></span>
-      </button>
-
-      <button class="floorbtn" data-floor="2" type="button">
-        <img src="assets/elevator/button-2f.svg" alt="">
-        <span class="floorbtn__label"><b>2F</b><span>冰淇淋屋</span></span>
-      </button>
-
-      <button class="floorbtn" data-floor="3" type="button">
-        <img src="assets/elevator/button-3f.svg" alt="">
-        <span class="floorbtn__label"><b>3F</b><span>咖啡屋</span></span>
-      </button>
-
-      <img class="panel__arrow" id="btn-down" src="assets/elevator/arrow-down.svg" alt="下一层" title="下一层">
-
-      <p class="panel__hint">
-        点按钮就能坐电梯去别的楼层<br>
-        键盘 <span class="k">↑</span><span class="k">↓</span><span class="k">1</span><span class="k">2</span><span class="k">3</span> 也可以喵～
-      </p>
-    </div>
-  </footer>
 
 </div>
 

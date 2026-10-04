@@ -161,12 +161,14 @@
   z-index: 2;
 }
 
-/* ---------- 控制面板 ---------- */
+/* ---------- 右侧竖排控制面板（3F 在上，1F 在下） ---------- */
 .panel {
   position: relative;
-  height: 132px;
-  flex: 0 0 132px;
-  margin-top: 14px;
+  flex: 0 0 auto;
+  width: 232px;
+  padding: 16px 18px 12px;
+  display: flex;
+  flex-direction: column;
 }
 
 .panel__plate {
@@ -177,63 +179,70 @@
 }
 
 .panel__inner {
-  position: absolute;
-  inset: 0;
+  position: relative;
   display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 0 26px;
+  flex-direction: column;
+  gap: 8px;
+}
+
+/* 上行 / 下行 按钮并排在最上面 */
+.panel__arrows {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
 }
 
 .panel__arrow {
-  width: 62px;
-  height: 62px;
+  width: 42px;
+  height: 42px;
   cursor: pointer;
   transition: transform 0.12s ease, filter 0.12s ease;
 }
 .panel__arrow:active { transform: translateY(3px) scale(0.96); }
 .panel__arrow.is-disabled { filter: grayscale(1) opacity(0.45); cursor: not-allowed; }
 
+/* 竖排的一行按键：左边圆形楼层按钮，右边楼层名 */
 .floorbtn {
   position: relative;
   display: flex;
   align-items: center;
   gap: 10px;
-  height: 96px;
-  padding: 0 20px 0 12px;
-  border-radius: 26px;
-  border: 5px solid transparent;
+  width: 100%;
+  height: 64px;
+  padding: 0 8px;
+  border-radius: 22px;
+  border: 4px solid transparent;
   background: rgba(255, 255, 255, 0.55);
   transition: transform 0.14s ease, background 0.2s ease, border-color 0.2s ease;
 }
 
-.floorbtn img { width: 62px; height: 62px; }
+.floorbtn img { width: 48px; height: 48px; }
 
 .floorbtn__label {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  line-height: 1.15;
+  line-height: 1.1;
 }
 
 .floorbtn__label b {
   font-family: var(--font-num);
-  font-size: 26px;
+  font-size: 24px;
   color: var(--c-outline);
 }
 
 .floorbtn__label span {
-  font-size: 15px;
+  font-size: 13px;
   color: var(--c-ink-soft);
 }
 
-.floorbtn:hover { transform: translateY(-4px); background: rgba(255, 255, 255, 0.85); }
-.floorbtn:active { transform: translateY(2px); }
+.floorbtn:hover { transform: translateX(-4px); background: rgba(255, 255, 255, 0.9); }
+.floorbtn:active { transform: translateX(2px); }
 
 .floorbtn.is-active {
   background: #FFFBEF;
   border-color: var(--c-pink);
-  box-shadow: 0 0 0 5px rgba(255, 143, 171, 0.28), 0 8px 0 rgba(107, 74, 69, 0.18);
+  box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.28), 0 6px 0 rgba(107, 74, 69, 0.16);
 }
 
 .floorbtn.is-active .floorbtn__label b { color: var(--c-pink); }
@@ -241,10 +250,10 @@
 .floorbtn.is-active::after {
   content: '';
   position: absolute;
-  top: -12px;
-  right: -10px;
-  width: 34px;
-  height: 34px;
+  top: 3px;
+  right: 5px;
+  width: 26px;
+  height: 26px;
   background: url('../assets/ui/sparkle.svg') center/contain no-repeat;
   animation: spin 3s linear infinite;
 }
@@ -252,23 +261,19 @@
 .floorbtn.is-arriving { animation: bump 0.5s ease; }
 
 .panel__hint {
-  flex: 1;
-  margin: 0;
-  text-align: right;
-  font-size: 16px;
-  line-height: 1.5;
+  margin: 2px 0 0;
+  text-align: center;
+  font-size: 12px;
   color: var(--c-ink-soft);
-  max-width: 300px;
 }
 
-.panel__hint b { color: var(--c-coffee); }
 .panel__hint .k {
   display: inline-block;
-  padding: 1px 9px;
-  margin: 0 2px;
-  border-radius: 10px;
+  padding: 0 7px;
+  margin: 0 1px;
+  border-radius: 8px;
   background: #FFF0F5;
-  border: 3px solid var(--c-outline);
+  border: 2px solid var(--c-outline);
   font-family: var(--font-num);
   color: var(--c-pink);
 }
