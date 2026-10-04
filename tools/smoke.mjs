@@ -72,6 +72,11 @@ await send('Runtime.enable');
 await send('Log.enable');
 await send('Page.enable');
 
+/* 每次都从「全新存档」开始跑，否则上一次的进度（换装、宠物好感度…）会让断言失真 */
+await ev(`localStorage.clear()`);
+await send('Page.reload');
+await sleep(1600);
+
 /* 等游戏启动 */
 for (let i = 0; i < 40; i++) {
   if (await ev(`!!document.querySelector('.candy')`)) break;
@@ -129,12 +134,19 @@ check('照着点单做，售价 8 颗', (await ev(`document.querySelector('.icec
 check('对上点单时价格徽章高亮', await ev(`!!document.querySelector('.icecream__price.is-match')`));
 await shot('05-2F-对上点单');
 const coin2 = await ev(`+document.querySelector('#coin-count').textContent`);
+const nameBefore = await ev(`document.querySelector('.customer__name').textContent`);
 await ev(`document.querySelector('.icecream').click()`);
 await sleep(600);
 const coin3 = await ev(`+document.querySelector('#coin-count').textContent`);
 check('对上点单卖出 +8 颗', coin3 - coin2 === 8, `+${coin3 - coin2}`);
-check('卖完会换下一位顾客', await ev(`!!document.querySelector('.customer__name').textContent`));
 await shot('06-2F-卖出');
+
+/* 等新顾客上门（换人要 900ms），再确认点单确实换了 */
+await sleep(1400);
+const nameAfter = await ev(`document.querySelector('.customer__name').textContent`);
+const orderAfter = await ev(`[...document.querySelectorAll('.order__icon')].map(i => i.alt).join('+')`);
+check('卖完会换下一位顾客 / 换一份点单', nameAfter !== nameBefore || orderAfter !== wantOrder,
+  `${nameBefore}(${wantOrder}) → ${nameAfter}(${orderAfter})`);
 
 /* --- 2F：故意做错的 → 只值 3 颗 --- */
 await ev(`(() => {
