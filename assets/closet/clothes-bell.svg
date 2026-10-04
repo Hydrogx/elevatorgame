@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 衣服·铃铛项圈（猫猫专属，戴在脖子上） -->
+  <path d="M72 174 A84 84 0 0 0 228 174 l-6 30 A88 88 0 0 1 78 204 Z"
+        fill="#FF8FAB" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <g fill="#FFF6E5" opacity="0.8">
+    <circle cx="112" cy="196" r="4"/><circle cx="150" cy="206" r="4"/><circle cx="188" cy="196" r="4"/>
+  </g>
+  <circle cx="150" cy="232" r="19" fill="#FFD166" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M150 251 v7" stroke="#6B4A45" stroke-width="6" stroke-linecap="round"/>
+  <ellipse cx="143" cy="225" rx="6" ry="4" fill="#FFF6E5" opacity="0.75" transform="rotate(-25 143 225)"/>
+</svg>

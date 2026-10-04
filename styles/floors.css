@@ -463,6 +463,54 @@
   z-index: 5;
 }
 
+/* 标题 + 翻页（一行超过 4 个道具时分页） */
+.fit__head {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.fit__pager {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 1px 7px;
+  border-radius: 12px;
+  background: #FFF3F8;
+  border: 3px solid var(--c-outline);
+  box-shadow: 0 3px 0 rgba(107, 74, 69, 0.18);
+}
+
+.fit__arrow {
+  width: 20px;
+  height: 20px;
+  padding: 0;
+  border: 0;
+  background: none;
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 1;
+  color: var(--c-ink);
+  cursor: pointer;
+}
+
+.fit__arrow:disabled { opacity: 0.28; cursor: default; }
+.fit__page { font-size: 11px; color: var(--c-ink-soft); }
+
+/* 别人专属的服装：整件压灰 + 角上一枚那位主角的小头像 */
+.garment.is-other img:not(.garment__who) { filter: grayscale(0.75) opacity(0.55); }
+
+.garment__who {
+  position: absolute;
+  right: -3px;
+  bottom: -3px;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #FFF6E5;
+  border: 3px solid var(--c-outline);
+}
+
 .fit__label {
   padding: 1px 14px;
   border-radius: 12px;

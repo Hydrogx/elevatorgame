@@ -18,6 +18,7 @@
 <link rel="stylesheet" href="styles/backdrop.css">
 <link rel="stylesheet" href="styles/arcade.css">
 <link rel="stylesheet" href="styles/shop.css">
+<link rel="stylesheet" href="styles/math.css">
 <link rel="stylesheet" href="styles/mobile.css">
 </head>
 <body>
@@ -54,6 +55,9 @@
     </div>
     <button class="hud__sound" id="sound-toggle" type="button">
       <img id="sound-img" src="assets/ui/sound-on.svg" alt="音效开关">
+    </button>
+    <button class="hud__math" id="math-toggle" type="button" title="计算练习：已关闭（点一下开启）">
+      <img src="assets/ui/icon-math.svg" alt="计算练习">
     </button>
     <button class="hud__skin" id="skin-toggle" type="button" title="换个主角形象">
       <img id="skin-img" src="assets/ui/avatar-pigbunny.svg" alt="切换主角">
@@ -110,6 +114,18 @@
             <span class="arcade__score" id="arcade-score"></span>
             <button class="arcade__action" id="arcade-action" type="button"></button>
           </div>
+        </div>
+      </div>
+
+      <!-- 计算练习弹窗（HUD 上打开开关后每 3 分钟弹一次，答对才消失） -->
+      <div class="math" id="math">
+        <div class="math__panel">
+          <h3 class="math__title">🧮 算一算</h3>
+          <p class="math__q" id="math-q">5 × 4 + 8 = ?</p>
+          <div class="math__bar"><i id="math-bar"></i></div>
+          <div class="math__input is-empty" id="math-input">?</div>
+          <div class="math__keys" id="math-keys"></div>
+          <p class="math__tip" id="math-tip">在 10 秒内答对，弹窗才会关掉哦</p>
         </div>
       </div>
 
@@ -201,6 +217,7 @@
 <script src="js/core/outfit.js"></script>
 <script src="js/core/petwear.js"></script>
 <script src="js/core/shop.js"></script>
+<script src="js/core/math.js"></script>
 <script src="js/core/elevator.js"></script>
 <script src="js/floors/registry.js"></script>
 <script src="js/floors/candy.js"></script>

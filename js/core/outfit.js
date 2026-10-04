@@ -40,6 +40,26 @@
       return (set && set[id]) || '';
     },
 
+    /* 商品定义（config.closet.items 里那一项） */
+    itemOf: function (slot, id) {
+      var list = (C.closet.items[slot] || []);
+      for (var i = 0; i < list.length; i++) if ((list[i].id || '') === (id || '')) return list[i];
+      return null;
+    },
+
+    /* 这件是不是「某位主角专属」；返回专属的主角 id 或 '' */
+    ownerOf: function (slot, id) {
+      var it = this.itemOf(slot, id);
+      return (it && it.skin) || '';
+    },
+
+    /* 当前主角能不能穿 */
+    canWear: function (slot, id) {
+      var owner = this.ownerOf(slot, id);
+      if (!owner) return true;
+      return !!(EG.Say && EG.Say.skin && EG.Say.skin() === owner);
+    },
+
     /* 换一件；返回是否是「全新搭配」 */
     set: function (slot, id, opts) {
       if (SLOTS.indexOf(slot) === -1) return false;
@@ -55,6 +75,7 @@
       var self = this;
       SLOTS.forEach(function (k) {
         var list = (C.closet.items[k] || []).filter(function (it) {
+          if (it.skin && !self.canWear(k, it.id)) return false;                       // 别人的专属
           return !it.price || (EG.Shop && EG.Shop.ownsGarment(k, it.id));
         });
         self.data[k] = (EG.util.rand(list) || {}).id || '';
@@ -106,7 +127,8 @@
       var self = this;
       Array.prototype.forEach.call(document.querySelectorAll('.wear'), function (img) {
         var slot = img.dataset.slot;
-        var src = self.srcFor(slot, self.data[slot]);
+        /* 专属服装：换人以后就自动脱掉（图层隐藏，搭配本身还留在存档里） */
+        var src = self.canWear(slot, self.data[slot]) ? self.srcFor(slot, self.data[slot]) : '';
         if (src) {
           if (img.getAttribute('src') !== src) img.setAttribute('src', src);
           img.style.display = '';
@@ -116,8 +138,13 @@
         }
       });
       Array.prototype.forEach.call(document.querySelectorAll('.garment'), function (btn) {
-        var on = (self.data[btn.dataset.slot] || '') === (btn.dataset.item || '');
+        var slot = btn.dataset.slot;
+        var on = (self.data[slot] || '') === (btn.dataset.item || '') && self.canWear(slot, self.data[slot]);
         btn.classList.toggle('is-active', on);
+      });
+      /* 专属服装的可用状态可能因为换主角而变（原地更新，不重建 DOM） */
+      Array.prototype.forEach.call(document.querySelectorAll('.fit'), function (row) {
+        if (row._sync) row._sync();
       });
       /* 四位主角共用同一套骨架，衣服谁都能穿（以前猫猫会隐藏图层，现在不用了） */
     },

@@ -8,31 +8,37 @@
   var C = EG.CONFIG;
   var box = null;
 
+  var PER_PAGE = 4;          // 每页最多几个（这样按钮能保持够大，也一定塞得进选项板）
+
   function buildRow(cat) {
     var pos = C.closet.rows[cat.key] || { x: 78.4, y: 30 };
     var row = EG.util.el('div', 'fit fit--' + cat.key);
     row.style.left = pos.x + '%';
     row.style.top = pos.y + '%';
 
-    var label = EG.util.el('div', 'fit__label', cat.label);
-    row.appendChild(label);
+    var items = C.closet.items[cat.key] || [];
+    var pages = Math.max(1, Math.ceil(items.length / PER_PAGE));
+    var page = 0;
+
+    /* 标题 + 翻页（只有一页时不显示翻页按钮） */
+    var head = EG.util.el('div', 'fit__head');
+    head.appendChild(EG.util.el('div', 'fit__label', cat.label));
+    var pager = EG.util.el('div', 'fit__pager');
+    var prev = EG.util.el('button', 'fit__arrow fit__prev', '‹');
+    var info = EG.util.el('span', 'fit__page', '1/1');
+    var next = EG.util.el('button', 'fit__arrow fit__next', '›');
+    prev.type = 'button';
+    next.type = 'button';
+    pager.appendChild(prev);
+    pager.appendChild(info);
+    pager.appendChild(next);
+    head.appendChild(pager);
+    row.appendChild(head);
 
     var list = EG.util.el('div', 'fit__list');
-    var items = C.closet.items[cat.key] || [];
+    row.appendChild(list);
 
-    /* 一行能用的安全宽度是 280px（房间里的选项板内框到 790±140 左右，
-       再往右 932px 开始就是电梯右侧柱子，会被挡住）：
-       道具多了就自动把圆按钮改小，保证每一件都完整看得见。
-       触屏上 mobile.css 会把按钮再放大 1.1 倍，所以这里先除回去。 */
-    var SAFE = 280;
-    var BOOST = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 1.1 : 1;
-    var gap = items.length > 4 ? 6 : 8;
-    var size = Math.floor((SAFE - (items.length - 1) * gap) / items.length / BOOST);
-    size = Math.max(36, Math.min(66, size));
-    list.style.gap = gap + 'px';
-    list.style.setProperty('--garment-size', size + 'px');
-
-    items.forEach(function (item) {
+    function buildBtn(item) {
       var btn = EG.util.el('button', 'garment garment--' + cat.key);
       btn.type = 'button';
       btn.dataset.slot = cat.key;
@@ -40,14 +46,28 @@
       btn.title = item.name;
       var src = EG.Outfit.srcFor(cat.key, item.id);
       var locked = !!item.price && !EG.Shop.ownsGarment(cat.key, item.id);
+      var otherOwner = !!item.skin && !EG.Outfit.canWear(cat.key, item.id);
 
       btn.innerHTML = (src
         ? '<img src="' + src + '" alt="">'
         : '<span class="garment__none">' + item.name + '</span>') +
-        (locked ? '<em class="garment__lock">🔒' + item.price + '</em>' : '');
+        (otherOwner
+          ? '<img class="garment__who" src="' + EG.ASSETS.character[item.skin].avatar + '" alt="' + EG.CONFIG.skins[item.skin].name + '">'
+          : (locked ? '<em class="garment__lock">🔒' + item.price + '</em>' : ''));
       if (locked) btn.classList.add('is-locked');
+      if (otherOwner) btn.classList.add('is-other');
 
       btn.addEventListener('click', function () {
+        /* 别人专属的：先提示去换主角（每次点击都重新判断，换主角后依然准） */
+        if (item.skin && !EG.Outfit.canWear(cat.key, item.id)) {
+          EG.Audio.play('error');
+          var who = EG.CONFIG.skins[item.skin].name;
+          var tail = (item.price && !EG.Shop.ownsGarment(cat.key, item.id))
+            ? '（还没买：' + item.price + ' 颗，去 🛍 商店买）' : '';
+          EG.Say.show('「' + item.name + '」是' + who + '的专属服装' + tail +
+                      '～点右上角头像换成' + who + '就能穿啦', 3600);
+          return;
+        }
         /* 没买的：点第一次问一下，再点一次才扣钱买下来 */
         if (item.price && !EG.Shop.ownsGarment(cat.key, item.id)) {
           EG.Audio.play('click');
@@ -67,9 +87,67 @@
         var p = EG.FX.positionOf(btn);
         EG.FX.sparkle(p.x, p.y, fresh ? 9 : 3);
       });
-      list.appendChild(btn);
-    });
-    row.appendChild(list);
+      return btn;
+    }
+
+    function render() {
+      list.innerHTML = '';
+      var slice = items.slice(page * PER_PAGE, page * PER_PAGE + PER_PAGE);
+
+      /* 一页最多 4 个：安全宽度 280px（房间选项板内框到右侧电梯柱子之间），
+         触屏上 mobile.css 会把按钮放大 1.1 倍，所以这里先除回去 */
+      var SAFE = 280;
+      var BOOST = (window.matchMedia && window.matchMedia('(pointer: coarse)').matches) ? 1.1 : 1;
+      var gap = 8;
+      var size = Math.floor((SAFE - (slice.length - 1) * gap) / slice.length / BOOST);
+      size = Math.max(36, Math.min(66, size));
+      list.style.gap = gap + 'px';
+      list.style.setProperty('--garment-size', size + 'px');
+
+      slice.forEach(function (item) { list.appendChild(buildBtn(item)); });
+
+      pager.style.display = pages > 1 ? '' : 'none';
+      info.textContent = (page + 1) + '/' + pages;
+      prev.disabled = page === 0;
+      next.disabled = page === pages - 1;
+
+      /* 高亮当前搭配 */
+      Array.prototype.forEach.call(list.querySelectorAll('.garment'), function (b) {
+        b.classList.toggle('is-active', (EG.Outfit.get(cat.key) || '') === (b.dataset.item || ''));
+      });
+    }
+
+    function turn(delta) {
+      var to = page + delta;
+      if (to < 0 || to >= pages) return;
+      page = to;
+      EG.Audio.play('click');
+      render();
+    }
+
+    prev.addEventListener('click', function () { turn(-1); });
+    next.addEventListener('click', function () { turn(1); });
+
+    /* 换主角后专属服装会变得能穿 / 不能穿：原地把小头像角标加上或去掉 */
+    row.dataset.slot = cat.key;
+    row._sync = function () {
+      Array.prototype.forEach.call(list.querySelectorAll('.garment'), function (btn) {
+        var it = EG.Outfit.itemOf(cat.key, btn.dataset.item) || {};
+        var other = !!it.skin && !EG.Outfit.canWear(cat.key, it.id);
+        btn.classList.toggle('is-other', other);
+        var has = btn.querySelector('.garment__who');
+        if (other && !has) {
+          var av = EG.util.el('img', 'garment__who');
+          av.src = EG.ASSETS.character[it.skin].avatar;
+          av.alt = EG.CONFIG.skins[it.skin].name;
+          btn.appendChild(av);
+        } else if (!other && has) {
+          has.parentNode.removeChild(has);
+        }
+      });
+    };
+    render();
+    row._sync();
     return row;
   }
 

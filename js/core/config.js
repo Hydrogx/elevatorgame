@@ -121,13 +121,16 @@ window.EG = window.EG || {};
         bow:    'assets/closet/headwear-bow.svg',
         crown:  'assets/closet/headwear-crown.svg',
         cap:    'assets/closet/headwear-cap.svg',
-        flower: 'assets/closet/headwear-flower.svg'
+        flower: 'assets/closet/headwear-flower.svg',
+        carrot: 'assets/closet/headwear-carrot.svg'
       },
       clothes: {
         dress:  'assets/closet/clothes-dress.svg',
         sailor: 'assets/closet/clothes-sailor.svg',
         hoodie: 'assets/closet/clothes-hoodie.svg',
-        cape:   'assets/closet/clothes-cape.svg'
+        cape:   'assets/closet/clothes-cape.svg',
+        vest:   'assets/closet/clothes-vest.svg',
+        bell:   'assets/closet/clothes-bell.svg'
       },
       shoes: {
         mary:    'assets/closet/shoes-mary.svg',
@@ -252,14 +255,17 @@ window.EG = window.EG || {};
           { id: 'bow',    name: '蝴蝶结' },
           { id: 'crown',  name: '小皇冠' },
           { id: 'cap',    name: '贝雷帽' },
-          { id: 'flower', name: '花环', price: 12 }
+          { id: 'flower', name: '花环', price: 12 },
+          { id: 'carrot', name: '胡萝卜发箍', price: 12, skin: 'rabbit' }
         ],
         clothes: [
           { id: '',       name: '不穿' },
           { id: 'dress',  name: '小裙子' },
           { id: 'sailor', name: '水手服' },
           { id: 'hoodie', name: '连帽衫' },
-          { id: 'cape',   name: '星星披风', price: 25 }
+          { id: 'cape',   name: '星星披风', price: 25 },
+          { id: 'vest',   name: '马术小背心', price: 22, skin: 'pony' },
+          { id: 'bell',   name: '铃铛项圈', price: 10, skin: 'cat' }
         ],
         shoes: [
           { id: '',        name: '光脚' },
@@ -312,6 +318,15 @@ window.EG = window.EG || {};
         { id: 'scarf',  name: '小围巾',   price: 12 },
         { id: 'cape',   name: '小披风',   price: 18 }
       ]
+    },
+
+    /* 计算练习：开着的时候每 everyMs 出一道小学二年级数学题，
+       必须在 limitMs 内答对，弹窗才会消失 */
+    math: {
+      everyMs: 180000,     // 3 分钟出一道
+      limitMs: 10000,      // 10 秒没答出来就换一题
+      maxAdd: 99,          // 加减法最大数
+      maxMul: 9            // 乘法表上限（9×9）
     },
 
     /* 5F 宠物层的玩法数值 */    pets: {

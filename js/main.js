@@ -204,6 +204,7 @@
 
     EG.State.load();
     EG.FX.init(dom.fx);
+    EG.Math.init();            // 计算练习（HUD 上的计算器按钮）
 
     EG.Say.init({
       cat: dom.catImg,
@@ -285,6 +286,7 @@
       }
       if (window.confirm('把星星糖和所有进度清空，重新开始吗？')) {
         EG.State.reset();
+        EG.Math.refresh();
         renderCoins(EG.State.data);
         EG.Audio.play('ding');
         EG.Say.mood('wave');
@@ -293,9 +295,11 @@
     });
 
     document.addEventListener('keydown', function (e) {
+      /* 计算练习弹窗开着的时候，键盘只用来答题 */
+      if (EG.Math && EG.Math.isOpen()) return;
       if (e.key === 'ArrowUp') { stepFloor(1); }
       else if (e.key === 'ArrowDown') { stepFloor(-1); }
-      else if (e.key === '1' || e.key === '2' || e.key === '3') { goTo(Number(e.key)); }
+      else if (e.key >= '1' && e.key <= '6') { goTo(Number(e.key)); }
     });
 
     /* 第一次点击/按键后才开始放音乐（浏览器要求） */

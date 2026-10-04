@@ -15,6 +15,7 @@
       outfit: Object.assign({}, EG.CONFIG.closet.defaultOutfit),  // 4F 换装结果
       outfitsSeen: {},      // 穿过的搭配（第一次有新搭配奖励）
       owned: {},            // 商店里买过的商品（键：'hair:buns' / 'pet:hat'）
+      mathOn: false,        // 计算练习开关（HUD 上的计算器按钮）
       petWear: {},          // 每只宠物戴的饰品 { cat: 'hat', ... }
       stats: { candy: 0, gold: 0, icecream: 0, coffee: 0, perfect: 0, dress: 0, pet: 0, feed: 0 },
       recipes: {},          // 做过的配方
@@ -40,6 +41,7 @@
           this.data.outfit = Object.assign(base.outfit, saved.outfit || {});
           this.data.outfitsSeen = saved.outfitsSeen || {};
           this.data.owned = saved.owned || {};
+          this.data.mathOn = !!saved.mathOn;
           this.data.petWear = saved.petWear || {};
         }
       } catch (e) {

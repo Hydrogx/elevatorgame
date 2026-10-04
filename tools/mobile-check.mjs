@@ -121,6 +121,22 @@ await shot('02-横屏-5F-提示');
 r = await ev(PROBE);
 check('横屏 5F：飘字/台词期间也没压住宠物或零食', r.overlapped.length === 0, r.overlapped.join(',') || '无');
 
+/* 计算练习弹窗在手机上也要点得中 */
+await ev(`EG.Math.setOn(true); EG.Math.popNow()`);
+await sleep(500);
+const math = await ev(`(() => {
+  const k = document.querySelector('.math__key').getBoundingClientRect();
+  const p = document.querySelector('.math__panel').getBoundingClientRect();
+  return { key: Math.round(Math.min(k.width, k.height)),
+           panel: [Math.round(p.width), Math.round(p.height)],
+           fits: p.top >= 0 && p.bottom <= innerHeight };
+})()`);
+check('横屏：计算练习的数字键够手指点（≥40px）', math.key >= 40, '数字键=' + math.key + 'px');
+check('横屏：计算练习弹窗完整放得下', math.fits === true, '面板=' + math.panel.join('x'));
+await shot('02b-横屏-计算练习');
+await ev(`EG.Math.setOn(false)`);
+await sleep(300);
+
 /* ---------- 竖屏手机 ---------- */
 await send('Emulation.setDeviceMetricsOverride', { width: 390, height: 844, deviceScaleFactor: 3, mobile: true });
 await send('Page.reload');

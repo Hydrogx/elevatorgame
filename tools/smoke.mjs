@@ -205,7 +205,8 @@ await shot('09-3F-喝完');
 await ev(`document.querySelector('.floorbtn[data-floor="4"]').click()`);
 await sleep(4000);
 check('4F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('closet'));
-check('4F 玩法已挂载（20 个换装按钮：每行 4 件免费 + 1 件商店）', (await ev(`document.querySelectorAll('.garment').length`)) === 20,
+/* 分页后每页最多渲染 4 个 × 4 行 = 16 个（总道具数另外单独查） */
+check('4F 玩法已挂载（4 行 × 每页 4 个 = 16 个按钮）', (await ev(`document.querySelectorAll('.garment').length`)) === 16,
   '按钮数=' + (await ev(`document.querySelectorAll('.garment').length`)));
 /* 回归：每行道具都要完整落在房间选项板里（右边 932px 起是电梯柱子，会被挡住） */
 check('每行换装道具都完整显示（不会被右边柱子挡）', await ev(`(() => {
@@ -218,6 +219,28 @@ check('每行换装道具都完整显示（不会被右边柱子挡）', await e
   });
 })()`) === true, '各行宽度=' + (await ev(`[...document.querySelectorAll('.fit__list')]
   .map(l => Math.round(l.getBoundingClientRect().width)).join('/')`)));
+
+/* 翻页：每页最多 4 个，道具多的行给翻页控件 */
+const clothesPerPage = await ev(`document.querySelectorAll('.fit--clothes .fit__list .garment').length`);
+check('每行每页最多 4 个道具', clothesPerPage <= 4, '本页=' + clothesPerPage);
+check('衣服行（7 件）出现翻页控件', await ev(`getComputedStyle(document.querySelector('.fit--clothes .fit__pager')).display !== 'none'`));
+const page1First = await ev(`document.querySelector('.fit--clothes .fit__list .garment').dataset.item`);
+await ev(`document.querySelector('.fit--clothes .fit__next').click()`);
+await sleep(350);
+const page2First = await ev(`document.querySelector('.fit--clothes .fit__list .garment').dataset.item`);
+check('点 › 能翻到第二页（道具换了一批）', page1First !== page2First, page1First + ' → ' + page2First);
+check('第二页也完整落在选项板里', await ev(`(() => {
+  const st = document.querySelector('#stage').getBoundingClientRect();
+  const sc = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--app-scale'));
+  const r = document.querySelector('.fit--clothes .fit__list').getBoundingClientRect();
+  const l = (r.left - st.left) / sc, rr = (r.right - st.left) / sc;
+  return l >= 628 && rr <= 932;
+})()`) === true);
+check('页码显示正确', (await ev(`document.querySelector('.fit--clothes .fit__page').textContent`)) === '2/2',
+  await ev(`document.querySelector('.fit--clothes .fit__page').textContent`));
+await ev(`document.querySelector('.fit--clothes .fit__prev').click()`);
+await sleep(300);
+check('点 ‹ 能翻回第一页', (await ev(`document.querySelector('.fit--clothes .fit__page').textContent`)) === '1/2');
 
 check('镜子里的预览已生成', await ev(`!!document.querySelector('.mirror__body')`));
 await shot('10-4F');
@@ -315,6 +338,44 @@ for (let i = 0; i < 2; i++) { await ev(`document.querySelector('#skin-toggle').c
 check('一圈点完回到猪猪兔', (await ev(`EG.Say.skin()`)) === 'pigbunny', await ev(`EG.Say.skin()`));
 check('换回猪猪兔后镜子也跟着回来', (await ev(`document.querySelector('.mirror__body').getAttribute('src')`)).indexOf('pigbunny') >= 0);
 
+/* 专属服装：只有对上的主角能穿 */
+await ev(`EG.State.addCoins(80); EG.Shop.buyGarment('headwear', 'carrot');`);   // 先在商店里买下小兔子的发箍
+await sleep(300);
+await ev(`document.querySelector('.fit--headwear .fit__next').click()`);        // 翻到有胡萝卜的那一页
+await sleep(350);
+check('别人的专属会压灰 + 角标出是哪位主角', await ev(`(() => {
+  const b = document.querySelector('.fit--headwear .garment[data-item="carrot"]');
+  return !!b && b.classList.contains('is-other') && !!b.querySelector('.garment__who');
+})()`));
+await ev(`document.querySelector('.fit--headwear .garment[data-item="carrot"]').click()`);
+await sleep(400);
+check('以猪猪兔点小兔子的专属：不会穿上', (await ev(`EG.Outfit.get('headwear')`)) !== 'carrot',
+  '当前头饰=' + (await ev(`EG.Outfit.get('headwear')`)));
+
+/* 换成小兔子：专属就能穿了 */
+await ev(`document.querySelector('#skin-toggle').click()`);   // pigbunny → cat
+await sleep(300);
+await ev(`document.querySelector('#skin-toggle').click()`);   // cat → rabbit
+await sleep(400);
+check('换成小兔子后专属发箍可以穿', await ev(`EG.Outfit.canWear('headwear', 'carrot')`));
+await ev(`document.querySelector('.fit--headwear .garment[data-item="carrot"]').click()`);
+await sleep(400);
+check('小兔子穿上胡萝卜发箍后图层真的显示了', await ev(`(() => {
+  const w = document.querySelector('.cat .wear--headwear');
+  return EG.Outfit.get('headwear') === 'carrot' &&
+         w.getAttribute('src').indexOf('headwear-carrot') >= 0 &&
+         getComputedStyle(w).display !== 'none';
+})()`));
+await ev(`document.querySelector('#skin-toggle').click()`);   // rabbit → pony
+await sleep(400);
+check('换成小马后发箍自动脱掉（图层隐藏、搭配还在存档里）', await ev(`(() => {
+  const w = document.querySelector('.cat .wear--headwear');
+  return EG.Outfit.get('headwear') === 'carrot' && getComputedStyle(w).display === 'none';
+})()`));
+await ev(`document.querySelector('#skin-toggle').click()`);   // pony → pigbunny
+await sleep(400);
+check('回到猪猪兔', (await ev(`EG.Say.skin()`)) === 'pigbunny');
+
 /* --- 4F 商店：买衣服 + 买宠物装扮 --- */
 /* 先补一点星星糖保证买得起（赚钱路径前面已经验证过了，这里只验证商店扣款逻辑） */
 await ev(`EG.State.addCoins(120)`);
@@ -325,7 +386,8 @@ await ev(`document.querySelector('.closetbtn--shop').click()`);
 await sleep(400);
 check('4F 商店能打开', await ev(`document.querySelector('#shop').classList.contains('is-open')`));
 const cardCount = await ev(`document.querySelectorAll('.shopcard').length`);
-check('商店里列了 4 件衣服 + 4 件宠物装扮', cardCount === 8, '商品数=' + cardCount);
+/* 7 件主角衣服（含 3 件专属）+ 4 件宠物装扮 */
+check('商店里列了 7 件衣服 + 4 件宠物装扮', cardCount === 11, '商品数=' + cardCount);
 check('商店里显示当前星星糖', (await ev(`+document.querySelector('#shop-coins').textContent`)) === coinShop0);
 await shot('14-4F-商店');
 
@@ -501,6 +563,57 @@ check('老虎机结算合理（没中 -1 / 中两个 ±0 / 三个一样 +7）', 
 check('老虎机有结果文案', ((await ev(`document.querySelector('#arcade-score').textContent`)) || '').indexOf('颗') >= 0,
   await ev(`document.querySelector('#arcade-score').textContent`));
 await shot('22-6F-老虎机结果');
+
+/* --- 计算练习（HUD 上音量旁边的计算器按钮） --- */
+await ev(`document.querySelector('#math-toggle').click()`);
+await sleep(300);
+check('HUD 计算按钮能开启计算练习', await ev(`EG.Math.isOn() && document.querySelector('#math-toggle').classList.contains('is-on')`));
+check('刚开启时不会立刻弹题（3 分钟后才出）', !(await ev(`EG.Math.isOpen()`)));
+
+await ev(`EG.Math.popNow()`);
+await sleep(400);
+check('到点会弹出计算题', await ev(`EG.Math.isOpen()`));
+const q1 = await ev(`EG.Math.current()`);
+check('题目是小学二年级水平（表内乘法 / 两位数加减）', /^[0-9]+ [×+−] [0-9]+/.test(q1.text), q1.text);
+await shot('23-计算练习');
+
+/* 用屏幕上的数字键答对 */
+for (const d of String(q1.answer)) {
+  await ev(`document.querySelector('.math__key[data-key="' + '${d}' + '"]').click()`);
+  await sleep(90);
+}
+await sleep(300);
+check('用屏幕数字键答对后弹窗消失、可以继续玩', !(await ev(`EG.Math.isOpen()`)));
+check('答对后遮罩也收起来了', (await ev(`getComputedStyle(document.querySelector('#math')).opacity`)) === '0');
+
+/* 10 秒没答出来 → 自动换一道新题（弹窗不会消失） */
+await ev(`EG.CONFIG.math.limitMs = 3000`);      // 让超时测得快一点
+await ev(`EG.Math.popNow()`);
+await sleep(300);
+const qA = await ev(`EG.Math.current()`);
+await sleep(4200);
+const qB = await ev(`EG.Math.current()`);
+check('超时没答出来会自动换一道新题', await ev(`EG.Math.isOpen()`) && qA.text !== qB.text, qA.text + ' → ' + qB.text);
+
+/* 答错：清空输入、弹窗留着继续答 */
+const wrongStr = String(qB.answer + 1).slice(0, 3);
+for (const d of wrongStr) {
+  await ev(`document.querySelector('.math__key[data-key="' + '${d}' + '"]').click()`);
+  await sleep(120);
+}
+await sleep(500);
+check('答错会清空输入、弹窗继续留着', await ev(`EG.Math.isOpen()`) &&
+  (await ev(`document.querySelector('#math-input').textContent`)) === '?',
+  '输入框=' + (await ev(`document.querySelector('#math-input').textContent`)));
+await shot('24-计算练习-答错');
+
+/* 关掉开关：弹窗立刻消失、不再计时 */
+await ev(`document.querySelector('#math-toggle').click()`);
+await sleep(300);
+check('再点一下能关掉计算练习（弹窗同时消失）',
+  !(await ev(`EG.Math.isOn()`)) && !(await ev(`EG.Math.isOpen()`)));
+await ev(`EG.CONFIG.math.limitMs = 10000`);
+check('开关状态写进存档', (await ev(`JSON.parse(localStorage.getItem('meow-elevator-save-v1')).mathOn`)) === false);
 
 /* --- 回 1F --- */
 await ev(`document.querySelector('.floorbtn[data-floor="1"]').click()`);

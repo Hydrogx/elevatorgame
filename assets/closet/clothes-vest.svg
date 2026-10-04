@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 衣服·马术小背心（小马专属） -->
+  <path d="M66 168 A86 86 0 0 0 234 168 L238 292 Q150 320 62 292 Z"
+        fill="#C98F6A" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <!-- 里面的浅色衬衫 -->
+  <path d="M112 178 L150 258 L188 178 q-38 -18 -76 0 Z" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <!-- 扣子 -->
+  <g fill="#FFE066" stroke="#6B4A45" stroke-width="4">
+    <circle cx="150" cy="272" r="6"/><circle cx="150" cy="294" r="6"/>
+  </g>
+  <!-- 马蹄铁徽章 -->
+  <g transform="translate(196 246)">
+    <path d="M-16 -14 a16 16 0 1 0 0 32" fill="none" stroke="#FFE066" stroke-width="9" stroke-linecap="round"/>
+    <path d="M-16 -14 a16 16 0 1 0 0 32" fill="none" stroke="#6B4A45" stroke-width="3" stroke-linecap="round" opacity="0.5"/>
+  </g>
+  <!-- 小口袋 -->
+  <path d="M92 244 h34 v26 q-17 8 -34 0 Z" fill="#B47B57" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+</svg>
