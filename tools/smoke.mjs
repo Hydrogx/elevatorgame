@@ -84,7 +84,8 @@ for (let i = 0; i < 40; i++) {
 }
 check('游戏已启动（糖果已生成）', await ev(`document.querySelectorAll('.candy').length`) > 0,
   '糖果数=' + (await ev(`document.querySelectorAll('.candy').length`)));
-check('可爱字体已加载', await ev(`document.fonts.check('16px KuaiLe')`));
+/* 字体是 2MB 的 ttf，线上要等它下载完再断言 */
+check('可爱字体已加载', await ev(`document.fonts.ready.then(function () { return document.fonts.check('16px KuaiLe'); })`));
 
 /* 按键竖排：3F 在最上、1F 在最下 */
 const btnOrder = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => b.dataset.floor).join(',')`);
@@ -282,8 +283,12 @@ await shot('13-4F-换主角后的镜子');
 await ev(`document.querySelector('#skin-toggle').click()`);
 await sleep(400);
 check('切到小兔子', (await ev(`EG.Say.skin()`)) === 'rabbit', await ev(`EG.Say.skin()`));
-check('小兔子能穿衣服（镜子里的衣服图层没被隐藏）',
-  await ev(`getComputedStyle(document.querySelector('.mirror .wear--clothes')).display !== 'none'`));
+/* 注意：随机搭配有可能抽到「不穿」，那图层本来就会隐藏 —— 只断言不会被 skin-cat 规则藏掉 */
+check('小兔子能穿衣服（不会像猫猫那样被隐藏）', await ev(`(() => {
+  const wear = document.querySelector('.mirror .wear--clothes');
+  const item = EG.Outfit.data.clothes;
+  return !document.body.classList.contains('skin-cat') && (!item || getComputedStyle(wear).display !== 'none');
+})()`));
 await shot('13b-4F-小兔子');
 
 /* 再点两下到小马，然后回到猪猪兔 */
