@@ -103,9 +103,101 @@
 
 .pick.is-active .pick__label { background: var(--c-pink); color: #fff; }
 
-/* 展示台上的冰淇淋（DOM 顺序 = 配料 → 球 → 蛋筒，从上往下叠） */
+/* ---------- 2F 的顾客 + 点单气泡 ---------- */
+.customer {
+  left: 37.5%;
+  bottom: 155px;
+  width: 126px;
+  height: 158px;
+  transform: translateX(-50%);
+  z-index: 4;
+  animation: bobslow 3.6s ease-in-out infinite;
+}
+
+.customer__img {
+  width: 100%;
+  height: 100%;
+  filter: drop-shadow(0 6px 0 rgba(107, 74, 69, 0.16));
+}
+
+.customer__name {
+  position: absolute;
+  bottom: -16px;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 1px 10px;
+  border-radius: 11px;
+  background: #FFF6E5;
+  border: 3px solid var(--c-outline);
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.customer.is-happy { animation: hop 0.6s ease; }
+.customer.is-shake { animation: shake 0.5s ease; }
+
+/* 点单气泡：我要 🍓 + 🍒 ！ */
+.order {
+  left: 37.5%;
+  bottom: 326px;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 14px;
+  border-radius: 18px;
+  background: #FFFFFF;
+  border: 4px solid var(--c-outline);
+  box-shadow: 0 5px 0 rgba(107, 74, 69, 0.18);
+  font-size: 15px;
+  white-space: nowrap;
+  z-index: 6;
+}
+
+/* 气泡下面的小尖角指向顾客 */
+.order::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -20px;
+  margin-left: -13px;
+  border: 13px solid transparent;
+  border-top-color: var(--c-outline);
+  border-bottom: 0;
+}
+
+.order::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: -11px;
+  margin-left: -8px;
+  border: 8px solid transparent;
+  border-top-color: #FFFFFF;
+  border-bottom: 0;
+  z-index: 2;
+}
+
+.order.is-new { animation: bump 0.5s ease; }
+
+.order__icon {
+  width: 36px;
+  height: 32px;
+  object-fit: contain;
+}
+
+.order__text { color: var(--c-ink-soft); }
+
+/* 对上点单时价格徽章高亮 */
+.icecream__price.is-match {
+  background: var(--c-mint);
+  box-shadow: 0 0 0 5px rgba(127, 216, 190, 0.5);
+}
+
+/* 展示台上的冰淇淋（DOM 顺序 = 配料 → 球 → 蛋筒，从上往下叠）
+   展示台在房间原稿里往右挪到了 x=700，所以这里是 58.3% */
 .icecream {
-  left: 51.7%;
+  left: 58.3%;
   bottom: 160px;
   transform: translateX(-50%);
   display: flex;

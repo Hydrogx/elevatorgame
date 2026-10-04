@@ -50,6 +50,12 @@ window.EG = window.EG || {};
         avatar: 'assets/ui/avatar-cat.svg'
       }
     },
+    /* 2F 的顾客（每人一张独立 SVG） */
+    customers: {
+      bear:    'assets/customers/customer-bear.svg',
+      fox:     'assets/customers/customer-fox.svg',
+      penguin: 'assets/customers/customer-penguin.svg'
+    },
     rooms: {
       1: 'assets/rooms/room-candy.svg',
       2: 'assets/rooms/room-icecream.svg',
@@ -212,8 +218,18 @@ window.EG = window.EG || {};
       }
     },
 
-    /* 5F 宠物层的玩法数值 */
-    pets: {
+    /* 2F 冰淇淋屋：顾客会点单，完全对上给更高奖励 */
+    icecream: {
+      base: 3,        // 没对上点单的售价
+      match: 8,       // 完全对上点单的售价
+      customers: [
+        { id: 'bear',    name: '小熊阿布' },
+        { id: 'fox',     name: '小狐菲菲' },
+        { id: 'penguin', name: '企鹅点点' }
+      ]
+    },
+
+    /* 5F 宠物层的玩法数值 */    pets: {
       coinPet: 1,             // 摸一下给的星星糖
       coinFeed: 3,            // 喂对零食给的星星糖
       affinityPerPet: 8,      // 摸一下加的好感度
@@ -259,8 +275,8 @@ window.EG = window.EG || {};
         room: 'assets/rooms/room-icecream.svg',
         button: 'assets/elevator/button-2f.svg',
         mapY: 69.9,
-        tip: '选一个 <b>冰淇淋球</b> + 一个 <b>配料</b>，做好后点一下卖出去',
-        lines: ['冰淇淋屋到啦～', '推荐配方可以卖更贵哦！', '草莓加樱桃，最搭啦！']
+        tip: '看 <b>顾客的点单</b>：口味 + 配料都对上能卖 <b>8 颗</b>，没对上只有 3 颗',
+        lines: ['冰淇淋屋到啦～', '照着客人的点单做，奖励更多哦！', '客人会换的，看清楚再下手～']
       },
       {
         id: 3,

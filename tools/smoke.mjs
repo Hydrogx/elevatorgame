@@ -110,23 +110,50 @@ await sleep(2600);
 check('到站后门已打开', !(await ev(`document.querySelector('#stage').classList.contains('is-closed')`)));
 check('2F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('icecream'));
 check('2F 玩法已挂载', (await ev(`document.querySelectorAll('.pick').length`)) === 6);
+check('2F 来了顾客并点单', await ev(`!!document.querySelector('.customer__img') && document.querySelectorAll('.order__icon').length === 2`),
+  '顾客：' + (await ev(`document.querySelector('.customer__name').textContent`)) +
+  '，点单：' + (await ev(`[...document.querySelectorAll('.order__icon')].map(i => i.alt).join('+')`)));
 await shot('04-2F');
 
-/* --- 2F：选球 + 选配料 --- */
-await ev(`document.querySelectorAll('.pick')[0].click()`);   // 草莓
-await sleep(200);
-await ev(`document.querySelectorAll('.pick')[4].click()`);   // 樱桃（推荐搭配）
-await sleep(1100);
+/* --- 2F：照着顾客的点单做 → 应该卖更贵 --- */
+const wantOrder = await ev(`[...document.querySelectorAll('.order__icon')].map(i => i.alt).join('+')`);
+await ev(`(() => {
+  const names = [...document.querySelectorAll('.order__icon')].map(i => i.alt);
+  const picks = [...document.querySelectorAll('.pick')];
+  names.forEach(n => { const p = picks.find(x => x.textContent.trim() === n); if (p) p.click(); });
+})()`);
+await sleep(1200);
 check('冰淇淋已做好', await ev(`!!document.querySelector('.icecream.is-ready')`));
-check('售价显示 5（推荐搭配）', (await ev(`document.querySelector('.icecream__price')?.textContent`)) === '5',
-  '价格=' + (await ev(`document.querySelector('.icecream__price')?.textContent`)));
-await shot('05-2F-做好了');
+check('照着点单做，售价 8 颗', (await ev(`document.querySelector('.icecream__price')?.textContent`)) === '8',
+  '点单=' + wantOrder + ' 售价=' + (await ev(`document.querySelector('.icecream__price')?.textContent`)));
+check('对上点单时价格徽章高亮', await ev(`!!document.querySelector('.icecream__price.is-match')`));
+await shot('05-2F-对上点单');
 const coin2 = await ev(`+document.querySelector('#coin-count').textContent`);
 await ev(`document.querySelector('.icecream').click()`);
-await sleep(400);
+await sleep(600);
 const coin3 = await ev(`+document.querySelector('#coin-count').textContent`);
-check('卖冰淇淋加星星糖', coin3 - coin2 === 5, `+${coin3 - coin2}`);
+check('对上点单卖出 +8 颗', coin3 - coin2 === 8, `+${coin3 - coin2}`);
+check('卖完会换下一位顾客', await ev(`!!document.querySelector('.customer__name').textContent`));
 await shot('06-2F-卖出');
+
+/* --- 2F：故意做错的 → 只值 3 颗 --- */
+await ev(`(() => {
+  const names = [...document.querySelectorAll('.order__icon')].map(i => i.alt);
+  const picks = [...document.querySelectorAll('.pick')];
+  const flavors = picks.slice(0, 3), toppings = picks.slice(3);
+  const f = flavors.find(x => names.indexOf(x.textContent.trim()) === -1) || flavors[0];
+  const t = toppings.find(x => names.indexOf(x.textContent.trim()) === -1) || toppings[0];
+  f.click(); t.click();
+})()`);
+await sleep(1200);
+check('没对上点单的售价是 3 颗', (await ev(`document.querySelector('.icecream__price')?.textContent`)) === '3',
+  '售价=' + (await ev(`document.querySelector('.icecream__price')?.textContent`)));
+const coinBad0 = await ev(`+document.querySelector('#coin-count').textContent`);
+await ev(`document.querySelector('.icecream').click()`);
+await sleep(500);
+const coinBad1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('没对上点单卖出 +3 颗', coinBad1 - coinBad0 === 3, `+${coinBad1 - coinBad0}`);
+await shot('07-2F-做错了');
 
 /* --- 去 3F --- */
 await ev(`document.querySelector('.floorbtn[data-floor="3"]').click()`);

@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 250" width="200" height="250">
+  <!-- 顾客·小熊阿布 -->
+  <ellipse cx="100" cy="196" rx="56" ry="44" fill="#C98F5E" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="100" cy="208" rx="34" ry="30" fill="#F2D5B0"/>
+  <ellipse cx="78" cy="240" rx="17" ry="10" fill="#C98F5E" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="122" cy="240" rx="17" ry="10" fill="#C98F5E" stroke="#6B4A45" stroke-width="6"/>
+  <!-- 手 -->
+  <ellipse cx="46" cy="192" rx="15" ry="22" transform="rotate(-16 46 192)" fill="#C98F5E" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="154" cy="192" rx="15" ry="22" transform="rotate(16 154 192)" fill="#C98F5E" stroke="#6B4A45" stroke-width="6"/>
+  <!-- 耳朵 -->
+  <circle cx="52" cy="46" r="23" fill="#C98F5E" stroke="#6B4A45" stroke-width="7"/>
+  <circle cx="148" cy="46" r="23" fill="#C98F5E" stroke="#6B4A45" stroke-width="7"/>
+  <circle cx="52" cy="46" r="11" fill="#F2D5B0"/>
+  <circle cx="148" cy="46" r="11" fill="#F2D5B0"/>
+  <!-- 头 -->
+  <circle cx="100" cy="104" r="66" fill="#C98F5E" stroke="#6B4A45" stroke-width="7"/>
+  <ellipse cx="100" cy="124" rx="34" ry="26" fill="#F2D5B0"/>
+  <circle cx="78" cy="96" r="9" fill="#5A3E3A"/>
+  <circle cx="122" cy="96" r="9" fill="#5A3E3A"/>
+  <circle cx="81" cy="92" r="3.4" fill="#FFFFFF"/>
+  <circle cx="125" cy="92" r="3.4" fill="#FFFFFF"/>
+  <ellipse cx="100" cy="116" rx="11" ry="8" fill="#5A3E3A"/>
+  <path d="M100 126 q-8 9 -15 2 M100 126 q8 9 15 2" fill="none" stroke="#6B4A45" stroke-width="4.5" stroke-linecap="round"/>
+  <ellipse cx="56" cy="118" rx="12" ry="8" fill="#FF9FB6" opacity="0.85"/>
+  <ellipse cx="144" cy="118" rx="12" ry="8" fill="#FF9FB6" opacity="0.85"/>
+</svg>
