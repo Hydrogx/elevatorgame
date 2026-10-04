@@ -10,12 +10,22 @@
 
   function $(sel) { return document.querySelector(sel); }
 
-  /* ---------- 1. 整体等比缩放，居中铺满窗口 ---------- */
+  /* ---------- 1. 整体等比缩放，居中铺满窗口 ----------
+     手机上用 visualViewport 的尺寸，这样浏览器地址栏收起/展开时不会算错 */
+  function viewSize() {
+    var vv = window.visualViewport;
+    return {
+      w: Math.round(vv ? vv.width : window.innerWidth),
+      h: Math.round(vv ? vv.height : window.innerHeight)
+    };
+  }
+
   function fitApp() {
-    var app = dom.app;
-    var s = Math.min(window.innerWidth / C.design.width, window.innerHeight / C.design.height);
-    s = Math.max(0.4, Math.min(s, 1.6));
-    app.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+    var v = viewSize();
+    var s = Math.min(v.w / C.design.width, v.h / C.design.height);
+    s = Math.max(0.26, Math.min(s, 1.6));
+    dom.app.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
+    document.documentElement.style.setProperty('--app-scale', s);
   }
 
   /* ---------- 2. 楼层按钮 / 提示 / 小地图标签 ---------- */
@@ -163,6 +173,23 @@
 
     fitApp();
     window.addEventListener('resize', fitApp);
+    window.addEventListener('orientationchange', function () {
+      /* 手机转屏后浏览器要过一会儿才把地址栏收好，多算两次 */
+      window.setTimeout(fitApp, 260);
+      window.setTimeout(fitApp, 700);
+    });
+    if (window.visualViewport) {
+      window.visualViewport.addEventListener('resize', fitApp);
+    }
+    window.setTimeout(fitApp, 400);
+    window.setTimeout(fitApp, 1200);
+
+    /* 竖屏提示条：点一下就收起，别挡着玩 */
+    var hint = $('#rotate-hint');
+    if (hint) {
+      hint.addEventListener('click', function () { hint.classList.add('is-hidden'); });
+    }
+
     decorateSky();
     preload();
 

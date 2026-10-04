@@ -43,12 +43,6 @@
   50%      { opacity: 0.25; }
 }
 
-@keyframes floatup {
-  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
-  25%  { opacity: 1; transform: translate(-50%, -80%) scale(1.15); }
-  100% { opacity: 0; transform: translate(-50%, -230%) scale(1); }
-}
-
 @keyframes sparkleout {
   0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
   40%  { opacity: 1; transform: translate(-50%, -50%) scale(1.25) rotate(90deg); }
@@ -60,6 +54,13 @@
   100% { opacity: 0; transform: scale(2.6); }
 }
 
+/* 飘字：往上飘的距离刻意做短一点，免得盖住上面的按钮 */
+@keyframes floatup {
+  0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.6); }
+  22%  { opacity: 1; transform: translate(-50%, -92%) scale(1.12); }
+  100% { opacity: 0; transform: translate(-50%, -180%) scale(1); }
+}
+
 @keyframes spin {
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
@@ -68,6 +69,18 @@
 @keyframes bob {
   0%, 100% { transform: translateY(0) rotate(-3deg); }
   50%      { transform: translateY(-9px) rotate(3deg); }
+}
+
+/* 注意：CSS 动画会整个覆盖 transform，所以给「靠 transform 居中的元素」
+   单独准备两条关键帧，否则它们一边浮动一边会跑偏 */
+@keyframes bobc {          /* 完全居中（糖果：translate(-50%,-50%)） */
+  0%, 100% { transform: translate(-50%, -50%) translateY(0) rotate(-3deg); }
+  50%      { transform: translate(-50%, -50%) translateY(-9px) rotate(3deg); }
+}
+
+@keyframes bobx {          /* 只横向居中（零食：translateX(-50%)） */
+  0%, 100% { transform: translateX(-50%) translateY(0) rotate(-3deg); }
+  50%      { transform: translateX(-50%) translateY(-9px) rotate(3deg); }
 }
 
 @keyframes bobslow {

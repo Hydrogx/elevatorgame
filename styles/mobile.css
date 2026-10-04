@@ -1,0 +1,132 @@
+/* ============================================================
+   mobile.css —— 手机 / 触屏相关的适配
+   只在触屏、窄屏、竖屏时生效，桌面端完全不受影响
+   ============================================================ */
+
+/* ---------- 1. 基础：禁止双击缩放、橡皮筋滚动，处理刘海安全区 ---------- */
+html {
+  touch-action: manipulation;         /* 去掉 300ms 点击延迟，也避免双击放大 */
+  overscroll-behavior: none;
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  overscroll-behavior: none;
+  padding: env(safe-area-inset-top) env(safe-area-inset-right)
+           env(safe-area-inset-bottom) env(safe-area-inset-left);
+}
+
+.app {
+  /* 缩放值由 main.js 写进 --app-scale，方便别的地方参考 */
+  will-change: transform;
+}
+
+/* ---------- 2. 触屏设备：把可点区域整体放大，并去掉「粘住」的 hover ---------- */
+@media (pointer: coarse) {
+  /* 手机上右侧栏太挤：小地图先让位，把高度都给楼层按键 */
+  .minimap { display: none; }
+
+  .panel {
+    flex: 1 1 auto;
+    padding: 10px 14px 10px;
+  }
+
+  .floorbtn {
+    height: 82px;
+    padding: 0 12px;
+  }
+  .floorbtn img { width: 60px; height: 60px; }
+  .floorbtn__label b { font-size: 26px; }
+  .floorbtn__label span { font-size: 14px; }
+
+  .panel__arrows { gap: 22px; }
+  .panel__arrow { width: 54px; height: 54px; }
+
+  .panel__hint { font-size: 13px; }
+
+  /* 各楼层里的小按钮也放大一点，保证手指点得中 */
+  .pick__btn { width: 96px; height: 96px; }
+  .pick__label { font-size: 14px; }
+  .garment { width: 80px; height: 80px; }
+  .fit__list { gap: 10px; }
+  .food { width: 78px; }
+  .food__label { font-size: 12px; }
+  .brew { width: 168px; height: 168px; }
+  .gauge { width: 60px; }
+  .dice { font-size: 16px; padding: 8px 22px; }
+  .jarhint { font-size: 15px; }
+
+  /* 糖果本身很小，用内边距把「看不见的点击热区」撑大，
+     图片尺寸不变（box-sizing: border-box），所以版面不会乱 */
+  .candy {
+    width: 8.6%;
+    padding: 12px;
+  }
+  .candy.is-gold { width: 9.8%; }
+
+  /* HUD 上的三个圆形按钮 */
+  .hud__sound { width: 58px; height: 58px; }
+  .hud__sound img { width: 34px; height: 34px; }
+  .hud__skin { width: 58px; height: 58px; }
+  .hud__skin img { width: 48px; height: 48px; }
+  .hud__reset { width: 50px; height: 50px; font-size: 24px; }
+
+  /* 提示条窄一点，别把楼层按钮挤没 */
+  .hud__title small { display: none; }
+}
+
+/* 触屏上 hover 会「粘住」，全部禁用，改用 :active 反馈 */
+@media (hover: none) {
+  .floorbtn:hover { transform: none; background: rgba(255, 255, 255, 0.55); }
+  .floorbtn.is-active:hover { background: #FFFBEF; }
+  .pick:hover .pick__btn { transform: none; box-shadow: 0 6px 0 rgba(107, 74, 69, 0.2); }
+  .garment:hover { transform: none; }
+  .food:hover { transform: translateX(-50%); }
+  .pet:hover .pet__img { transform: none; }
+  .cup.is-ready:hover img { transform: none; }
+  .dice:hover { background: #FFF3F8; }
+  .hud__skin:hover { transform: none; }
+  .hud__reset:hover { background: rgba(255, 255, 255, 0.7); color: var(--c-ink-soft); }
+}
+
+/* ---------- 3. 竖屏手机：给一个「横过来玩」的提示条（不会挡住游戏） ---------- */
+.rotate-hint {
+  display: none;
+  position: fixed;
+  left: 50%;
+  top: calc(env(safe-area-inset-top, 0px) + 10px);
+  transform: translateX(-50%);
+  z-index: 60;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 18px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.94);
+  border: 4px solid var(--c-outline);
+  box-shadow: 0 5px 0 rgba(107, 74, 69, 0.22);
+  font-size: 14px;
+  color: var(--c-ink);
+  white-space: nowrap;
+  cursor: pointer;
+}
+
+.rotate-hint img {
+  width: 28px;
+  height: 28px;
+  animation: wiggle 1.8s ease-in-out infinite;
+}
+
+.rotate-hint.is-hidden { display: none !important; }
+
+@media (orientation: portrait) and (max-width: 900px) {
+  .rotate-hint { display: flex; }
+}
+
+/* ---------- 4. 特别窄的横屏（小手机横屏）：HUD 再紧凑一点 ---------- */
+@media (orientation: landscape) and (max-height: 460px) {
+  .hud { height: 56px; flex: 0 0 56px; }
+  .hud__title { font-size: 24px; }
+  .hud__title small { display: none; }
+  .hud__coins { height: 44px; font-size: 22px; }
+  .hud__tip { font-size: 13px; padding: 3px 12px; }
+}

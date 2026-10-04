@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 横屏提示用的小手机图标 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <rect x="34" y="24" width="52" height="76" rx="12" fill="#FFF6E5" transform="rotate(-18 60 60)"/>
+    <rect x="44" y="34" width="32" height="50" rx="6" fill="#BFE9FF" transform="rotate(-18 60 60)"/>
+  </g>
+  <path d="M84 84 a28 28 0 0 0 14 -22" fill="none" stroke="#FF8FAB" stroke-width="8" stroke-linecap="round"/>
+  <path d="M98 62 l-2 16 l-14 -8 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="5" stroke-linejoin="round"/>
+</svg>

@@ -156,12 +156,12 @@ window.EG = window.EG || {};
       pigbunny: {
         id: 'pigbunny',
         name: '猪猪兔',
-        hello: '欢迎光临喵喵电梯公寓！<br>我是主角猪猪兔，想去哪一层呀？'
+        hello: '欢迎光临喵喵电梯公寓！我是主角猪猪兔，想去哪一层呀？'
       },
       cat: {
         id: 'cat',
         name: '咪咪',
-        hello: '欢迎光临喵喵电梯公寓！<br>我是电梯小姐咪咪，想去哪一层呀？'
+        hello: '欢迎光临喵喵电梯公寓！我是电梯小姐咪咪，想去哪一层呀？'
       }
     },
 
@@ -241,7 +241,7 @@ window.EG = window.EG || {};
       petBottom: 155,         // 宠物底边距舞台底部（px）
       bowlLeft: 39.2,         // 食盆横向位置（%）
       foodLeft: [51, 59, 67], // 三个零食的横向位置（%）
-      foodBottom: 70,         // 零食底边距舞台底部（px）
+      foodBottom: 78,         // 零食底边距舞台底部（px）
       list: [
         { id: 'cat',    name: '团子', kind: '小猫', food: 'fish',   x: 35 },
         { id: 'dog',    name: '豆豆', kind: '小狗', food: 'bone',   x: 53.3 },

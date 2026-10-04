@@ -23,10 +23,13 @@
 
     float: function (x, y, text, life) {
       if (!layer) return;
+      /* 同时最多 5 个飘字，多了就把最早那个撤掉，免得糊成一片挡住按钮 */
+      var olds = layer.querySelectorAll('.fx__float');
+      if (olds.length >= 5 && olds[0].parentNode) olds[0].parentNode.removeChild(olds[0]);
       var n = EG.util.el('div', 'fx__float', text);
       n.style.left = x + '%';
       n.style.top = y + '%';
-      add(n, life || 1000);
+      add(n, life || 900);
     },
 
     sparkle: function (x, y, count) {

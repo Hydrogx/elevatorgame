@@ -2,7 +2,11 @@
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#BEE9FF">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
 <title>喵喵电梯公寓 · 1F 糖果屋 / 2F 冰淇淋屋 / 3F 咖啡屋</title>
 <meta name="description" content="可爱风的电梯模拟小游戏：坐电梯去不同楼层，每一层都有不同的小玩法。">
 <link rel="icon" href="assets/ui/favicon.svg">
@@ -12,8 +16,15 @@
 <link rel="stylesheet" href="styles/floors.css">
 <link rel="stylesheet" href="styles/animations.css">
 <link rel="stylesheet" href="styles/backdrop.css">
+<link rel="stylesheet" href="styles/mobile.css">
 </head>
 <body>
+
+<!-- 竖屏手机上出现的「横过来玩」提示，点一下就没（不挡游戏操作） -->
+<div class="rotate-hint" id="rotate-hint">
+  <img src="assets/ui/rotate-phone.svg" alt="">
+  <span>把手机横过来玩更舒服～</span>
+</div>
 
 <!-- 背景天空装饰（窗口比游戏画布大时露出来的部分） -->
 <div class="backdrop" aria-hidden="true">
