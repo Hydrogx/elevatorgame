@@ -16,6 +16,8 @@
 <link rel="stylesheet" href="styles/floors.css">
 <link rel="stylesheet" href="styles/animations.css">
 <link rel="stylesheet" href="styles/backdrop.css">
+<link rel="stylesheet" href="styles/arcade.css">
+<link rel="stylesheet" href="styles/shop.css">
 <link rel="stylesheet" href="styles/mobile.css">
 </head>
 <body>
@@ -94,6 +96,47 @@
       <div class="bubble" id="bubble"><span id="bubble-text"></span></div>
 
       <div class="fx" id="fx"></div>
+
+      <!-- 6F 三个小游戏的弹窗（默认隐藏，放在舞台里所以飘字能盖在上面） -->
+      <div class="arcade" id="arcade">
+        <div class="arcade__panel">
+          <div class="arcade__head">
+            <h3 class="arcade__title" id="arcade-title"></h3>
+            <button class="arcade__close" id="arcade-close" type="button" aria-label="关闭">×</button>
+          </div>
+          <div class="arcade__body" id="arcade-body"></div>
+          <p class="arcade__hint" id="arcade-hint"></p>
+          <div class="arcade__foot">
+            <span class="arcade__score" id="arcade-score"></span>
+            <button class="arcade__action" id="arcade-action" type="button"></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- 4F 商店：买主角的衣服 / 宠物的装扮 -->
+      <div class="shop" id="shop">
+        <div class="shop__panel">
+          <div class="shop__head">
+            <h3 class="shop__title">🛍 星星糖服装店</h3>
+            <span class="shop__coins"><img src="assets/ui/coin-sugar.svg" alt=""> <b id="shop-coins">0</b></span>
+            <button class="shop__close" id="shop-close" type="button" aria-label="关闭">×</button>
+          </div>
+          <div class="shop__body" id="shop-body"></div>
+          <p class="shop__hint">点一下问价，再点一下买下来；衣服会直接穿上，宠物饰品去「宠物装扮」戴上</p>
+        </div>
+      </div>
+
+      <!-- 4F 宠物装扮：给每只宠物挑一件饰品 -->
+      <div class="petdress" id="petdress">
+        <div class="petdress__panel">
+          <div class="petdress__head">
+            <h3 class="petdress__title">🐾 宠物装扮</h3>
+            <button class="petdress__close" id="petdress-close" type="button" aria-label="关闭">×</button>
+          </div>
+          <div class="petdress__body" id="petdress-body"></div>
+          <p class="petdress__hint">带 🔒 的还没买，先去「商店」买下来～装扮好以后去 5F 就能看到啦</p>
+        </div>
+      </div>
     </section>
 
     <aside class="side">
@@ -105,6 +148,11 @@
             <img class="panel__arrow" id="btn-up" src="assets/elevator/arrow-up.svg" alt="上一层" title="上一层">
             <img class="panel__arrow" id="btn-down" src="assets/elevator/arrow-down.svg" alt="下一层" title="下一层">
           </div>
+
+          <button class="floorbtn" data-floor="6" type="button">
+            <img src="assets/elevator/button-6f.svg" alt="">
+            <span class="floorbtn__label"><b>6F</b><span>游乐区</span></span>
+          </button>
 
           <button class="floorbtn" data-floor="5" type="button">
             <img src="assets/elevator/button-5f.svg" alt="">
@@ -135,9 +183,9 @@
         </div>
       </div>
 
-      <div class="minimap" id="minimap">
-        <img class="minimap__bg" src="assets/elevator/map-building.svg" alt="楼层小地图">
-        <img class="minimap__car" id="map-car" src="assets/elevator/map-car.svg" alt="">
+      <!-- 楼层指示条（格子由 main.js 按 floors 配置生成，轿厢停在当前层） -->
+      <div class="floors" id="floor-strip">
+        <img class="floors__car" id="map-car" src="assets/elevator/map-car.svg" alt="">
       </div>
     </aside>
   </main>
@@ -151,6 +199,8 @@
 <script src="js/core/fx.js"></script>
 <script src="js/core/dialogue.js"></script>
 <script src="js/core/outfit.js"></script>
+<script src="js/core/petwear.js"></script>
+<script src="js/core/shop.js"></script>
 <script src="js/core/elevator.js"></script>
 <script src="js/floors/registry.js"></script>
 <script src="js/floors/candy.js"></script>
@@ -158,6 +208,7 @@
 <script src="js/floors/coffee.js"></script>
 <script src="js/floors/closet.js"></script>
 <script src="js/floors/pet.js"></script>
+<script src="js/floors/arcade.js"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

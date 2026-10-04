@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <!-- 6F 按钮：游戏手柄 -->
+  <defs>
+    <radialGradient id="g6" cx="0.35" cy="0.3" r="0.8">
+      <stop offset="0" stop-color="#FFD9C2"/>
+      <stop offset="1" stop-color="#FF9F7A"/>
+    </radialGradient>
+  </defs>
+  <circle cx="100" cy="100" r="92" fill="#FFFFFF" stroke="#6B4A45" stroke-width="8"/>
+  <circle cx="100" cy="100" r="74" fill="url(#g6)" stroke="#6B4A45" stroke-width="6"/>
+  <ellipse cx="72" cy="66" rx="24" ry="15" fill="#FFFFFF" opacity="0.45" transform="rotate(-30 72 66)"/>
+  <g transform="translate(100 104)">
+    <rect x="-48" y="-26" width="96" height="54" rx="26" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6"/>
+    <path d="M-26 -14 v28 M-40 0 h28" stroke="#6B4A45" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="26" cy="-9" r="8" fill="#FF8FAB" stroke="#6B4A45" stroke-width="4"/>
+    <circle cx="40" cy="7" r="8" fill="#7FD8BE" stroke="#6B4A45" stroke-width="4"/>
+    <circle cx="40" cy="-9" r="6" fill="#FFD166" stroke="#6B4A45" stroke-width="4"/>
+  </g>
+</svg>

@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 110 120" width="110" height="120">
+  <!-- 羽毛球 -->
+  <path d="M55 8 q26 0 30 22 l-8 44 h-44 l-8 -44 q4 -22 30 -22 Z" fill="#FFF6E5" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <g stroke="#CFE3F5" stroke-width="4">
+    <path d="M40 26 v46"/><path d="M55 22 v50"/><path d="M70 26 v46"/>
+  </g>
+  <circle cx="55" cy="92" r="20" fill="#FFD166" stroke="#6B4A45" stroke-width="7"/>
+  <path d="M45 86 q10 -6 20 0" fill="none" stroke="#E0A96D" stroke-width="5"/>
+</svg>

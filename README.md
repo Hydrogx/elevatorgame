@@ -32,18 +32,22 @@ HUD 上的小头像可以随时换成另一位角色 **猫猫咪咪**。两个�
 
 | 操作 | 说明 |
 | --- | --- |
-| 点右侧**竖排**楼层按钮 | 坐电梯去各层（**5F 在最上，1F 在最下**，跟真电梯一样） |
+| 点右侧楼层按钮 | 坐电梯去各层（**6F 在最上，1F 在最下**，跟真电梯一样；楼层多了会自动变成两列） |
 | `↑` `↓` 键 | 上一层 / 下一层 |
-| `1` `2` `3` `4` `5` 键 | 直接去对应楼层 |
-| 点糖果 / 冰淇淋 / 咖啡杯 | 各楼层的玩法 |
+| `1` ~ `6` 键 | 直接去对应楼层 |
+| 1F 点糖果 | 收集星星糖（偶尔出现金糖果） |
 | 2F 看顾客点单做冰淇淋 | 口味 + 配料都对上 = 8 颗星星糖，没对上 3 颗；卖完自动换下一位顾客 |
+| 3F 按住萃取、再点杯子 | 在绿色完美区松手最值钱 |
 | 4F 点圆按钮 | 换发型 / 头饰 / 衣服 / 鞋子；`🎲 随机搭配` 一键乱配 |
+| 4F `🛍 商店` | 花星星糖买新衣服，也能买宠物装扮（点一下问价，再点一下买下来） |
+| 4F `🐾 宠物装扮` | 给团子 / 豆豆 / 雪球挑饰品，买过的才能戴；装扮好去 5F 就能看到 |
 | 5F 点宠物 / 先拿零食再点宠物 | 摸一摸 / 喂零食，好感度攒满会升级 |
-| HUD 小头像 | 切换主角形象（猪猪兔 ⇄ 咪咪） |
+| 6F 点三个摊位 | 玩小游戏赚星星糖：🏀 投篮、🏸 羽毛球、🎰 老虎机 |
+| HUD 小头像 | 切换主角形象（猪猪兔 ⇄ 咪咪），**4F 镜子里的自己也会跟着换** |
 | HUD 🔊 | 音效开关 |
 | HUD ↺ | 清空进度重新开始 |
 
-进度（星星糖、做过的配方、穿过的搭配、宠物好感度、当前楼层、主角形象）都会自动存在浏览器 localStorage 里，
+进度（星星糖、买过的商品、宠物装扮、做过的配方、穿过的搭配、宠物好感度、当前楼层、主角形象）都会自动存在浏览器 localStorage 里，
 存档键名：`meow-elevator-save-v1`。
 
 ---
@@ -75,9 +79,11 @@ elevatorgame/
 │   └── Baloo2.ttf              # 可爱数字/英文字体
 ├── styles/
 │   ├── base.css                # 配色变量、字体、整体画布缩放
-│   ├── layout.css              # 舞台 + 右侧竖排面板 + 小地图的布局
-│   ├── elevator.css            # 电梯门 / 轿厢 / 显示屏 / 主角 / 竖排按键面板
-│   ├── floors.css              # 各楼层各自的可交互道具（含 4F 换装、5F 宠物）
+│   ├── layout.css              # 舞台 + 右侧按键面板 + 底部楼层指示条的布局
+│   ├── elevator.css            # 电梯门 / 轿厢 / 显示屏 / 主角 / 按键面板（含两列排布）
+│   ├── floors.css              # 各楼层各自的可交互道具（4F 换装、5F 宠物、宠物装扮图层）
+│   ├── arcade.css              # 6F 三个小游戏的弹窗与版面
+│   ├── shop.css                # 4F 商店 + 宠物装扮面板
 │   ├── animations.css          # 所有关键帧动画
 │   ├── backdrop.css            # 窗口外那圈天空装饰
 │   └── mobile.css              # ★ 手机 / 触屏适配（热区放大、禁粘 hover、竖屏提示）
@@ -89,22 +95,26 @@ elevatorgame/
 │   │   ├── fx.js               # 飘字、闪光、光圈
 │   │   ├── dialogue.js         # 主角表情 + 对话气泡
 │   │   ├── outfit.js           # ★ 换装系统（身体 + 4 个可换图层）
+│   │   ├── petwear.js          # ★ 宠物装扮（任意宠物叠一件饰品，5F/6F/面板同步）
+│   │   ├── shop.js             # ★ 4F 商店 + 宠物装扮面板（商品清单直接从 config 推导）
 │   │   └── elevator.js         # 电梯运行流程（关门→走→叮→开门）
 │   ├── floors/
 │   │   ├── registry.js         # 楼层玩法注册表
 │   │   ├── candy.js            # 1F 糖果屋玩法
 │   │   ├── icecream.js         # 2F 冰淇淋屋玩法
 │   │   ├── coffee.js           # 3F 咖啡屋玩法
-│   │   ├── closet.js           # 4F 衣帽间玩法
-│   │   └── pet.js              # 5F 宠物层玩法
+│   │   ├── closet.js           # 4F 衣帽间玩法（含商店 / 宠物装扮入口）
+│   │   ├── pet.js              # 5F 宠物层玩法
+│   │   └── arcade.js           # 6F 游乐区玩法（三个小游戏）
 │   └── main.js                 # 启动、面板交互、楼层切换
 ├── assets/
 │   ├── character/              # ★ 主角表情（猪猪兔 4 张 + 猫猫 4 张）
-│   ├── closet/                 # ★ 可换装部件：发型 / 头饰 / 衣服 / 鞋子（各 3 件）
-│   ├── pets/                   # ★ 5F 宠物（3 只 × 待机/开心）+ 3 样零食 + 食盆
+│   ├── closet/                 # ★ 可换装部件：发型 / 头饰 / 衣服 / 鞋子（各 4 件，最后一件要买）
+│   ├── pets/                   # ★ 5F 宠物（3 只 × 待机/开心）+ 3 样零食 + 食盆 + 4 件宠物饰品
+│   ├── arcade/                 # ★ 6F 小游戏道具（篮球、篮筐、羽毛球、球拍）
 │   ├── customers/              # ★ 2F 顾客（小熊 / 小狐 / 企鹅，各一张）
-│   ├── rooms/                  # 五层楼的房间背景（1200×675）
-│   ├── elevator/               # 门、轿厢框、楼层按钮、竖排面板底板、显示屏、小地图
+│   ├── rooms/                  # 六层楼的房间背景（1200×675）
+│   ├── elevator/               # 门、轿厢框、楼层按钮、竖排面板底板、显示屏、轿厢标记
 │   ├── items/                  # 糖果、冰淇淋球、配料、咖啡杯…每个一件
 │   ├── ui/                     # 星星糖币、心形、闪光、音效图标、头像、站点图标
 │   ├── bg/                     # 天空、太阳、云、远景城市、山丘
@@ -126,7 +136,9 @@ elevatorgame/
 | 想改什么 | 改这里 |
 | --- | --- |
 | **主角形象 / 表情** | `assets/character/pigbunny-*.svg`（再加一张就复制同尺寸的 SVG，改配色即可） |
-| **给 4F 加一件新衣服 / 新发型** | 在 `assets/closet/` 里加一张 300×350 的 SVG（照着现成的改最省事），再到 `js/core/config.js` 的 `closet.items` 里加一项（`EG.ASSETS.closet` 里同步加路径） |
+| **给 4F 加一件新衣服 / 新发型** | 在 `assets/closet/` 里加一张 300×350 的 SVG（照着现成的改最省事），再到 `js/core/config.js` 的 `closet.items` 里加一项（`EG.ASSETS.closet` 里同步加路径）；带 `price` 就变成商店商品 |
+| **加一件宠物饰品** | 在 `assets/pets/` 里加一张 200×190 的 SVG（和宠物同画布就自动对齐），再到 `js/core/config.js` 的 `petwear.items` 和 `EG.ASSETS.petwear` 里各加一项；取景在 `styles/shop.css` 的 `.pw--*` |
+| **商店 / 宠物装扮弹窗的外观** | `styles/shop.css`（商品卡片、装扮行） |
 | 换装部位的位置 / 缩放取景 | 身体比例在 SVG 里（同一画布就自动对齐）；按钮取景在 `styles/floors.css` 的 `.garment--*` |
 | 4F 每行选项的位置 | `js/core/config.js` 的 `closet.rows`（百分比） |
 | 换装奖励 / 默认穿着 | `js/core/config.js` 的 `closet.comboBonus` 和 `closet.defaultOutfit` |
@@ -136,16 +148,20 @@ elevatorgame/
 | **加一只 5F 新宠物** | 在 `assets/pets/` 放一对图（`xxx-idle.svg` + `xxx-happy.svg`，画布 200×190），再在 `js/core/config.js` 的 `pets.list` 和 `EG.ASSETS.pets.list` 里各加一项（含位置 `x` 和爱吃的零食 `food`） |
 | 宠物的好感度 / 奖励数值 | `js/core/config.js` 的 `pets` 段（每摸一下加多少、升级门槛、升级奖励…） |
 | 5F 宠物和零食的位置 | `js/core/config.js` 的 `pets.petBottom` / `bowlLeft` / `foodLeft` / `foodBottom` |
-| **加一层新楼层（比如 6F）** | ① `assets/rooms/` 放房间图 ② `assets/elevator/button-6f.svg` 放按钮图 ③ `assets/elevator/map-building.svg` 里加一层 ④ `js/core/config.js` 的 `floors` 数组加一项（含 `mapY`）⑤ `index.html` 面板最前面插一个按钮 ⑥ 抄 `js/floors/pet.js` 写一个新玩法文件并挂上 |
-| **楼层按键（竖排顺序 / 大小 / 高亮）** | `index.html` 里的 `.panel` 段（顺序就是 DOM 顺序，5F 在最前）+ `styles/elevator.css` 的 `.panel` / `.floorbtn` |
+| **加一层新楼层（比如 7F）** | ① `assets/rooms/` 放房间图 ② `assets/elevator/button-7f.svg` 放按钮图 ③ `js/core/config.js` 的 `floors` 数组加一项（`room`/`button`/`tip`/`lines`）④ `index.html` 面板最前面插一个按钮（**楼层指示条和两列排布都是自动的**）⑤ 抄 `js/floors/pet.js` 写一个新玩法文件并挂上 |
+| **楼层按键（顺序 / 大小 / 高亮 / 两列）** | `index.html` 里的 `.panel` 段（顺序就是 DOM 顺序，最高层在最前）+ `styles/elevator.css` 的 `.panel` / `.floorbtn` / `body.panel-2col`；几层起用两列改 `config.panel.twoColumnAt` |
+| **楼层指示条** | 格子由 `js/main.js` 按 `floors` 自动生成，样式在 `styles/layout.css` 的 `.floors*` |
+| **商店卖什么 / 卖多少钱** | 在 `js/core/config.js` 的 `closet.items` 或 `petwear.items` 里给商品加 `price` 就会出现在商店（**不写 price 就是免费的**）；商品清单是自动推导的，不用另外登记 |
 | 按键面板的底板花纹 | `assets/elevator/panel-plate-v.svg` |
 | 换回猫猫当默认主角 | `js/core/config.js` 里的 `defaultSkin: 'cat'` |
 | 新增第三种角色 | `assets/character/新角色/` 放 4 张 + 头像，然后在 `EG.ASSETS.character` 和 `EG.CONFIG.skins` 里各加一项 |
-| **某一层的房间样子** | `assets/rooms/room-candy.svg` / `room-icecream.svg` / `room-coffee.svg` / `room-closet.svg` / `room-pet.svg`（画布 1200×675） |
+| **某一层的房间样子** | `assets/rooms/room-candy.svg` / `room-icecream.svg` / `room-coffee.svg` / `room-closet.svg` / `room-pet.svg` / `room-arcade.svg`（画布 1200×675） |
 | 某一层的玩法道具 | `assets/items/`、`assets/closet/`、`assets/pets/` 里对应的 SVG（每件一个文件） |
 | 道具在房间里的位置 / 大小 | `styles/floors.css`（坐标是百分比，对应 1200×675 原稿） |
 | 楼层名字 / 提示文案 / 台词 | `js/core/config.js` 的 `floors` 数组 |
-| 玩法数值（糖果分值、冰淇淋售价、咖啡区间、宠物好感） | `js/floors/candy.js`、`icecream.js`、`coffee.js`、`pet.js` 顶部常量 / `config.pets` |
+| 玩法数值（糖果分值、冰淇淋售价、咖啡区间、宠物好感、小游戏奖励） | `js/floors/candy.js`、`icecream.js`、`coffee.js`、`pet.js`、`arcade.js` 顶部常量 / `config.pets` / `config.arcade` |
+| **6F 三个小游戏的难度与奖励** | `js/core/config.js` 的 `arcade` 段（投篮命中区间、羽毛球加速、老虎机赔率） |
+| **6F 加第四个小游戏** | 在 `js/floors/arcade.js` 里写一个 `startXxx()`，往 `GAMES` 和 `config.arcade.list` 各加一项（房间图里再画个摊位） |
 | **整体配色** | `styles/base.css` 顶部的 `:root` 变量（`--c-pink`、`--c-mint`…） |
 | 电梯开关门速度 | `js/core/config.js` 的 `elevator` 段 |
 | **音效 / BGM** | 直接替换 `assets/audio/*.wav`；想重新合成改 `tools/generate_audio.py` 后运行 `python3 tools/generate_audio.py` |
@@ -170,7 +186,7 @@ elevatorgame/
 node tools/smoke.mjs
 ```
 
-`tools/smoke.mjs` 一共 49 项检查（**每次都会先清空存档再刷新**，保证结果不受上一次进度影响）：
+`tools/smoke.mjs` 一共 83 项检查（**每次都会先清空存档再刷新**，保证结果不受上一次进度影响）：
 按键竖排顺序、糖果能加星星糖、电梯关门/开门、房间切换、
 **2F 顾客点单（照着做卖 8 颗 / 做错了只卖 3 颗 / 卖完换顾客）**、咖啡萃取到完美区、喝咖啡收钱、
 **4F 换装同时更新主角与镜子 / 新搭配奖励 / 换装存档**、
@@ -232,6 +248,17 @@ node tools/mobile-check.mjs
   全部共用 300×350 画布，所以换表情也不会错位；猫猫咪咪没有对应部件，所以穿衣服时会看不到（镜子里照常显示）。
 - **5F 宠物**同理：每只宠物一对图（待机 / 开心），点一下临时换成开心表情，好感度和等级存在存档里，
   每只最高 2 级（★ 好朋友 → ★★ 最好朋友）。
+- **4F 商店是「配置驱动」的**：`config.closet.items` / `config.petwear.items` 里凡是写了 `price` 的条目，
+  会自动出现在商店里（不写 `price` 就是免费的默认款）；买过的记在存档 `owned` 里，
+  换装面板和宠物装扮面板里没买的会显示 🔒 + 价格，点第一次问价、点第二次才扣钱。
+- **宠物装扮**是一张 200×190 的饰品图叠在宠物同尺寸画布上，所以任意宠物都能戴；
+  5F 的宠物、6F 小游戏里出场的宠物、装扮面板里的预览共用同一份数据（改完 4F 去 5F 就能看到）。
+- **换主角时 4F 镜子里的自己也会跟着换**（角色和表情都同步），猫猫没有对应的衣服部件，所以镜子里会自动不穿。
+- 买完衣服会立刻穿上，而「第一次穿出这套搭配」还有 2 颗星星糖奖励，
+  所以商店里买 15 颗的头发，余额会只少 13（这是故意的，不是算错）。
+- **楼层按钮到 6 层会自动排成两列**（6F 5F / 4F 3F / 2F 1F，高楼层依然在上一排），
+  层数门槛在 `config.panel.twoColumnAt`；原来的「楼房剖面小地图」楼层多了竖着放不下，
+  换成了右栏底部的**横向楼层指示条**（格子由配置自动生成，轿厢停在当前层）。
 - **CSS 动画会整个覆盖 `transform`**：靠 `translate(-50%,-50%)` 居中的元素（比如糖果）如果直接套
   `bob` 这种只写 `translateY` 的关键帧就会跑偏，所以另外准备了 `bobc`（完全居中）和 `bobx`（只横向居中）两条关键帧。
 

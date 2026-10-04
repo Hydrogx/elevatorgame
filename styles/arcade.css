@@ -1,0 +1,311 @@
+/* ============================================================
+   arcade.css —— 6F 三个小游戏（摊位按钮 + 弹窗 + 三个游戏各自的版面）
+   ============================================================ */
+
+/* ---------- 房间里的三个摊位按钮 ---------- */
+.booth {
+  position: absolute;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 18px;
+  border-radius: 22px;
+  background: #FFF6E5;
+  border: 5px solid var(--c-outline);
+  box-shadow: 0 6px 0 rgba(107, 74, 69, 0.22);
+  font-family: inherit;
+  font-size: 17px;
+  color: var(--c-ink);
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.2s ease;
+}
+
+.booth__icon { font-size: 22px; line-height: 1; }
+
+.booth:hover { transform: translateX(-50%) translateY(-4px); background: #FFFDF7; }
+.booth:active { transform: translateX(-50%) translateY(3px); box-shadow: 0 2px 0 rgba(107, 74, 69, 0.22); }
+
+/* ---------- 弹窗 ---------- */
+.arcade {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: rgba(90, 68, 80, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.arcade.is-open { opacity: 1; pointer-events: auto; }
+
+.arcade__panel {
+  width: 700px;
+  height: 470px;
+  padding: 12px 18px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  background: var(--c-cream);
+  border: 6px solid var(--c-outline);
+  border-radius: 30px;
+  box-shadow: 0 12px 0 rgba(107, 74, 69, 0.28);
+  transform: scale(0.94);
+  transition: transform 0.24s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.arcade.is-open .arcade__panel { transform: scale(1); }
+
+.arcade__head { display: flex; align-items: center; justify-content: space-between; }
+
+.arcade__title { margin: 0; font-size: 22px; color: var(--c-pink); letter-spacing: 1px; }
+
+.arcade__close {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFF3F8;
+  border: 4px solid var(--c-outline);
+  box-shadow: 0 4px 0 rgba(107, 74, 69, 0.2);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--c-ink);
+  cursor: pointer;
+}
+.arcade__close:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(107, 74, 69, 0.2); }
+
+.arcade__body {
+  position: relative;
+  flex: 1;
+  background: #FFFDF7;
+  border: 4px solid var(--c-outline);
+  border-radius: 22px;
+  overflow: hidden;
+}
+
+.arcade__hint { margin: 0; font-size: 14px; line-height: 1.3; color: var(--c-ink-soft); text-align: center; }
+.arcade__hint b { color: var(--c-pink); }
+
+.arcade__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+
+.arcade__score { font-size: 16px; color: var(--c-coffee); }
+
+.arcade__action {
+  padding: 6px 30px;
+  border-radius: 22px;
+  background: var(--c-butter);
+  border: 5px solid var(--c-outline);
+  box-shadow: 0 5px 0 rgba(107, 74, 69, 0.22);
+  font-family: inherit;
+  font-size: 19px;
+  color: var(--c-ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+.arcade__action:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(107, 74, 69, 0.22); }
+.arcade__action:disabled { filter: grayscale(0.5) opacity(0.7); }
+
+/* ============================================================
+   ① 投篮
+   ============================================================ */
+.bb { position: absolute; inset: 0; }
+
+.bb__hoop {
+  position: absolute;
+  left: 50%;
+  top: 4px;
+  width: 150px;
+  transform: translateX(-50%);
+}
+
+.bb__pet {
+  position: absolute;
+  right: 24px;
+  bottom: 18px;
+  width: 108px;
+}
+
+.bb__ball {
+  position: absolute;
+  left: 70px;
+  bottom: 74px;
+  width: 54px;
+}
+
+.bb__ball.is-shoot { animation: bbshoot 0.62s ease-in forwards; }
+.bb__ball.is-miss { animation: bbmiss 0.62s ease-in forwards; }
+
+@keyframes bbshoot {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  55%  { transform: translate(150px, -150px) rotate(220deg); }
+  100% { transform: translate(240px, -80px) rotate(360deg); }
+}
+
+@keyframes bbmiss {
+  0%   { transform: translate(0, 0) rotate(0deg); }
+  60%  { transform: translate(130px, -130px) rotate(200deg); }
+  100% { transform: translate(250px, 30px) rotate(320deg); }
+}
+
+.bb__bar {
+  position: absolute;
+  left: 50%;
+  bottom: 22px;
+  width: 430px;
+  height: 30px;
+  transform: translateX(-50%);
+  background: #FFF3F8;
+  border: 4px solid var(--c-outline);
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.bb__zone { position: absolute; top: 0; bottom: 0; }
+.bb__zone--good {
+  left: 26%;
+  width: 48%;
+  background: rgba(168, 230, 207, 0.55);
+}
+.bb__zone--perfect {
+  left: 38%;
+  width: 24%;
+  background: repeating-linear-gradient(45deg, rgba(127, 216, 190, 0.95) 0 8px, rgba(168, 230, 207, 0.95) 8px 16px);
+}
+
+.bb__marker {
+  position: absolute;
+  top: -4px;
+  bottom: -4px;
+  width: 8px;
+  margin-left: -4px;
+  background: var(--c-pink);
+  border-radius: 4px;
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.8);
+}
+
+/* ============================================================
+   ② 羽毛球
+   ============================================================ */
+.bd { position: absolute; inset: 0; }
+
+.bd__pet {
+  position: absolute;
+  right: 20px;
+  bottom: 12px;
+  width: 112px;
+}
+
+.bd__racket {
+  position: absolute;
+  left: 30px;
+  bottom: 10px;
+  width: 108px;
+  transform-origin: 50% 90%;
+  transition: transform 0.12s ease, filter 0.12s ease;
+}
+
+.bd__racket.is-ready {
+  transform: rotate(-16deg) scale(1.06);
+  filter: drop-shadow(0 0 10px rgba(127, 216, 190, 0.95));
+}
+
+.bd__shuttle {
+  position: absolute;
+  left: 92%;
+  bottom: 96px;
+  width: 46px;
+  transform: translateX(-50%);
+  filter: drop-shadow(0 3px 0 rgba(107, 74, 69, 0.16));
+}
+
+.bd__net {
+  position: absolute;
+  left: 50%;
+  top: 26px;
+  bottom: 26px;
+  width: 90px;
+  margin-left: -45px;
+  border-top: 8px solid var(--c-outline);
+  border-bottom: 8px solid var(--c-outline);
+  background: repeating-linear-gradient(90deg, rgba(191, 227, 255, 0.9) 0 6px, transparent 6px 14px),
+              repeating-linear-gradient(0deg, rgba(191, 227, 255, 0.9) 0 6px, transparent 6px 14px);
+  opacity: 0.9;
+  border-radius: 6px;
+}
+
+.bd__zone {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 26%;
+  background: rgba(127, 216, 190, 0.12);
+  border-right: 4px dashed rgba(127, 216, 190, 0.6);
+  transition: background 0.15s ease;
+}
+
+.bd__zone.is-ready { background: rgba(127, 216, 190, 0.3); }
+
+/* ============================================================
+   ③ 老虎机
+   ============================================================ */
+.sl { position: absolute; inset: 0; display: grid; place-items: center; }
+
+.sl__pet {
+  position: absolute;
+  left: 40px;
+  bottom: 12px;
+  width: 116px;
+}
+
+.sl__machine {
+  width: 430px;
+  padding: 16px 18px 14px;
+  background: #FF9F7A;
+  border: 6px solid var(--c-outline);
+  border-radius: 24px;
+  box-shadow: inset 0 -8px 0 rgba(107, 74, 69, 0.12);
+}
+
+.sl__reels {
+  display: flex;
+  gap: 12px;
+  padding: 10px;
+  background: linear-gradient(180deg, #5A4450, #3E2F38);
+  border: 5px solid var(--c-outline);
+  border-radius: 16px;
+}
+
+.sl__reel {
+  flex: 1;
+  height: 96px;
+  display: grid;
+  place-items: center;
+  background: #FFF6E5;
+  border: 4px solid var(--c-outline);
+  border-radius: 14px;
+  overflow: hidden;
+}
+
+.sl__reel img { width: 68px; height: 68px; object-fit: contain; }
+
+.sl__tray {
+  margin: 12px auto 0;
+  width: 150px;
+  padding: 4px 0;
+  text-align: center;
+  font-size: 14px;
+  color: var(--c-ink-soft);
+  background: #FFF6E5;
+  border: 4px solid var(--c-outline);
+  border-radius: 14px;
+}
+
+/* ---------- 触屏上把三个游戏的按钮也放大一点 ---------- */
+@media (pointer: coarse) {
+  .booth { font-size: 19px; padding: 8px 20px; }
+  .arcade__action { padding: 8px 32px; font-size: 21px; }
+}

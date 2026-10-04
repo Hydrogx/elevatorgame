@@ -168,10 +168,10 @@
   z-index: 2;
 }
 
-/* ---------- 右侧竖排控制面板（3F 在上，1F 在下） ---------- */
+/* ---------- 右侧竖排控制面板（高楼层在上，1F 在最下面） ---------- */
 .panel {
   position: relative;
-  flex: 0 0 auto;
+  flex: 1 1 auto;      /* 撑满右栏剩余高度，两列排布时按键会垂直居中 */
   width: 232px;
   padding: 16px 18px 12px;
   display: flex;
@@ -190,6 +190,43 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+}
+
+/* ---------- 楼层多的时候：两列排布（6F 5F / 4F 3F / 2F 1F） ---------- */
+body.panel-2col .panel__inner {
+  flex: 1;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+  align-content: center;
+}
+
+body.panel-2col .panel__arrows,
+body.panel-2col .panel__hint { grid-column: 1 / -1; }
+
+body.panel-2col .floorbtn {
+  flex-direction: column;
+  justify-content: center;
+  gap: 2px;
+  height: 86px;
+  padding: 6px 4px;
+}
+
+body.panel-2col .floorbtn img { width: 40px; height: 40px; }
+
+body.panel-2col .floorbtn__label {
+  align-items: center;
+  text-align: center;
+}
+
+body.panel-2col .floorbtn__label b { font-size: 19px; }
+body.panel-2col .floorbtn__label span { font-size: 11px; }
+
+body.panel-2col .floorbtn.is-active::after {
+  top: 1px;
+  right: 1px;
+  width: 20px;
+  height: 20px;
 }
 
 /* 上行 / 下行 按钮并排在最上面 */
@@ -289,7 +326,7 @@
 .fx {
   position: absolute;
   inset: 0;
-  z-index: 20;
+  z-index: 40;   /* 要比 6F 的游戏弹窗（z-index: 30）更上面，飘字才不会被盖住 */
   pointer-events: none;
   overflow: hidden;
 }

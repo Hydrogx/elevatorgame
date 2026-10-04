@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 头饰·花环（商店商品） -->
+  <g stroke="#6B4A45" stroke-width="6" stroke-linejoin="round">
+    <g transform="translate(92 108)">
+      <circle cx="0" cy="0" r="6" fill="#FFE066"/>
+      <circle cx="0" cy="-16" r="11" fill="#FF9FB6"/><circle cx="15" cy="-5" r="11" fill="#FF9FB6"/>
+      <circle cx="9" cy="13" r="11" fill="#FF9FB6"/><circle cx="-9" cy="13" r="11" fill="#FF9FB6"/>
+      <circle cx="-15" cy="-5" r="11" fill="#FF9FB6"/>
+    </g>
+    <g transform="translate(150 88) scale(1.15)">
+      <circle cx="0" cy="0" r="6" fill="#FFE066"/>
+      <circle cx="0" cy="-16" r="11" fill="#FFF6E5"/><circle cx="15" cy="-5" r="11" fill="#FFF6E5"/>
+      <circle cx="9" cy="13" r="11" fill="#FFF6E5"/><circle cx="-9" cy="13" r="11" fill="#FFF6E5"/>
+      <circle cx="-15" cy="-5" r="11" fill="#FFF6E5"/>
+    </g>
+    <g transform="translate(208 108)">
+      <circle cx="0" cy="0" r="6" fill="#FFE066"/>
+      <circle cx="0" cy="-16" r="11" fill="#FF9FB6"/><circle cx="15" cy="-5" r="11" fill="#FF9FB6"/>
+      <circle cx="9" cy="13" r="11" fill="#FF9FB6"/><circle cx="-9" cy="13" r="11" fill="#FF9FB6"/>
+      <circle cx="-15" cy="-5" r="11" fill="#FF9FB6"/>
+    </g>
+    <path d="M118 122 q32 -26 64 0" fill="none" stroke="#8FD3B6" stroke-width="7" stroke-linecap="round"/>
+  </g>
+</svg>

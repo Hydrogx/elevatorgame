@@ -45,6 +45,10 @@
       var src = moodSrc(name);
       if (catImg.getAttribute('src') !== src) catImg.setAttribute('src', src);
       baseMood = name;
+      /* 4F 穿衣镜里的「自己」也要跟着换角色 / 换表情（.skin-body 都算） */
+      Array.prototype.forEach.call(document.querySelectorAll('.skin-body'), function (img) {
+        if (img !== catImg && img.getAttribute('src') !== src) img.setAttribute('src', src);
+      });
     },
 
     /* 临时换个表情，过一会儿自动回到平时的样子 */

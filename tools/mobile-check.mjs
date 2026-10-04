@@ -74,6 +74,15 @@ const PROBE = `(() => {
     sizes[sel] = Math.round(Math.min(r.width, r.height));
   });
   const bubbleStyle = getComputedStyle(bubble);
+  const overflow = {};
+  /* 注意：不查 .stage —— 电梯门打开时会滑到画面外，那是 overflow:hidden 的正常裁剪 */
+  ['.app', '.side', '.panel', '.hud'].forEach(sel => {
+    const el = document.querySelector(sel);
+    if (!el) return;
+    const dy = el.scrollHeight - el.clientHeight;
+    const dx = el.scrollWidth - el.clientWidth;
+    if (dy > 2 || dx > 2) overflow[sel] = dx + 'x' + dy;
+  });
   return {
     viewport: window.innerWidth + 'x' + window.innerHeight,
     scale: +scale.toFixed(3),
@@ -83,6 +92,7 @@ const PROBE = `(() => {
     overlapped: hits,
     tapSizes: sizes,
     minTap: Math.min.apply(null, Object.keys(sizes).map(k => sizes[k])),
+    overflow: overflow,
     rotateHint: (() => { const h = document.querySelector('.rotate-hint'); return h ? getComputedStyle(h).display : 'none'; })()
   };
 })()`;
@@ -96,6 +106,7 @@ let r = await ev(PROBE);
 check('横屏 844×390：命中触屏样式 (pointer: coarse)', r.coarse === true);
 check('横屏：整体还能完整放下', r.scale > 0.4, `缩放=${r.scale}，视口=${r.viewport}`);
 check('横屏：台词气泡没有压住任何可点元素', r.overlapped.length === 0, r.overlapped.join(',') || `气泡=${JSON.stringify(r.bubbleRect)}`);
+check('横屏：界面没有溢出（6 个楼层按钮都放得下）', Object.keys(r.overflow).length === 0, JSON.stringify(r.overflow));
 check('横屏：最小的按钮也够手指点（≥40px）', r.minTap >= 40, JSON.stringify(r.tapSizes));
 check('横屏：竖屏提示条不显示', r.rotateHint === 'none');
 await shot('01-横屏-1F');

@@ -63,45 +63,57 @@
   z-index: 3;
 }
 
-/* ---------- 右侧栏：竖排按键面板 + 小地图 ---------- */
+/* ---------- 右侧栏：竖排按键面板 + 楼层指示条 ---------- */
 .side {
   width: 232px;
   flex: 0 0 232px;
   height: 100%;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 10px;
 }
 
-/* ---------- 小地图：整栋楼剖面（右下角） ----------
-   楼房图用 object-fit: contain 撑满卡片，轿厢的位置由 elevator.js
-   按实际渲染尺寸算出来（避免百分比高度解析不到的坑） */
-.minimap {
+/* ---------- 楼层指示条 ----------
+   原来这里是一张楼房剖面小地图，楼层变多以后（6 层）高度不够，
+   改成一条横向的「楼层格子 + 移动轿厢」，格子由 main.js 按配置生成 */
+.floors {
   position: relative;
-  flex: 1 1 auto;
-  min-height: 0;
-  border: 6px solid var(--c-outline);
-  border-radius: 26px;
-  background: linear-gradient(180deg, #BFE9FF, #FFF0F6);
+  flex: 0 0 54px;
+  display: flex;
+  border: 5px solid var(--c-outline);
+  border-radius: 18px;
+  background: linear-gradient(180deg, #FFF6E5, #FFE6C9);
+  box-shadow: 0 6px 0 rgba(107, 74, 69, 0.22);
   overflow: hidden;
-  box-shadow: 0 10px 0 rgba(107, 74, 69, 0.25);
 }
 
-.minimap__bg {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  display: block;
+.floors__cell {
+  flex: 1 1 0;
+  display: grid;
+  place-items: start center;
+  padding-top: 5px;
+  font-family: var(--font-num);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--c-ink-soft);
+  border-right: 2px dashed rgba(107, 74, 69, 0.22);
+  transition: background 0.25s ease, color 0.25s ease;
 }
 
-.minimap__car {
+.floors__cell:last-child { border-right: 0; }
+.floors__cell.is-active { background: var(--c-pink); color: #fff; }
+
+/* 轿厢画在数字下面那一条，不会盖住楼层号 */
+.floors__car {
   position: absolute;
+  top: 24px;
   left: 0;
-  top: 0;
-  transform: translate(-50%, -50%);
-  transition: top 0.6s cubic-bezier(0.45, 0.05, 0.35, 1.1);
-  filter: drop-shadow(0 2px 0 rgba(107, 74, 69, 0.25));
+  width: 17px;
+  transform: translateX(-50%);
+  transition: left 0.6s cubic-bezier(0.45, 0.05, 0.35, 1.1);
+  filter: drop-shadow(0 2px 0 rgba(107, 74, 69, 0.2));
+  pointer-events: none;
   z-index: 2;
 }
 
-.minimap__car.is-move { animation: carbob 0.28s ease-in-out infinite; }
+.floors__car.is-move { animation: carbobx 0.28s ease-in-out infinite; }

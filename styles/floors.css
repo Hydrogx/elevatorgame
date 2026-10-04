@@ -408,8 +408,8 @@
 .wear--hair     { z-index: 3; }
 .wear--headwear { z-index: 4; }
 
-/* 猫猫穿不了猪猪兔的衣服（镜子里的预览不受影响） */
-body.skin-cat .cat .wear { display: none !important; }
+/* 猫猫穿不了猪猪兔的衣服：舞台上的主角和镜子里的预览都隐藏 */
+body.skin-cat .wear { display: none !important; }
 
 /* ---------- 穿衣镜里的预览 ---------- */
 .mirror {
@@ -512,6 +512,50 @@ body.skin-cat .cat .wear { display: none !important; }
 .garment--clothes img  { transform: scale(1.7); transform-origin: 50% 72%; }
 .garment--shoes img    { transform: scale(2.4); transform-origin: 50% 88%; }
 
+/* 商店里还没买的：显示 🔒 + 价格，点两次才买下来 */
+.garment.is-locked img { filter: grayscale(0.75) opacity(0.75); }
+
+.garment__lock {
+  position: absolute;
+  left: 50%;
+  bottom: -8px;
+  transform: translateX(-50%);
+  padding: 1px 7px;
+  border-radius: 10px;
+  background: var(--c-ink);
+  color: #FFF6E5;
+  font-size: 11px;
+  font-style: normal;
+  white-space: nowrap;
+  box-shadow: 0 2px 0 rgba(107, 74, 69, 0.25);
+}
+
+.garment.is-asking {
+  animation: bump 0.4s ease;
+  box-shadow: 0 0 0 5px rgba(255, 143, 171, 0.85);
+}
+
+/* ---------- 4F 房间里的两个入口按钮 ---------- */
+.closetbtn {
+  position: absolute;
+  bottom: 66px;
+  transform: translateX(-50%);
+  padding: 6px 16px;
+  border-radius: 20px;
+  background: #FFF6E5;
+  border: 5px solid var(--c-outline);
+  box-shadow: 0 6px 0 rgba(107, 74, 69, 0.22);
+  font-family: inherit;
+  font-size: 15px;
+  color: var(--c-ink);
+  cursor: pointer;
+  z-index: 5;
+  transition: transform 0.14s ease, box-shadow 0.14s ease, background 0.2s ease;
+}
+
+.closetbtn:hover { transform: translateX(-50%) translateY(-4px); background: #FFFDF7; }
+.closetbtn:active { transform: translateX(-50%) translateY(3px); box-shadow: 0 2px 0 rgba(107, 74, 69, 0.22); }
+
 /* ============================================================
    5F 宠物层：三只小宠物 + 好感度 + 零食
    ============================================================ */
@@ -530,6 +574,22 @@ body.skin-cat .cat .wear { display: none !important; }
   transition: transform 0.14s ease;
   filter: drop-shadow(0 6px 0 rgba(107, 74, 69, 0.16));
 }
+
+/* 宠物装扮图层：和宠物图同画布（200×190），直接叠上去就行 */
+.pet__wear {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 3;
+  filter: drop-shadow(0 4px 0 rgba(107, 74, 69, 0.14));
+}
+
+/* 6F 游戏里的宠物也要能戴装扮：外面套一层带 data-pet 的容器 */
+.petslot { display: block; }
+.petslot > img:first-child { display: block; width: 100%; }
 
 .pet:hover .pet__img { transform: translateY(-5px) scale(1.04); }
 .pet:active .pet__img { transform: scale(0.96); }

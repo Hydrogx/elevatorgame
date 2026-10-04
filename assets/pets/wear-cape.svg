@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+  <!-- 宠物装扮·小披风 -->
+  <path d="M56 120 q44 22 88 0 l16 62 q-60 26 -120 0 Z"
+        fill="#CDB4F6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M56 120 q44 22 88 0 l4 16 q-48 20 -96 0 Z" fill="#E4D6FF" stroke="#6B4A45" stroke-width="5" stroke-linejoin="round"/>
+  <g fill="#FFE066" stroke="#6B4A45" stroke-width="4" stroke-linejoin="round">
+    <path d="M100 148 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 Z"/>
+    <path d="M62 166 l3 7 l8 1 l-6 5 l2 8 l-7 -4 l-7 4 l2 -8 l-6 -5 l8 -1 Z"/>
+    <path d="M138 166 l3 7 l8 1 l-6 5 l2 8 l-7 -4 l-7 4 l2 -8 l-6 -5 l8 -1 Z"/>
+  </g>
+</svg>

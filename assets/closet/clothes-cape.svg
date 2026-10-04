@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 衣服·星星披风（商店商品） -->
+  <path d="M64 166 A86 86 0 0 0 236 166 L268 330 Q150 372 32 330 Z"
+        fill="#CDB4F6" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M64 166 A86 86 0 0 0 236 166 L250 232 Q150 262 50 232 Z"
+        fill="#E4D6FF" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M64 166 A86 86 0 0 0 236 166" fill="none" stroke="#FFF6E5" stroke-width="14"/>
+  <path d="M64 166 A86 86 0 0 0 236 166" fill="none" stroke="#6B4A45" stroke-width="5"/>
+  <g fill="#FFE066" stroke="#6B4A45" stroke-width="5" stroke-linejoin="round">
+    <path d="M150 96 l5 12 l13 1 l-10 9 l3 13 l-11 -7 l-11 7 l3 -13 l-10 -9 l13 -1 Z" transform="translate(0 24) scale(0.9) translate(18 0)"/>
+    <path d="M104 268 l4 9 l10 1 l-7 7 l2 10 l-8 -5 l-8 5 l2 -10 l-7 -7 l10 -1 Z"/>
+    <path d="M204 288 l4 9 l10 1 l-7 7 l2 10 l-8 -5 l-8 5 l2 -10 l-7 -7 l10 -1 Z"/>
+  </g>
+</svg>

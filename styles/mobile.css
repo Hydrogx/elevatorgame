@@ -23,26 +23,33 @@ body {
 
 /* ---------- 2. 触屏设备：把可点区域整体放大，并去掉「粘住」的 hover ---------- */
 @media (pointer: coarse) {
-  /* 手机上右侧栏太挤：小地图先让位，把高度都给楼层按键 */
-  .minimap { display: none; }
+  /* 手机上右侧栏太挤：细长的楼层指示条先让位，把高度都给楼层按键 */
+  .floors { display: none; }
 
   .panel {
     flex: 1 1 auto;
-    padding: 10px 14px 10px;
+    padding: 10px 12px;
   }
 
+  /* 6 层楼要放得下：按钮比桌面版高，但不至于把面板撑爆 */
   .floorbtn {
-    height: 82px;
-    padding: 0 12px;
+    height: 72px;
+    padding: 0 10px;
   }
-  .floorbtn img { width: 60px; height: 60px; }
-  .floorbtn__label b { font-size: 26px; }
-  .floorbtn__label span { font-size: 14px; }
+  .floorbtn img { width: 52px; height: 52px; }
+  .floorbtn__label b { font-size: 24px; }
+  .floorbtn__label span { font-size: 13px; }
 
-  .panel__arrows { gap: 22px; }
-  .panel__arrow { width: 54px; height: 54px; }
+  .panel__arrows { gap: 18px; }
+  .panel__arrow { width: 46px; height: 46px; }
 
-  .panel__hint { font-size: 13px; }
+  .panel__hint { font-size: 12px; }
+
+  /* 两列排布时手机上按键再大一点，手指好按 */
+  body.panel-2col .floorbtn { height: 92px; }
+  body.panel-2col .floorbtn img { width: 46px; height: 46px; }
+  body.panel-2col .floorbtn__label b { font-size: 22px; }
+  body.panel-2col .floorbtn__label span { font-size: 12px; }
 
   /* 各楼层里的小按钮也放大一点，保证手指点得中 */
   .pick__btn { width: 96px; height: 96px; }

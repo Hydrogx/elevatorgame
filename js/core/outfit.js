@@ -41,20 +41,22 @@
     },
 
     /* 换一件；返回是否是「全新搭配」 */
-    set: function (slot, id) {
+    set: function (slot, id, opts) {
       if (SLOTS.indexOf(slot) === -1) return false;
       this.data[slot] = id || '';
       EG.State.data.outfit = this.data;
       EG.State.save();
-      this.refresh({ notify: true });
-      return this.checkCombo();
+      this.refresh({ notify: !(opts && opts.silent) });
+      return this.checkCombo(opts && opts.rewardAt);
     },
 
-    /* 随机一套 */
+    /* 随机一套（只挑已经拥有的，不会随机到没买的） */
     random: function () {
       var self = this;
       SLOTS.forEach(function (k) {
-        var list = C.closet.items[k] || [];
+        var list = (C.closet.items[k] || []).filter(function (it) {
+          return !it.price || (EG.Shop && EG.Shop.ownsGarment(k, it.id));
+        });
         self.data[k] = (EG.util.rand(list) || {}).id || '';
       });
       EG.State.data.outfit = this.data;

@@ -173,6 +173,7 @@
 
   function buildPet(def) {
     var el = EG.util.el('div', 'pet pet--' + def.id);
+    el.dataset.pet = def.id;                 // 让 PetWear 能找到并叠上装扮
     el.style.left = def.x + '%';
     el.style.bottom = P.petBottom + 'px';
     el.innerHTML =
@@ -182,6 +183,7 @@
         '<span class="pet__badge"></span>' +
       '</div>' +
       '<img class="pet__img" src="' + A.list[def.id].idle + '" alt="' + def.name + '">' +
+      '<img class="pet__wear" alt="">' +
       '<div class="pet__name">' + def.name + '<small>' + def.kind + '</small></div>';
 
     el.addEventListener('click', function () { feed(def.id); });
@@ -230,6 +232,7 @@
       P.list.forEach(buildPet);
       buildFoods();
 
+      EG.PetWear.refresh();      // 把 4F 装扮好的饰品戴上去
       EG.Say.show('欢迎来到宠物层～摸摸它们，或者喂点零食吧！', 3200);
     },
     unmount: function () {

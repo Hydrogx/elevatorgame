@@ -25,11 +25,29 @@
       btn.dataset.item = item.id || '';
       btn.title = item.name;
       var src = EG.Outfit.srcFor(cat.key, item.id);
-      btn.innerHTML = src
+      var locked = !!item.price && !EG.Shop.ownsGarment(cat.key, item.id);
+
+      btn.innerHTML = (src
         ? '<img src="' + src + '" alt="">'
-        : '<span class="garment__none">' + item.name + '</span>';
+        : '<span class="garment__none">' + item.name + '</span>') +
+        (locked ? '<em class="garment__lock">🔒' + item.price + '</em>' : '');
+      if (locked) btn.classList.add('is-locked');
 
       btn.addEventListener('click', function () {
+        /* 没买的：点第一次问一下，再点一次才扣钱买下来 */
+        if (item.price && !EG.Shop.ownsGarment(cat.key, item.id)) {
+          EG.Audio.play('click');
+          if (!btn.classList.contains('is-asking')) {
+            btn.classList.add('is-asking');
+            EG.Say.show('「' + item.name + '」要 ' + item.price + ' 颗星星糖，再点一次就买下～', 2800);
+            return;
+          }
+          btn.classList.remove('is-asking');
+          if (!EG.Shop.buyGarment(cat.key, item.id)) return;   // 钱不够
+          btn.classList.remove('is-locked');
+          var lock = btn.querySelector('.garment__lock');
+          if (lock) lock.parentNode.removeChild(lock);
+        }
         EG.Audio.play('click');
         var fresh = EG.Outfit.set(cat.key, item.id);
         var p = EG.FX.positionOf(btn);
@@ -49,9 +67,11 @@
       /* 穿衣镜里的自己：和舞台上的主角共用同一套换装图层 */
       var mirror = EG.util.el('div', 'mirror');
       var avatar = EG.util.el('div', 'mirror__avatar');
-      var body = EG.util.el('img', 'mirror__body');
-      body.src = EG.ASSETS.character.pigbunny.idle;
-      body.alt = '镜子里的猪猪兔';
+      /* 镜子里的「自己」——跟着当前主角走（换角色 / 换表情都会同步） */
+      var body = EG.util.el('img', 'mirror__body skin-body');
+      var skin = (EG.Say && EG.Say.skin) ? EG.Say.skin() : EG.CONFIG.defaultSkin;
+      body.src = EG.ASSETS.character[skin].idle;
+      body.alt = '镜子里的自己';
       avatar.appendChild(body);
       EG.Outfit.mount(avatar);
       mirror.appendChild(avatar);
@@ -70,6 +90,21 @@
       });
       box.appendChild(dice);
 
+      /* 商店 / 宠物装扮 两个入口（都开弹窗，不占房间地方） */
+      [{ id: 'shop', label: '🛍 商店', x: 66, fn: function () { EG.Shop.open(); } },
+       { id: 'petdress', label: '🐾 宠物装扮', x: 83, fn: function () { EG.Shop.openDress(); } }
+      ].forEach(function (b) {
+        var btn = EG.util.el('button', 'closetbtn closetbtn--' + b.id);
+        btn.type = 'button';
+        btn.style.left = b.x + '%';
+        btn.innerHTML = b.label;
+        btn.addEventListener('click', function () {
+          EG.Audio.play('click');
+          b.fn();
+        });
+        box.appendChild(btn);
+      });
+
       /* 四行选项 */
       C.closet.categories.forEach(function (cat) {
         box.appendChild(buildRow(cat));
@@ -81,6 +116,7 @@
     },
 
     unmount: function () {
+      if (EG.Shop) EG.Shop.closeAll();
       box = null;
     }
   });

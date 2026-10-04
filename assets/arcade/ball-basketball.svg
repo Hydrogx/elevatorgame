@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" width="120" height="120">
+  <!-- 篮球 -->
+  <circle cx="60" cy="60" r="52" fill="#F2953F" stroke="#6B4A45" stroke-width="7"/>
+  <g fill="none" stroke="#6B4A45" stroke-width="6">
+    <path d="M8 60 h104"/>
+    <path d="M60 8 v104"/>
+    <path d="M22 26 q30 34 0 68"/>
+    <path d="M98 26 q-30 34 0 68"/>
+  </g>
+  <ellipse cx="40" cy="36" rx="14" ry="9" fill="#FFFFFF" opacity="0.35" transform="rotate(-28 40 36)"/>
+</svg>

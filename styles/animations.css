@@ -43,6 +43,12 @@
   50%      { opacity: 0.25; }
 }
 
+/* 电梯运行时楼层指示条里的轿厢会轻轻晃（横向居中不能丢） */
+@keyframes carbobx {
+  0%, 100% { transform: translateX(-50%); }
+  50%      { transform: translateX(-50%) translateY(-3px); }
+}
+
 @keyframes sparkleout {
   0%   { opacity: 0; transform: translate(-50%, -50%) scale(0.2) rotate(0deg); }
   40%  { opacity: 1; transform: translate(-50%, -50%) scale(1.25) rotate(90deg); }

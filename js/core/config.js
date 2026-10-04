@@ -26,11 +26,24 @@ window.EG = window.EG || {};
       button2:        'assets/elevator/button-2f.svg',
       button3:        'assets/elevator/button-3f.svg',
       button4:        'assets/elevator/button-4f.svg',
-      button5:        'assets/elevator/button-5f.svg',
+      button6:        'assets/elevator/button-6f.svg',
       arrowUp:        'assets/elevator/arrow-up.svg',
       arrowDown:      'assets/elevator/arrow-down.svg',
-      mapBuilding:    'assets/elevator/map-building.svg',
       mapCar:         'assets/elevator/map-car.svg'
+    },
+    /* 6F 游乐区三个小游戏用的道具 */
+    arcade: {
+      ball:    'assets/arcade/ball-basketball.svg',
+      hoop:    'assets/arcade/hoop.svg',
+      shuttle: 'assets/arcade/shuttlecock.svg',
+      racket:  'assets/arcade/racket.svg',
+      /* 老虎机的四个符号直接复用现成资源，不用额外画 */
+      symbols: {
+        coin:    'assets/ui/coin-sugar.svg',
+        heart:   'assets/ui/heart.svg',
+        lolly:   'assets/items/candy-lollipop.svg',
+        sparkle: 'assets/ui/sparkle.svg'
+      }
     },
     character: {
       /* 主角：猪猪兔（长兔耳 + 猪鼻子 + 胖脸颊） */
@@ -61,7 +74,8 @@ window.EG = window.EG || {};
       2: 'assets/rooms/room-icecream.svg',
       3: 'assets/rooms/room-coffee.svg',
       4: 'assets/rooms/room-closet.svg',
-      5: 'assets/rooms/room-pet.svg'
+      5: 'assets/rooms/room-pet.svg',
+      6: 'assets/rooms/room-arcade.svg'
     },
     /* 5F 宠物层：三只小宠物和它们的零食 */
     pets: {
@@ -84,23 +98,34 @@ window.EG = window.EG || {};
       hair: {
         bangs: 'assets/closet/hair-bangs.svg',
         curly: 'assets/closet/hair-curly.svg',
-        side:  'assets/closet/hair-side.svg'
+        side:  'assets/closet/hair-side.svg',
+        buns:  'assets/closet/hair-buns.svg'
       },
       headwear: {
-        bow:   'assets/closet/headwear-bow.svg',
-        crown: 'assets/closet/headwear-crown.svg',
-        cap:   'assets/closet/headwear-cap.svg'
+        bow:    'assets/closet/headwear-bow.svg',
+        crown:  'assets/closet/headwear-crown.svg',
+        cap:    'assets/closet/headwear-cap.svg',
+        flower: 'assets/closet/headwear-flower.svg'
       },
       clothes: {
         dress:  'assets/closet/clothes-dress.svg',
         sailor: 'assets/closet/clothes-sailor.svg',
-        hoodie: 'assets/closet/clothes-hoodie.svg'
+        hoodie: 'assets/closet/clothes-hoodie.svg',
+        cape:   'assets/closet/clothes-cape.svg'
       },
       shoes: {
         mary:    'assets/closet/shoes-mary.svg',
         sneaker: 'assets/closet/shoes-sneaker.svg',
-        boot:    'assets/closet/shoes-boot.svg'
+        boot:    'assets/closet/shoes-boot.svg',
+        star:    'assets/closet/shoes-star.svg'
       }
+    },
+    /* 宠物装扮（任意宠物都能戴） */
+    petwear: {
+      collar: 'assets/pets/wear-collar.svg',
+      hat:    'assets/pets/wear-hat.svg',
+      scarf:  'assets/pets/wear-scarf.svg',
+      cape:   'assets/pets/wear-cape.svg'
     },
     items: {
       candyLollipop: 'assets/items/candy-lollipop.svg',
@@ -173,6 +198,11 @@ window.EG = window.EG || {};
       minTravel: 700    // 最短运行时间
     },
 
+    /* 右侧按键面板：楼层多到一定程度就自动改成两列排布（高楼层在上一排） */
+    panel: {
+      twoColumnAt: 6      // 楼层数 >= 这个值就用两列；写成 99 可以强制单列
+    },
+
     /* 4F 衣帽间的换装配置：类别、可选项、每行在房间里的位置（%） */
     closet: {
       defaultOutfit: { hair: '', headwear: 'bow', clothes: '', shoes: '' },
@@ -188,25 +218,29 @@ window.EG = window.EG || {};
           { id: '',      name: '原样' },
           { id: 'bangs', name: '奶茶刘海' },
           { id: 'curly', name: '草莓卷卷' },
-          { id: 'side',  name: '香芋侧分' }
+          { id: 'side',  name: '香芋侧分' },
+          { id: 'buns',  name: '双丸子头', price: 15 }
         ],
         headwear: [
-          { id: '',      name: '不戴' },
-          { id: 'bow',   name: '蝴蝶结' },
-          { id: 'crown', name: '小皇冠' },
-          { id: 'cap',   name: '贝雷帽' }
+          { id: '',       name: '不戴' },
+          { id: 'bow',    name: '蝴蝶结' },
+          { id: 'crown',  name: '小皇冠' },
+          { id: 'cap',    name: '贝雷帽' },
+          { id: 'flower', name: '花环', price: 12 }
         ],
         clothes: [
           { id: '',       name: '不穿' },
           { id: 'dress',  name: '小裙子' },
           { id: 'sailor', name: '水手服' },
-          { id: 'hoodie', name: '连帽衫' }
+          { id: 'hoodie', name: '连帽衫' },
+          { id: 'cape',   name: '星星披风', price: 25 }
         ],
         shoes: [
           { id: '',        name: '光脚' },
           { id: 'mary',    name: '玛丽珍' },
           { id: 'sneaker', name: '运动鞋' },
-          { id: 'boot',    name: '小雨靴' }
+          { id: 'boot',    name: '小雨靴' },
+          { id: 'star',    name: '星星靴', price: 18 }
         ]
       },
       /* 每行选项在房间里的位置（left / top，百分比，对应 1200×675 原稿） */
@@ -226,6 +260,31 @@ window.EG = window.EG || {};
         { id: 'bear',    name: '小熊阿布' },
         { id: 'fox',     name: '小狐菲菲' },
         { id: 'penguin', name: '企鹅点点' }
+      ]
+    },
+
+    /* 6F 宠物游乐区：投篮 / 羽毛球 / 老虎机 三个小游戏 */
+    arcade: {
+      btnBottom: 88,          // 三个摊位的按钮距舞台底部（px）
+      list: [
+        { id: 'basket',    name: '投篮',   icon: '🏀', x: 33.3 },
+        { id: 'badminton', name: '羽毛球', icon: '🏸', x: 52.5 },
+        { id: 'slot',      name: '老虎机', icon: '🎰', x: 71.7 }
+      ],
+      basket:    { shots: 3, speed: 1.7, good: 2, perfect: 3 },      // 3 球机会，越靠中间给得越多
+      badminton: { coins: 1, speed: 1.1, ramp: 1.12, zone: 26 },     // 连击越多越快
+      slot:      { cost: 1, triple: 8, double: 1,                    // 投币 1 颗，三个一样中 8 颗
+                   symbols: ['coin', 'heart', 'lolly', 'sparkle'] }
+    },
+
+    /* 4F 商店 + 宠物装扮：宠物能戴的饰品（带 price 的都要先买） */
+    petwear: {
+      items: [
+        { id: '',       name: '不戴' },
+        { id: 'collar', name: '铃铛项圈', price: 8 },
+        { id: 'hat',    name: '小帽子',   price: 14 },
+        { id: 'scarf',  name: '小围巾',   price: 12 },
+        { id: 'cape',   name: '小披风',   price: 18 }
       ]
     },
 
@@ -263,7 +322,6 @@ window.EG = window.EG || {};
         color: '#FF8FAB',
         room: 'assets/rooms/room-candy.svg',
         button: 'assets/elevator/button-1f.svg',
-        mapY: 86.8,          /* 小地图里轿厢停靠的纵向位置（%） */
         tip: '点糖果罐里的 <b>糖果</b> 收星星糖，金色糖果值 5 颗',
         lines: ['欢迎来到糖果屋～', '糖果甜甜的，我最喜欢啦！', '看到金色的糖果别放过哦！']
       },
@@ -274,7 +332,6 @@ window.EG = window.EG || {};
         color: '#7FD8BE',
         room: 'assets/rooms/room-icecream.svg',
         button: 'assets/elevator/button-2f.svg',
-        mapY: 69.9,
         tip: '看 <b>顾客的点单</b>：口味 + 配料都对上能卖 <b>8 颗</b>，没对上只有 3 颗',
         lines: ['冰淇淋屋到啦～', '照着客人的点单做，奖励更多哦！', '客人会换的，看清楚再下手～']
       },
@@ -285,7 +342,6 @@ window.EG = window.EG || {};
         color: '#F2B880',
         room: 'assets/rooms/room-coffee.svg',
         button: 'assets/elevator/button-3f.svg',
-        mapY: 53.1,
         tip: '<b>按住</b> 萃取按钮，在绿色 <b>完美区</b> 松手最值钱，再点杯子喝掉',
         lines: ['好香的味道呀～', '苦一点也很棒哦！', '慢慢来，别烫到小爪爪～']
       },
@@ -296,7 +352,6 @@ window.EG = window.EG || {};
         color: '#B79BF0',
         room: 'assets/rooms/room-closet.svg',
         button: 'assets/elevator/button-4f.svg',
-        mapY: 36.3,
         tip: '点右边的按钮换 <b>发型 / 头饰 / 衣服 / 鞋子</b>，镜子里马上变样',
         lines: ['衣帽间到啦～', '换一套新衣服试试？', '新搭配会有星星糖奖励哦！']
       },
@@ -307,9 +362,18 @@ window.EG = window.EG || {};
         color: '#7FC8F0',
         room: 'assets/rooms/room-pet.svg',
         button: 'assets/elevator/button-5f.svg',
-        mapY: 19.5,
         tip: '点宠物 <b>摸一摸</b>，或先去食盆拿零食再点它 <b>喂它</b>；好感满了变好朋友',
         lines: ['宠物层到啦～', '摸摸它们会开心的！', '喂对零食好感涨得更快哦～']
+      },
+      {
+        id: 6,
+        tag: '6F',
+        name: '游乐区',
+        color: '#FF9F7A',
+        room: 'assets/rooms/room-arcade.svg',
+        button: 'assets/elevator/button-6f.svg',
+        tip: '三个小游戏：<b>投篮</b> 看准时机、<b>羽毛球</b> 连击越多越好、<b>老虎机</b> 投币博大奖',
+        lines: ['游乐区到啦～', '想玩投篮、羽毛球还是老虎机？', '连击越多，星星糖越多哦！']
       }
     ]
   };

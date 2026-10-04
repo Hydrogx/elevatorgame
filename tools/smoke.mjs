@@ -88,10 +88,18 @@ check('可爱字体已加载', await ev(`document.fonts.check('16px KuaiLe')`));
 
 /* 按键竖排：3F 在最上、1F 在最下 */
 const btnOrder = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => b.dataset.floor).join(',')`);
-check('按键 DOM 顺序是 5F → 4F → 3F → 2F → 1F', btnOrder === '5,4,3,2,1', '实际: ' + btnOrder);
-const btnTops = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => Math.round(b.getBoundingClientRect().top)).join(',')`);
-const tops = btnTops.split(',').map(Number);
-check('按键纵向排列（5F 最高、1F 最低）', tops.every((v, i) => i === 0 || v > tops[i - 1]), 'top 坐标: ' + btnTops);
+check('按键 DOM 顺序是 6F → 5F → 4F → 3F → 2F → 1F', btnOrder === '6,5,4,3,2,1', '实际: ' + btnOrder);
+/* 面板上「越高的楼层越靠上」：先按纵坐标、再按横坐标排一遍应该正好是 6→1
+   （单列时就是普通的从上到下；两列时是 6F5F / 4F3F / 2F1F） */
+const btnGrid = await ev(`[...document.querySelectorAll('.floorbtn')].map(b => {
+  const r = b.getBoundingClientRect();
+  return [Math.round(r.top), Math.round(r.left), b.dataset.floor];
+}).sort((a, b) => a[0] - b[0] || a[1] - b[1]).map(p => p[2]).join(',')`);
+check('按键按楼层从高到低排列', btnGrid === '6,5,4,3,2,1', '排序后: ' + btnGrid);
+const btnCols = await ev(`document.querySelectorAll('.floors__cell').length`);
+check('楼层指示条格数 = 楼层数', btnCols === 6, '格数=' + btnCols);
+const twoCol = await ev(`document.body.classList.contains('panel-2col')`);
+check('楼层 ≥ 6 时按键自动变两列', twoCol === true, twoCol ? '两列' : '单列');
 const panelTop = await ev(`Math.round(document.querySelector('.panel').getBoundingClientRect().top)`);
 const stageTop = await ev(`Math.round(document.querySelector('#stage').getBoundingClientRect().top)`);
 check('面板在右侧、与舞台顶部基本对齐', Math.abs(panelTop - stageTop) < 20, `面板 top=${panelTop}, 舞台 top=${stageTop}`);
@@ -196,7 +204,7 @@ await shot('09-3F-喝完');
 await ev(`document.querySelector('.floorbtn[data-floor="4"]').click()`);
 await sleep(4000);
 check('4F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('closet'));
-check('4F 玩法已挂载（16 个换装按钮）', (await ev(`document.querySelectorAll('.garment').length`)) === 16,
+check('4F 玩法已挂载（20 个换装按钮：每行 4 件免费 + 1 件商店）', (await ev(`document.querySelectorAll('.garment').length`)) === 20,
   '按钮数=' + (await ev(`document.querySelectorAll('.garment').length`)));
 check('镜子里的预览已生成', await ev(`!!document.querySelector('.mirror__body')`));
 await shot('10-4F');
@@ -240,6 +248,76 @@ check('换装结果写进存档（和界面一致）', await ev(`(() => {
   return ['hair', 'headwear', 'clothes', 'shoes'].every(k => (s[k] || '') === (dom[k] || ''));
 })()`), '存档=' + (await ev(`JSON.stringify(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).outfit)`)));
 
+/* 换主角时，镜子里的「自己」也要跟着换（这是之前固定显示猪猪兔的 bug） */
+const mirrorBefore = await ev(`document.querySelector('.mirror__body').getAttribute('src')`);
+await ev(`document.querySelector('#skin-toggle').click()`);
+await sleep(500);
+const mirrorAfter = await ev(`document.querySelector('.mirror__body').getAttribute('src')`);
+check('4F 镜子里的人跟着主角一起换', !!mirrorAfter && mirrorAfter !== mirrorBefore,
+  (mirrorBefore || '').split('/').pop() + ' → ' + (mirrorAfter || '').split('/').pop());
+check('换成猫猫后镜子里的衣服自动隐藏', await ev(`document.body.classList.contains('skin-cat') &&
+  getComputedStyle(document.querySelector('.mirror .wear--clothes')).display === 'none'`));
+await shot('13-4F-换主角后的镜子');
+await ev(`document.querySelector('#skin-toggle').click()`);   // 换回猪猪兔
+await sleep(400);
+check('换回猪猪兔后镜子也跟着回来', (await ev(`document.querySelector('.mirror__body').getAttribute('src')`)).indexOf('pigbunny') >= 0);
+
+/* --- 4F 商店：买衣服 + 买宠物装扮 --- */
+/* 先补一点星星糖保证买得起（赚钱路径前面已经验证过了，这里只验证商店扣款逻辑） */
+await ev(`EG.State.addCoins(120)`);
+await sleep(200);
+const coinShop0 = await ev(`+document.querySelector('#coin-count').textContent`);
+
+await ev(`document.querySelector('.closetbtn--shop').click()`);
+await sleep(400);
+check('4F 商店能打开', await ev(`document.querySelector('#shop').classList.contains('is-open')`));
+const cardCount = await ev(`document.querySelectorAll('.shopcard').length`);
+check('商店里列了 4 件衣服 + 4 件宠物装扮', cardCount === 8, '商品数=' + cardCount);
+check('商店里显示当前星星糖', (await ev(`+document.querySelector('#shop-coins').textContent`)) === coinShop0);
+await shot('14-4F-商店');
+
+const bunsSel = `document.querySelector('.shopcard[data-kind="garment"][data-id="buns"]')`;
+await ev(`${bunsSel}.click()`);
+await sleep(300);
+check('第一次点只是问价，还没扣钱', (await ev(`+document.querySelector('#coin-count').textContent`)) === coinShop0);
+await ev(`${bunsSel}.click()`);
+await sleep(500);
+const coinShop1 = await ev(`+document.querySelector('#coin-count').textContent`);
+/* 扣 15 颗，但买完会立刻穿上 → 新搭配又奖励 2 颗，所以净变化是 -13 */
+check('再点一次就买下来了（扣 15 颗，穿上的新搭配再奖励 2 颗）', coinShop1 === coinShop0 - 15 + 2, `${coinShop0} → ${coinShop1}`);
+check('买过的商品显示「已拥有」', await ev(`${bunsSel}.classList.contains('is-owned')`));
+check('买完的头发直接穿上了', (await ev(`document.querySelector('.cat .wear--hair').getAttribute('src')`)).indexOf('hair-buns') >= 0,
+  await ev(`document.querySelector('.cat .wear--hair').getAttribute('src')`));
+check('购买记录写进存档', await ev(`!!JSON.parse(localStorage.getItem('meow-elevator-save-v1')).owned['hair:buns']`));
+
+/* 再买一件宠物饰品：小帽子（14 颗） */
+const hatSel = `document.querySelector('.shopcard[data-kind="pet"][data-id="hat"]')`;
+await ev(`${hatSel}.click()`);
+await sleep(250);
+await ev(`${hatSel}.click()`);
+await sleep(500);
+const coinShop2 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('宠物装扮也能买（扣 14 颗）', coinShop2 === coinShop1 - 14, `${coinShop1} → ${coinShop2}`);
+await ev(`document.querySelector('#shop-close').click()`);
+await sleep(250);
+
+/* 宠物装扮面板：给团子戴上小帽子 */
+await ev(`document.querySelector('.closetbtn--petdress').click()`);
+await sleep(400);
+check('宠物装扮面板能打开', await ev(`document.querySelector('#petdress').classList.contains('is-open')`));
+check('三只宠物都在装扮列表里', (await ev(`document.querySelectorAll('.dressrow').length`)) === 3);
+await shot('15-4F-宠物装扮');
+await ev(`document.querySelector('.dressitem.pw--hat[data-pet="cat"]').click()`);
+await sleep(400);
+check('给团子戴上小帽子会写进存档',
+  (await ev(`(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).petWear || {}).cat`)) === 'hat');
+check('装扮面板里帽子是选中态',
+  await ev(`document.querySelector('.dressitem.pw--hat[data-pet="cat"]').classList.contains('is-active')`));
+check('没买的饰品点了会被拦住（还是锁着的）',
+  await ev(`document.querySelector('.dressitem.pw--cape[data-pet="dog"]').classList.contains('is-locked')`));
+await ev(`document.querySelector('#petdress-close').click()`);
+await sleep(200);
+
 /* --- 去 5F 宠物层 --- */
 await ev(`document.querySelector('.floorbtn[data-floor="5"]').click()`);
 await sleep(4600);
@@ -247,6 +325,9 @@ check('5F 房间已切换', (await ev(`document.querySelector('#room-bg').getAtt
 check('5F 三只宠物已生成', (await ev(`document.querySelectorAll('.pet').length`)) === 3,
   '宠物数=' + (await ev(`document.querySelectorAll('.pet').length`)));
 check('5F 三样零食已生成', (await ev(`document.querySelectorAll('.food').length`)) === 3);
+check('4F 买的小帽子在 5F 团子头上', (await ev(`document.querySelector('.pet--cat .pet__wear').getAttribute('src') || ''`)).indexOf('wear-hat') >= 0,
+  await ev(`document.querySelector('.pet--cat .pet__wear').getAttribute('src')`));
+check('没装扮的宠物不显示饰品图层', await ev(`getComputedStyle(document.querySelector('.pet--dog .pet__wear')).display === 'none'`));
 check('每只宠物都有好感度条', (await ev(`document.querySelectorAll('.pet__meter').length`)) === 3);
 await shot('13-5F');
 
@@ -298,9 +379,79 @@ check('升级后出现星级徽章', await ev(`document.querySelector('.pet--cat
 check('宠物好感度写进存档', await ev(`!!(JSON.parse(localStorage.getItem('meow-elevator-save-v1')).pets || {}).cat`));
 await shot('16-5F-升级');
 
+/* --- 去 6F 游乐区 --- */
+await ev(`document.querySelector('.floorbtn[data-floor="6"]').click()`);
+await sleep(4600);
+check('6F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('room-arcade'));
+check('6F 有三个游戏摊位', (await ev(`document.querySelectorAll('.booth').length`)) === 3,
+  '摊位=' + (await ev(`[...document.querySelectorAll('.booth')].map(b => b.textContent.trim()).join('/')`)));
+check('楼层指示条有 6 格且当前格高亮',
+  (await ev(`document.querySelectorAll('.floors__cell').length`)) === 6 &&
+  (await ev(`document.querySelector('.floors__cell.is-active')?.textContent`)) === '6F');
+await shot('17-6F');
+
+/* ① 投篮：等指针进绿区再点，保证命中 */
+await ev(`document.querySelector('.booth--basket').click()`);
+await sleep(400);
+check('投篮弹窗已打开', await ev(`document.querySelector('#arcade').classList.contains('is-open')`));
+await shot('18-6F-投篮');
+const coinBb0 = await ev(`+document.querySelector('#coin-count').textContent`);
+for (let i = 0; i < 3; i++) {
+  for (let t = 0; t < 60; t++) {                       // 等指针走到绿区
+    const p = parseFloat(await ev(`document.querySelector('#arc-mark').style.left`) || '0');
+    if (p >= 40 && p <= 60) break;
+    await sleep(40);
+  }
+  await ev(`document.querySelector('#arcade-action').click()`);
+  await sleep(900);
+}
+const coinBb1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('投篮 3 球能拿到星星糖', coinBb1 > coinBb0, `+${coinBb1 - coinBb0}`);
+check('投完显示本轮成绩', ((await ev(`document.querySelector('#arcade-score').textContent`)) || '').indexOf('本轮') >= 0,
+  await ev(`document.querySelector('#arcade-score').textContent`));
+await shot('19-6F-投篮结束');
+
+/* ② 羽毛球：等球进左边接球区再挥拍 */
+await ev(`document.querySelector('#arcade-close').click()`);
+await sleep(200);
+check('关掉弹窗后遮罩也收起来了', !(await ev(`document.querySelector('#arcade').classList.contains('is-open')`)));
+await ev(`document.querySelector('.booth--badminton').click()`);
+await sleep(300);
+check('羽毛球弹窗已打开', (await ev(`document.querySelector('#arcade-title').textContent`)).indexOf('羽毛球') >= 0);
+await shot('20-6F-羽毛球');
+const coinBd0 = await ev(`+document.querySelector('#coin-count').textContent`);
+for (let t = 0; t < 80; t++) {
+  const x = parseFloat(await ev(`document.querySelector('#arc-shuttle').style.left`) || '100');
+  if (x <= 22) break;
+  await sleep(40);
+}
+await ev(`document.querySelector('#arcade-action').click()`);
+await sleep(400);
+const coinBd1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('羽毛球接住一球 +1 颗', coinBd1 - coinBd0 === 1, `+${coinBd1 - coinBd0}`);
+check('连击数有显示', ((await ev(`document.querySelector('#arcade-score').textContent`)) || '').indexOf('连击 1') >= 0,
+  await ev(`document.querySelector('#arcade-score').textContent`));
+
+/* ③ 老虎机：投 1 颗，结算只有三种可能（-1 / 0 / +7） */
+await ev(`document.querySelector('#arcade-close').click()`);
+await sleep(200);
+await ev(`document.querySelector('.booth--slot').click()`);
+await sleep(300);
+check('老虎机弹窗已打开', (await ev(`document.querySelector('#arcade-title').textContent`)).indexOf('老虎机') >= 0);
+await shot('21-6F-老虎机');
+const coinSl0 = await ev(`+document.querySelector('#coin-count').textContent`);
+await ev(`document.querySelector('#arcade-action').click()`);
+await sleep(2400);
+const coinSl1 = await ev(`+document.querySelector('#coin-count').textContent`);
+const diff = coinSl1 - coinSl0;
+check('老虎机结算合理（没中 -1 / 中两个 ±0 / 三个一样 +7）', [-1, 0, 7].indexOf(diff) >= 0, `${coinSl0} → ${coinSl1}`);
+check('老虎机有结果文案', ((await ev(`document.querySelector('#arcade-score').textContent`)) || '').indexOf('颗') >= 0,
+  await ev(`document.querySelector('#arcade-score').textContent`));
+await shot('22-6F-老虎机结果');
+
 /* --- 回 1F --- */
 await ev(`document.querySelector('.floorbtn[data-floor="1"]').click()`);
-await sleep(5200);
+await sleep(6200);
 check('回到 1F', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('candy'));
 check('显示屏显示 1F', (await ev(`document.querySelector('#indicator-text').textContent`)) === '1F');
 check('存档写入了 localStorage', await ev(`!!localStorage.getItem('meow-elevator-save-v1')`));

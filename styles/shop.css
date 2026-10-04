@@ -1,0 +1,233 @@
+/* ============================================================
+   shop.css —— 4F 商店（买衣服 / 宠物装扮）+ 宠物装扮面板
+   弹窗外壳和 6F 的小游戏弹窗保持同一套视觉
+   ============================================================ */
+
+.shop,
+.petdress {
+  position: absolute;
+  inset: 0;
+  z-index: 30;
+  display: grid;
+  place-items: center;
+  background: rgba(90, 68, 80, 0.45);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+
+.shop.is-open,
+.petdress.is-open { opacity: 1; pointer-events: auto; }
+
+.shop__panel,
+.petdress__panel {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 12px 18px 14px;
+  background: var(--c-cream);
+  border: 6px solid var(--c-outline);
+  border-radius: 30px;
+  box-shadow: 0 12px 0 rgba(107, 74, 69, 0.28);
+  transform: scale(0.94);
+  transition: transform 0.24s cubic-bezier(0.2, 1.5, 0.4, 1);
+}
+
+.shop.is-open .shop__panel,
+.petdress.is-open .petdress__panel { transform: scale(1); }
+
+.shop__panel { width: 720px; height: 486px; }
+.petdress__panel { width: 700px; height: 440px; }
+
+.shop__head,
+.petdress__head { display: flex; align-items: center; gap: 12px; }
+
+.shop__title,
+.petdress__title { margin: 0; flex: 1 1 auto; font-size: 22px; color: var(--c-pink); letter-spacing: 1px; }
+
+.shop__coins {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 20px;
+  color: var(--c-coffee);
+}
+.shop__coins img { width: 26px; height: 26px; }
+
+.shop__close,
+.petdress__close {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFF3F8;
+  border: 4px solid var(--c-outline);
+  box-shadow: 0 4px 0 rgba(107, 74, 69, 0.2);
+  font-size: 24px;
+  line-height: 1;
+  color: var(--c-ink);
+  cursor: pointer;
+}
+.shop__close:active,
+.petdress__close:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(107, 74, 69, 0.2); }
+
+.shop__body,
+.petdress__body {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 4px;
+}
+
+.shop__hint,
+.petdress__hint { margin: 0; font-size: 13px; color: var(--c-ink-soft); text-align: center; }
+
+/* ---------- 商品卡片 ---------- */
+.shop__group { margin: 6px 0 6px; font-size: 16px; color: var(--c-ink-soft); }
+.shop__grid { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 4px; }
+
+.shopcard {
+  width: 120px;
+  padding: 8px 6px 6px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 4px;
+  background: #FFFDF7;
+  border: 4px solid var(--c-outline);
+  border-radius: 18px;
+  box-shadow: 0 5px 0 rgba(107, 74, 69, 0.18);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--c-ink);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.shopcard:hover { transform: translateY(-3px); }
+.shopcard:active { transform: translateY(3px); box-shadow: 0 2px 0 rgba(107, 74, 69, 0.18); }
+.shopcard.is-owned { background: #F1FBF6; }
+.shopcard.is-asking { box-shadow: 0 0 0 5px rgba(255, 143, 171, 0.85), 0 5px 0 rgba(107, 74, 69, 0.18); }
+
+.shopcard__pic {
+  position: relative;
+  width: 70px;
+  height: 70px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 50% 35%, #FFFDF7, #FFE9F1);
+  border: 3px solid var(--c-outline);
+  overflow: hidden;
+}
+
+.shopcard__pic img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.shopcard__state {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  font-size: 12px;
+  color: var(--c-coffee);
+}
+.shopcard__state img { width: 16px; height: 16px; }
+.shopcard.is-owned .shopcard__state { color: #3FA98A; }
+
+/* 宠物饰品的取景：每种饰品在 200×190 画布上的位置不一样 */
+.pw--collar img { transform: scale(2.1); transform-origin: 50% 72%; }
+.pw--hat img    { transform: scale(2.1); transform-origin: 50% 22%; }
+.pw--scarf img  { transform: scale(2.1); transform-origin: 50% 76%; }
+.pw--cape img   { transform: scale(2.1); transform-origin: 50% 78%; }
+
+/* ---------- 宠物装扮面板 ---------- */
+.dressrow {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 10px;
+  margin-bottom: 8px;
+  background: #FFFDF7;
+  border: 4px solid var(--c-outline);
+  border-radius: 20px;
+}
+
+.dressrow__pet {
+  position: relative;
+  width: 96px;
+  height: 91px;
+  flex: 0 0 96px;
+  background: radial-gradient(circle at 50% 40%, #FFF6E5, #FFE9F1);
+  border-radius: 16px;
+}
+
+.dressrow__body {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.dressrow__name {
+  flex: 0 0 76px;
+  display: flex;
+  flex-direction: column;
+  font-size: 17px;
+  color: var(--c-ink);
+}
+.dressrow__name small { font-size: 12px; color: var(--c-ink-soft); }
+
+.dressrow__list { display: flex; flex: 1 1 auto; gap: 8px; }
+
+.dressitem {
+  position: relative;
+  width: 62px;
+  height: 62px;
+  flex: 0 0 62px;
+  border-radius: 50%;
+  background: #FFF6E5;
+  border: 4px solid var(--c-outline);
+  overflow: hidden;
+  font-family: inherit;
+  font-size: 12px;
+  color: var(--c-ink-soft);
+  cursor: pointer;
+  transition: transform 0.12s ease, box-shadow 0.12s ease;
+}
+
+.dressitem img { position: absolute; inset: 0; width: 100%; height: 100%; }
+.dressitem:hover { transform: translateY(-3px); }
+.dressitem:active { transform: translateY(2px); }
+
+.dressitem.is-active {
+  border-color: var(--c-pink);
+  box-shadow: 0 0 0 4px rgba(255, 143, 171, 0.4);
+}
+
+.dressitem.is-locked img { filter: grayscale(0.8) opacity(0.7); }
+
+.dressitem em {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  transform: translateX(-50%);
+  padding: 0 6px;
+  border-radius: 8px 8px 0 0;
+  background: var(--c-ink);
+  color: #FFF6E5;
+  font-size: 10px;
+  font-style: normal;
+  white-space: nowrap;
+}
+
+.dressitem span { position: absolute; inset: 0; display: grid; place-items: center; font-size: 12px; }
+
+/* ---------- 触屏上再大一点 ---------- */
+@media (pointer: coarse) {
+  .closetbtn { font-size: 17px; padding: 8px 18px; }
+  .shopcard { width: 132px; }
+  .shopcard__pic { width: 78px; height: 78px; }
+  .dressitem { width: 68px; height: 68px; flex-basis: 68px; }
+  .dressrow__list { gap: 6px; }
+}

@@ -1,23 +1,23 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 302" width="232" height="302" preserveAspectRatio="none">
-  <!-- 竖排电梯按键面板底板（3F 在上、1F 在下） -->
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 232 560" width="232" height="560" preserveAspectRatio="none">
+  <!-- 竖排电梯按键面板底板（6 层版本：整体更长） -->
   <defs>
     <linearGradient id="plateV" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FFF6E5"/>
       <stop offset="1" stop-color="#FFE4C4"/>
     </linearGradient>
   </defs>
-  <rect x="5" y="5" width="222" height="292" rx="38" fill="url(#plateV)" stroke="#6B4A45" stroke-width="9"/>
-  <rect x="13" y="13" width="206" height="276" rx="30" fill="none" stroke="#F2BE8C"
+  <rect x="5" y="5" width="222" height="550" rx="42" fill="url(#plateV)" stroke="#6B4A45" stroke-width="9"/>
+  <rect x="14" y="14" width="204" height="532" rx="34" fill="none" stroke="#F2BE8C"
         stroke-width="5" stroke-dasharray="15 11"/>
   <!-- 上行 / 下行 区与按键区的分隔线 -->
-  <path d="M48 62 H184" stroke="#EBC7A2" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 9"/>
+  <path d="M48 70 H184" stroke="#EBC7A2" stroke-width="5" stroke-linecap="round" stroke-dasharray="10 9"/>
   <!-- 两个箭头中间的小灯 -->
-  <circle cx="116" cy="37" r="6" fill="#FFD166" stroke="#6B4A45" stroke-width="4"/>
+  <circle cx="116" cy="43" r="6" fill="#FFD166" stroke="#6B4A45" stroke-width="4"/>
   <!-- 四角螺丝 -->
   <g fill="#E7B183" stroke="#6B4A45" stroke-width="5">
-    <circle cx="28" cy="28" r="8"/>
-    <circle cx="204" cy="28" r="8"/>
-    <circle cx="28" cy="274" r="8"/>
-    <circle cx="204" cy="274" r="8"/>
+    <circle cx="30" cy="30" r="8"/>
+    <circle cx="202" cy="30" r="8"/>
+    <circle cx="30" cy="530" r="8"/>
+    <circle cx="202" cy="530" r="8"/>
   </g>
 </svg>

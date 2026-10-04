@@ -76,6 +76,8 @@
       return;
     }
     EG.Audio.play('click');
+    /* 6F 的游乐场弹窗开着的话，坐电梯前先收起来 */
+    if (EG.Arcade && EG.Arcade.isOpen()) EG.Arcade.close();
     EG.Elevator.go(id, function (arrived) {
       arrive(arrived);
       var btn = dom.floorBtns.find(function (b) { return Number(b.dataset.floor) === arrived; });
@@ -215,13 +217,27 @@
     EG.Outfit.load();
     EG.Outfit.mount($('#cat'));
     EG.Outfit.refresh();
+    EG.PetWear.refresh();      // 宠物身上的装扮（5F / 6F / 装扮面板都用同一份数据）
+
+    /* 楼层多了就自动改成两列按键（高楼层在上一排） */
+    var needTwoCol = C.floors.length >= (C.panel && C.panel.twoColumnAt || 6);
+    document.body.classList.toggle('panel-2col', needTwoCol);
+
+    /* 楼层指示条：从上到下把所有楼层列成格子（加减楼层只改 config 就行） */
+    var strip = $('#floor-strip');
+    if (strip) {
+      C.floors.slice().reverse().forEach(function (f) {
+        var cell = EG.util.el('span', 'floors__cell', f.tag);
+        cell.dataset.floor = f.id;
+        strip.appendChild(cell);
+      });
+    }
 
     EG.Elevator.init({
       dom: {
         stage: dom.stage,
         roomBg: dom.roomBg,
         mapCar: dom.mapCar,
-        mapCard: $('#minimap'),
         indicator: dom.indicator,
         indicatorText: dom.indicatorText
       },

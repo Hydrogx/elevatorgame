@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+  <!-- 宠物装扮·铃铛项圈 -->
+  <path d="M52 122 q48 30 96 0 l4 16 q-52 30 -104 0 Z" fill="#FF8FAB" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <circle cx="100" cy="146" r="15" fill="#FFD166" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M100 158 v5" stroke="#6B4A45" stroke-width="5" stroke-linecap="round"/>
+  <ellipse cx="94" cy="142" rx="5" ry="3.5" fill="#FFFFFF" opacity="0.7"/>
+</svg>

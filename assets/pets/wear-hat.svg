@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 190" width="200" height="190">
+  <!-- 宠物装扮·小帽子 -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <path d="M62 56 q38 -34 76 0 q-38 12 -76 0 Z" fill="#7FC8F0"/>
+    <path d="M56 54 q44 -22 88 0" fill="none" stroke-linecap="round"/>
+    <ellipse cx="100" cy="56" rx="46" ry="10" fill="#8FD8F0"/>
+  </g>
+  <circle cx="100" cy="24" r="12" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M92 52 q8 6 16 0" stroke="#FFF6E5" stroke-width="4" fill="none" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 300 350" width="300" height="350">
+  <!-- 鞋子·星星靴（商店商品） -->
+  <g stroke="#6B4A45" stroke-width="7" stroke-linejoin="round">
+    <path d="M84 282 h56 v40 q0 20 -28 20 q-28 0 -28 -20 Z" fill="#CDB4F6"/>
+    <path d="M160 282 h56 v40 q0 20 -28 20 q-28 0 -28 -20 Z" fill="#CDB4F6"/>
+  </g>
+  <g stroke="#6B4A45" stroke-width="5" stroke-linejoin="round" fill="#FFE066">
+    <path d="M112 296 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 Z"/>
+    <path d="M188 296 l4 9 l10 1 l-7 7 l2 10 l-9 -5 l-9 5 l2 -10 l-7 -7 l10 -1 Z"/>
+  </g>
+  <g stroke="#6B4A45" stroke-width="5" stroke-linejoin="round">
+    <path d="M80 336 h68 q0 16 -34 16 q-34 0 -34 -16 Z" fill="#E4D6FF"/>
+    <path d="M156 336 h68 q0 16 -34 16 q-34 0 -34 -16 Z" fill="#E4D6FF"/>
+  </g>
+</svg>
