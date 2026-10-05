@@ -526,6 +526,44 @@ check('投完显示本轮成绩', ((await ev(`document.querySelector('#arcade-sc
   await ev(`document.querySelector('#arcade-score').textContent`));
 await shot('19-6F-投篮结束');
 
+/* --- 6F 自适应难度（面向 5-8 岁） --- */
+check('弹窗上显示速度档位徽章', (await ev(`document.querySelector('#arcade-level').textContent`)).indexOf('★') >= 0,
+  await ev(`document.querySelector('#arcade-level').textContent`));
+check('成功投篮会让难度升档（默认第 1 档 → 第 2 档）',
+  (await ev(`EG.State.data.gameLevel.basket`)) >= 2, '档位=' + (await ev(`EG.State.data.gameLevel.basket`)));
+
+/* 把档位抬到 3，然后故意连打两次空 → 应该降档 */
+await ev(`EG.State.data.gameLevel.basket = 3; EG.State.save();`);
+await ev(`document.querySelector('#arcade-close').click()`);
+await sleep(250);
+await ev(`document.querySelector('.booth--basket').click()`);
+await sleep(400);
+for (let i = 0; i < 2; i++) {
+  for (let t = 0; t < 80; t++) {                      // 等指针跑到最边上（一定不在窗口里）
+    const p = parseFloat(await ev(`document.querySelector('#arc-mark').style.left`) || '50');
+    if (p < 6 || p > 94) break;
+    await sleep(30);
+  }
+  await ev(`document.querySelector('#arcade-action').click()`);
+  await sleep(950);
+}
+check('连续 2 次没进就降一档', (await ev(`EG.State.data.gameLevel.basket`)) === 2,
+  '档位=' + (await ev(`EG.State.data.gameLevel.basket`)));
+check('第 1 档的命中窗口更宽（指针更慢、更好按）', await ev(`(async () => {
+  EG.State.data.gameLevel.basket = 1; EG.State.save();
+  document.querySelector('#arcade-close').click();
+  await new Promise(r => setTimeout(r, 250));
+  document.querySelector('.booth--basket').click();
+  await new Promise(r => setTimeout(r, 400));
+  const v = getComputedStyle(document.querySelector('.bb__bar')).getPropertyValue('--z-perfect').trim();
+  return v;
+})()`) === '16%', '完美区半宽=' + (await ev(`getComputedStyle(document.querySelector('.bb__bar')).getPropertyValue('--z-perfect').trim()`)));
+check('难度档位写进存档', (await ev(`JSON.parse(localStorage.getItem('meow-elevator-save-v1')).gameLevel.basket`)) === 1,
+  '存档=' + (await ev(`JSON.parse(localStorage.getItem('meow-elevator-save-v1')).gameLevel.basket`)));
+await ev(`document.querySelector('#arcade-close').click()`);
+await sleep(250);
+
+
 /* ② 羽毛球：等球进左边接球区再挥拍 */
 await ev(`document.querySelector('#arcade-close').click()`);
 await sleep(200);
@@ -534,12 +572,17 @@ await ev(`document.querySelector('.booth--badminton').click()`);
 await sleep(300);
 check('羽毛球弹窗已打开', (await ev(`document.querySelector('#arcade-title').textContent`)).indexOf('羽毛球') >= 0);
 await shot('20-6F-羽毛球');
+check('羽毛球默认也是第 1 档', ((await ev(`EG.State.data.gameLevel.badminton`)) || 1) === 1,
+  '档位=' + (await ev(`EG.State.data.gameLevel.badminton`)));
 const coinBd0 = await ev(`+document.querySelector('#coin-count').textContent`);
-for (let t = 0; t < 80; t++) {
+const tBd = Date.now();
+for (let t = 0; t < 90; t++) {
   const x = parseFloat(await ev(`document.querySelector('#arc-shuttle').style.left`) || '100');
   if (x <= 22) break;
-  await sleep(40);
+  await sleep(30);
 }
+/* 旧版第 1 球约 0.9 秒就到，现在第 1 档要 1.4 秒以上，小朋友才来得及反应 */
+check('羽毛球第 1 档留足反应时间（≥1.3 秒）', Date.now() - tBd >= 1300, (Date.now() - tBd) + 'ms');
 await ev(`document.querySelector('#arcade-action').click()`);
 await sleep(400);
 const coinBd1 = await ev(`+document.querySelector('#coin-count').textContent`);

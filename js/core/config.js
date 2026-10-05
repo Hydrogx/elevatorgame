@@ -303,8 +303,28 @@ window.EG = window.EG || {};
         { id: 'badminton', name: '羽毛球', icon: '🏸', x: 52.5 },
         { id: 'slot',      name: '老虎机', icon: '🎰', x: 71.7 }
       ],
-      basket:    { shots: 3, speed: 1.7, good: 2, perfect: 3 },      // 3 球机会，越靠中间给得越多
-      badminton: { coins: 1, speed: 1.1, ramp: 1.12, zone: 26 },     // 连击越多越快
+      /* 难度自适应：5 档，第 1 档最慢（面向 5-8 岁）。
+         连续 2 次没成绩就降一档，连续过关就升一档，档位存在存档里。 */
+      basket: {
+        shots: 3, good: 2, perfect: 3,
+        baseSpeed: 0.9,      // 第 1 档：指针一个来回约 1.9 秒
+        step: 0.18,          // 每升一档快 18%
+        maxLevel: 5,
+        zones: [[16, 30], [14, 27], [12, 24], [11, 22], [10, 20]],   // [完美半宽, 命中半宽] %
+        upStreak: 3,         // 连中 3 球升一档
+        downStreak: 2        // 连续 2 球不中降一档
+      },
+      badminton: {
+        coins: 1,
+        baseSpeed: 0.65,     // 第 1 档：球飞到你这边约 1.7 秒
+        step: 0.16,
+        maxLevel: 5,
+        ramp: 1.06,          // 同一回合里每接住一次加快 6%（以前是 12%，对小朋友太陡）
+        maxRamp: 1.9,
+        zone: 26,            // 左边接球区宽度（%）
+        upStreak: 4,         // 连击 4 次升一档
+        downStreak: 2        // 连续 2 次没接到降一档
+      },
       slot:      { cost: 1, triple: 8, double: 1,                    // 投币 1 颗，三个一样中 8 颗
                    symbols: ['coin', 'heart', 'lolly', 'sparkle'] }
     },

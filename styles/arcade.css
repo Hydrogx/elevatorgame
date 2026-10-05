@@ -63,6 +63,7 @@
 
 .arcade__title { margin: 0; font-size: 22px; color: var(--c-pink); letter-spacing: 1px; }
 
+
 .arcade__close {
   width: 44px;
   height: 44px;
@@ -163,16 +164,32 @@
   overflow: hidden;
 }
 
+/* 命中窗口的宽度由 JS 按难度档位写进 --z-good / --z-perfect：
+   第 1 档窗口最宽（小朋友好命中），档位越高越窄 */
 .bb__zone { position: absolute; top: 0; bottom: 0; }
 .bb__zone--good {
-  left: 26%;
-  width: 48%;
+  left: calc(50% - var(--z-good, 24%));
+  width: calc(var(--z-good, 24%) * 2);
   background: rgba(168, 230, 207, 0.55);
 }
 .bb__zone--perfect {
-  left: 38%;
-  width: 24%;
+  left: calc(50% - var(--z-perfect, 12%));
+  width: calc(var(--z-perfect, 12%) * 2);
   background: repeating-linear-gradient(45deg, rgba(127, 216, 190, 0.95) 0 8px, rgba(168, 230, 207, 0.95) 8px 16px);
+}
+
+/* 弹窗标题旁边的速度档位徽章 */
+.arcade__level {
+  flex: 0 0 auto;
+  padding: 2px 12px;
+  margin-left: auto;
+  margin-right: 10px;
+  border-radius: 14px;
+  background: #FFF3F8;
+  border: 3px solid var(--c-outline);
+  font-size: 13px;
+  color: var(--c-coffee);
+  letter-spacing: 1px;
 }
 
 .bb__marker {
