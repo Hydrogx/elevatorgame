@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" width="1200" height="675">
-  <!-- 6F 宠物游乐区 场景（三个游戏摊位：投篮 / 羽毛球 / 老虎机） -->
+  <!-- 6F 宠物游乐区 场景（四个游戏摊位：投篮 / 羽毛球 / 老虎机 / 保龄球） -->
   <defs>
     <linearGradient id="arcWall" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#FFF3E8"/>
@@ -8,6 +8,10 @@
     <linearGradient id="screen" x1="0" y1="0" x2="0" y2="1">
       <stop offset="0" stop-color="#5A4450"/>
       <stop offset="1" stop-color="#3E2F38"/>
+    </linearGradient>
+    <linearGradient id="laneWood2" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#EBCB9C"/>
+      <stop offset="1" stop-color="#D2A46C"/>
     </linearGradient>
     <pattern id="arcFloor" width="120" height="120" patternUnits="userSpaceOnUse">
       <rect width="120" height="120" fill="#F7E7D6"/>
@@ -23,78 +27,94 @@
     <circle cx="330" cy="200" r="6" fill="#FFD166"/><circle cx="520" cy="170" r="7" fill="#CDB4F6"/>
     <circle cx="700" cy="230" r="6" fill="#FF9F7A"/><circle cx="1060" cy="200" r="8" fill="#7FC8F0"/>
     <circle cx="1140" cy="320" r="6" fill="#FFB3C6"/><circle cx="640" cy="330" r="6" fill="#FFD166"/>
+    <circle cx="960" cy="300" r="6" fill="#CDB4F6"/>
   </g>
 
   <!-- 顶部彩旗 -->
   <path d="M0 118 q300 56 600 0 q300 -56 600 0" fill="none" stroke="#FFB3C6" stroke-width="6"/>
   <g stroke="#6B4A45" stroke-width="5" stroke-linejoin="round">
-    <path d="M150 128 l30 6 l-16 34 Z" fill="#FF8FAB"/>
-    <path d="M330 152 l30 2 l-15 34 Z" fill="#FFD166"/>
-    <path d="M510 158 l30 -2 l-15 34 Z" fill="#7FD8BE"/>
-    <path d="M690 152 l30 -2 l-15 34 Z" fill="#7FC8F0"/>
-    <path d="M870 136 l30 -6 l-15 34 Z" fill="#CDB4F6"/>
-    <path d="M1040 122 l30 -6 l-15 34 Z" fill="#FF8FAB"/>
+    <path d="M140 126 l30 6 l-16 34 Z" fill="#FF8FAB"/>
+    <path d="M310 150 l30 2 l-15 34 Z" fill="#FFD166"/>
+    <path d="M480 158 l30 -2 l-15 34 Z" fill="#7FD8BE"/>
+    <path d="M650 154 l30 -2 l-15 34 Z" fill="#7FC8F0"/>
+    <path d="M820 138 l30 -6 l-15 34 Z" fill="#CDB4F6"/>
+    <path d="M990 120 l30 -6 l-15 34 Z" fill="#FF8FAB"/>
   </g>
 
   <!-- 计分板 -->
   <g stroke="#6B4A45" stroke-width="8" stroke-linejoin="round">
-    <rect x="470" y="150" width="260" height="86" rx="16" fill="url(#screen)"/>
-    <rect x="452" y="140" width="296" height="18" rx="9" fill="#E7B183"/>
+    <rect x="470" y="150" width="240" height="82" rx="16" fill="url(#screen)"/>
+    <rect x="452" y="140" width="276" height="18" rx="9" fill="#E7B183"/>
   </g>
   <g stroke="#FFE066" stroke-width="7" stroke-linecap="round" opacity="0.9">
-    <path d="M500 186 h60"/><path d="M500 212 h120"/><path d="M640 186 h70"/>
+    <path d="M498 182 h56"/><path d="M498 208 h112"/><path d="M626 182 h62"/>
   </g>
 
-  <!-- ① 左：投篮机 -->
+  <!-- ① 投篮机 -->
   <g stroke="#6B4A45" stroke-width="8" stroke-linejoin="round">
-    <ellipse cx="400" cy="470" rx="104" ry="24" fill="#8FD3B6"/>
-    <rect x="392" y="250" width="18" height="220" fill="#C9D8E4"/>
-    <rect x="322" y="152" width="160" height="104" rx="14" fill="#FFF6E5"/>
-    <rect x="352" y="176" width="56" height="46" rx="7" fill="none" stroke="#E4572E" stroke-width="7" stroke-linejoin="round"/>
-    <ellipse cx="402" cy="258" rx="50" ry="14" fill="none" stroke="#E4572E" stroke-width="9"/>
+    <ellipse cx="380" cy="458" rx="92" ry="22" fill="#8FD3B6"/>
+    <rect x="372" y="250" width="18" height="208" fill="#C9D8E4"/>
+    <rect x="306" y="152" width="148" height="100" rx="14" fill="#FFF6E5"/>
+    <rect x="334" y="176" width="52" height="44" rx="7" fill="none" stroke="#E4572E" stroke-width="7" stroke-linejoin="round"/>
+    <ellipse cx="380" cy="256" rx="46" ry="13" fill="none" stroke="#E4572E" stroke-width="9"/>
   </g>
   <g stroke="#FFFFFF" stroke-width="5" opacity="0.95">
-    <path d="M360 264 l-6 38"/><path d="M382 268 l-2 42"/><path d="M402 270 v44"/>
-    <path d="M422 268 l2 42"/><path d="M444 264 l6 38"/>
-    <path d="M354 290 q48 20 96 0"/><path d="M352 310 q50 20 100 0"/>
+    <path d="M340 262 l-6 36"/><path d="M360 266 l-2 40"/><path d="M380 268 v42"/>
+    <path d="M400 266 l2 40"/><path d="M420 262 l6 36"/>
+    <path d="M334 286 q46 18 92 0"/><path d="M332 306 q48 18 96 0"/>
   </g>
 
-  <!-- ② 中：羽毛球网 -->
+  <!-- ② 羽毛球网 -->
   <g stroke="#6B4A45" stroke-width="8" stroke-linejoin="round">
-    <rect x="558" y="272" width="18" height="200" rx="9" fill="#C9D8E4"/>
-    <rect x="686" y="272" width="18" height="200" rx="9" fill="#C9D8E4"/>
-    <rect x="558" y="286" width="146" height="140" rx="10" fill="#FFF6E5" opacity="0.85"/>
+    <rect x="468" y="286" width="17" height="176" rx="8" fill="#C9D8E4"/>
+    <rect x="595" y="286" width="17" height="176" rx="8" fill="#C9D8E4"/>
+    <rect x="468" y="300" width="144" height="132" rx="10" fill="#FFF6E5" opacity="0.85"/>
   </g>
   <g stroke="#BFE3FF" stroke-width="4" opacity="0.95">
-    <path d="M588 288 v136"/><path d="M618 288 v136"/><path d="M648 288 v136"/><path d="M678 288 v136"/>
-    <path d="M560 322 h142"/><path d="M560 356 h142"/><path d="M560 390 h142"/>
+    <path d="M498 302 v128"/><path d="M528 302 v128"/><path d="M558 302 v128"/><path d="M588 302 v128"/>
+    <path d="M470 334 h140"/><path d="M470 366 h140"/><path d="M470 398 h140"/>
   </g>
-  <path d="M560 290 q72 18 142 0" fill="none" stroke="#6B4A45" stroke-width="8"/>
-  <ellipse cx="631" cy="492" rx="200" ry="30" fill="none" stroke="#FFFFFF" stroke-width="6" opacity="0.8"/>
+  <path d="M470 304 q72 18 140 0" fill="none" stroke="#6B4A45" stroke-width="8"/>
+  <ellipse cx="540" cy="500" rx="170" ry="26" fill="none" stroke="#FFFFFF" stroke-width="6" opacity="0.75"/>
 
-  <!-- ③ 右：老虎机 -->
+  <!-- ③ 老虎机 -->
   <g stroke="#6B4A45" stroke-width="8" stroke-linejoin="round">
-    <rect x="768" y="206" width="188" height="256" rx="26" fill="#FF9F7A"/>
-    <rect x="788" y="232" width="148" height="96" rx="14" fill="url(#screen)"/>
-    <rect x="800" y="336" width="124" height="34" rx="12" fill="#FFF6E5"/>
-    <rect x="792" y="392" width="140" height="46" rx="16" fill="#FFD166"/>
-    <circle cx="972" cy="266" r="18" fill="#FFD166"/>
-    <path d="M972 266 l22 -34" stroke="#6B4A45" stroke-width="9" stroke-linecap="round"/>
-    <circle cx="994" cy="228" r="14" fill="#FF5D8F"/>
+    <rect x="612" y="214" width="176" height="244" rx="24" fill="#FF9F7A"/>
+    <rect x="630" y="238" width="140" height="90" rx="13" fill="url(#screen)"/>
+    <rect x="642" y="336" width="116" height="32" rx="11" fill="#FFF6E5"/>
+    <rect x="634" y="388" width="132" height="44" rx="15" fill="#FFD166"/>
+    <circle cx="804" cy="272" r="17" fill="#FFD166"/>
+    <path d="M804 272 l20 -32" stroke="#6B4A45" stroke-width="9" stroke-linecap="round"/>
+    <circle cx="824" cy="236" r="13" fill="#FF5D8F"/>
   </g>
   <g stroke="#6B4A45" stroke-width="5">
-    <rect x="806" y="250" width="36" height="60" rx="8" fill="#FFF6E5"/>
-    <rect x="850" y="250" width="36" height="60" rx="8" fill="#FFF6E5"/>
-    <rect x="894" y="250" width="36" height="60" rx="8" fill="#FFF6E5"/>
+    <rect x="646" y="254" width="34" height="56" rx="8" fill="#FFF6E5"/>
+    <rect x="688" y="254" width="34" height="56" rx="8" fill="#FFF6E5"/>
+    <rect x="730" y="254" width="34" height="56" rx="8" fill="#FFF6E5"/>
   </g>
   <g fill="#FF8FAB">
-    <circle cx="824" cy="280" r="12"/><circle cx="868" cy="280" r="12"/><circle cx="912" cy="280" r="12"/>
+    <circle cx="663" cy="282" r="11"/><circle cx="705" cy="282" r="11"/><circle cx="747" cy="282" r="11"/>
   </g>
-  <path d="M822 392 h80" stroke="#6B4A45" stroke-width="6" stroke-linecap="round"/>
+  <path d="M664 388 h76" stroke="#6B4A45" stroke-width="6" stroke-linecap="round"/>
+
+  <!-- ④ 保龄球道（近大远小，尽头一排小瓶子） -->
+  <path d="M736 480 L818 286 h84 L984 480 Z" fill="#B98E60" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <path d="M756 480 L826 292 h68 L964 480 Z" fill="url(#laneWood2)" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <rect x="820" y="270" width="80" height="22" rx="8" fill="#C08B5C" stroke="#6B4A45" stroke-width="5"/>
+  <g stroke="#6B4A45" stroke-width="4" fill="#FFF6E5">
+    <path d="M860 288 q7 4 7 12 q0 12 -7 14 q-7 -2 -7 -14 q0 -8 7 -12 Z"/>
+    <path d="M846 272 q6 4 6 11 q0 11 -6 13 q-6 -2 -6 -13 q0 -7 6 -11 Z"/>
+    <path d="M874 272 q6 4 6 11 q0 11 -6 13 q-6 -2 -6 -13 q0 -7 6 -11 Z"/>
+    <path d="M832 258 q5 3 5 9 q0 9 -5 11 q-5 -2 -5 -11 q0 -6 5 -9 Z"/>
+    <path d="M860 256 q5 3 5 9 q0 9 -5 11 q-5 -2 -5 -11 q0 -6 5 -9 Z"/>
+    <path d="M888 258 q5 3 5 9 q0 9 -5 11 q-5 -2 -5 -11 q0 -6 5 -9 Z"/>
+  </g>
+  <circle cx="884" cy="424" r="26" fill="#7C86C8" stroke="#6B4A45" stroke-width="6"/>
+  <g fill="#4E5687"><circle cx="877" cy="417" r="4"/><circle cx="890" cy="414" r="4"/><circle cx="884" cy="427" r="4"/></g>
 
   <!-- 护墙板与地板 -->
   <rect x="0" y="518" width="1200" height="157" fill="#F3C9AE"/>
   <rect x="0" y="506" width="1200" height="20" rx="10" fill="#FF9F7A" stroke="#6B4A45" stroke-width="5"/>
   <rect x="0" y="616" width="1200" height="59" fill="url(#arcFloor)"/>
-  <ellipse cx="630" cy="600" rx="430" ry="40" fill="#FFFFFF" opacity="0.35"/>
+  <ellipse cx="620" cy="600" rx="440" ry="40" fill="#FFFFFF" opacity="0.35"/>
 </svg>

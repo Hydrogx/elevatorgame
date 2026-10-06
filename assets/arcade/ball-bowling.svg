@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 90 90" width="90" height="90">
+  <!-- 保龄球 -->
+  <circle cx="45" cy="45" r="38" fill="#7C86C8" stroke="#6B4A45" stroke-width="7"/>
+  <g fill="#4E5687">
+    <circle cx="34" cy="34" r="6.5"/><circle cx="52" cy="30" r="6.5"/><circle cx="43" cy="48" r="6.5"/>
+  </g>
+  <ellipse cx="32" cy="28" rx="16" ry="10" fill="#FFFFFF" opacity="0.28" transform="rotate(-32 32 28)"/>
+</svg>

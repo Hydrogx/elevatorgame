@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 110" width="60" height="110">
+  <!-- 保龄球瓶 -->
+  <circle cx="30" cy="24" r="17" fill="#FFF6E5" stroke="#6B4A45" stroke-width="6"/>
+  <path d="M30 40 q17 14 17 34 q0 28 -17 32 q-17 -4 -17 -32 q0 -20 17 -34 Z"
+        fill="#FFF6E5" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <g stroke="#E4572E" stroke-width="6" stroke-linecap="round">
+    <path d="M16 46 h12"/><path d="M32 46 h12"/>
+    <path d="M15 58 h13"/><path d="M32 58 h13"/>
+  </g>
+</svg>

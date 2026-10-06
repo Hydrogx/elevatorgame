@@ -37,6 +37,9 @@ window.EG = window.EG || {};
       hoop:    'assets/arcade/hoop.svg',
       shuttle: 'assets/arcade/shuttlecock.svg',
       racket:  'assets/arcade/racket.svg',
+      pin:      'assets/arcade/pin.svg',
+      bowlBall: 'assets/arcade/ball-bowling.svg',   // 注意别和上面的 ball（篮球）重名
+      lane:     'assets/arcade/lane.svg',
       /* 老虎机的四个符号直接复用现成资源，不用额外画 */
       symbols: {
         coin:    'assets/ui/coin-sugar.svg',
@@ -299,9 +302,10 @@ window.EG = window.EG || {};
     arcade: {
       btnBottom: 88,          // 三个摊位的按钮距舞台底部（px）
       list: [
-        { id: 'basket',    name: '投篮',   icon: '🏀', x: 33.3 },
-        { id: 'badminton', name: '羽毛球', icon: '🏸', x: 52.5 },
-        { id: 'slot',      name: '老虎机', icon: '🎰', x: 71.7 }
+        { id: 'basket',    name: '投篮',   icon: '🏀', x: 31.7 },
+        { id: 'badminton', name: '羽毛球', icon: '🏸', x: 45.0 },
+        { id: 'slot',      name: '老虎机', icon: '🎰', x: 58.3 },
+        { id: 'bowling',   name: '保龄球', icon: '🎳', x: 71.7 }
       ],
       /* 难度自适应：5 档，第 1 档最慢（面向 5-8 岁）。
          连续 2 次没成绩就降一档，连续过关就升一档，档位存在存档里。 */
@@ -326,7 +330,22 @@ window.EG = window.EG || {};
         downStreak: 2        // 连续 2 次没接到降一档
       },
       slot:      { cost: 1, triple: 8, double: 1,                    // 投币 1 颗，三个一样中 8 颗
-                   symbols: ['coin', 'heart', 'lolly', 'sparkle'] }
+                   symbols: ['coin', 'heart', 'lolly', 'sparkle'] },
+      bowling: {
+        balls: 2,              // 每局 2 球（和真保龄球一样）
+        baseSpeed: 0.36,       // 第 1 档：准星扫过去约 1.9 秒（和投篮一个手感）
+        step: 0.18,
+        maxLevel: 5,
+        /* 各档「全中」的准星偏移范围（%）：档位越高越要准。
+           注意偏差带来的结果区间是固定的（偏离 14% 以上只能倒 1-3 个瓶），
+           这样每一档都可能打出坏成绩，降档才不会是死路。 */
+        strike: [8.5, 6.5, 5, 3.8, 2.8],
+        coinPerPin: 1,         // 打倒一个瓶 1 颗星星糖
+        strikeBonus: 5,        // 第一球全中
+        spareBonus: 3,         // 两球补中
+        upStreak: 2,           // 连续 2 局打出 ≥8 瓶就升一档
+        downStreak: 2          // 连续 2 局只打到 ≤3 瓶就降一档
+      }
     },
 
     /* 4F 商店 + 宠物装扮：宠物能戴的饰品（带 price 的都要先买） */
@@ -433,8 +452,8 @@ window.EG = window.EG || {};
         color: '#FF9F7A',
         room: 'assets/rooms/room-arcade.svg',
         button: 'assets/elevator/button-6f.svg',
-        tip: '三个小游戏：<b>投篮</b> 看准时机、<b>羽毛球</b> 连击越多越好、<b>老虎机</b> 投币博大奖',
-        lines: ['游乐区到啦～', '想玩投篮、羽毛球还是老虎机？', '连击越多，星星糖越多哦！']
+        tip: '四个小游戏：<b>投篮</b> 看准时机、<b>羽毛球</b> 连击、<b>老虎机</b> 投币、<b>保龄球</b> 全中',
+        lines: ['游乐区到啦～', '想玩投篮、羽毛球、老虎机还是保龄球？', '连击越多、瓶子全倒，星星糖越多哦！']
       }
     ]
   };

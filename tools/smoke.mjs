@@ -498,7 +498,7 @@ await shot('16-5F-升级');
 await ev(`document.querySelector('.floorbtn[data-floor="6"]').click()`);
 await sleep(4600);
 check('6F 房间已切换', (await ev(`document.querySelector('#room-bg').getAttribute('src')`)).includes('room-arcade'));
-check('6F 有三个游戏摊位', (await ev(`document.querySelectorAll('.booth').length`)) === 3,
+check('6F 有四个游戏摊位（投篮/羽毛球/老虎机/保龄球）', (await ev(`document.querySelectorAll('.booth').length`)) === 4,
   '摊位=' + (await ev(`[...document.querySelectorAll('.booth')].map(b => b.textContent.trim()).join('/')`)));
 check('楼层指示条有 6 格且当前格高亮',
   (await ev(`document.querySelectorAll('.floors__cell').length`)) === 6 &&
@@ -657,6 +657,68 @@ check('再点一下能关掉计算练习（弹窗同时消失）',
   !(await ev(`EG.Math.isOn()`)) && !(await ev(`EG.Math.isOpen()`)));
 await ev(`EG.CONFIG.math.limitMs = 10000`);
 check('开关状态写进存档', (await ev(`JSON.parse(localStorage.getItem('meow-elevator-save-v1')).mathOn`)) === false);
+
+/* --- ④ 6F 保龄球 --- */
+await ev(`document.querySelector('#arcade-close').click()`);
+await sleep(250);
+await ev(`document.querySelector('.booth--bowling').click()`);
+await sleep(500);
+check('保龄球弹窗已打开', (await ev(`document.querySelector('#arcade-title').textContent`)).indexOf('保龄球') >= 0,
+  await ev(`document.querySelector('#arcade-title').textContent`));
+check('球道上摆了 10 个球瓶', (await ev(`document.querySelectorAll('.bw__pin').length`)) === 10);
+check('有会左右扫的瞄准线', await ev(`!!document.querySelector('#bw-guide')`));
+await shot('22b-6F-保龄球');
+
+const coinBw0 = await ev(`+document.querySelector('#coin-count').textContent`);
+/* 等准星靠近正中再投 → 全中 */
+for (let t = 0; t < 220; t++) {
+  const g = parseFloat(await ev(`document.querySelector('#bw-guide').style.left`) || '0');
+  if (Math.abs(g - 50) < 1.2) break;
+  await sleep(25);
+}
+await ev(`document.querySelector('#arcade-action').click()`);
+await sleep(1800);
+const coinBw1 = await ev(`+document.querySelector('#coin-count').textContent`);
+check('对准中心能全中：10 瓶 + 5 奖励 = 15 颗', coinBw1 - coinBw0 === 15, '+' + (coinBw1 - coinBw0));
+check('全中后 10 个球瓶全倒', (await ev(`document.querySelectorAll('.bw__pin.is-down').length`)) === 10);
+check('成绩里说「全中」', (await ev(`document.querySelector('#arcade-score').textContent`)).indexOf('全中') >= 0,
+  await ev(`document.querySelector('#arcade-score').textContent`));
+await shot('22c-6F-保龄球-全中');
+
+/* 再全中一局 → 连续 2 局好成绩应该升一档 */
+const lvBw0 = await ev(`EG.State.data.gameLevel.bowling || 1`);
+await ev(`document.querySelector('#arcade-action').click()`);       // 再来一局
+await sleep(600);
+for (let t = 0; t < 220; t++) {
+  const g = parseFloat(await ev(`document.querySelector('#bw-guide').style.left`) || '0');
+  if (Math.abs(g - 50) < 1.2) break;
+  await sleep(25);
+}
+await ev(`document.querySelector('#arcade-action').click()`);
+await sleep(1800);
+check('连续两局全中会升一档', (await ev(`EG.State.data.gameLevel.bowling`)) === lvBw0 + 1,
+  lvBw0 + ' → ' + (await ev(`EG.State.data.gameLevel.bowling`)));
+
+/* 故意打到边上：连续两局成绩差应该降档回来 */
+for (let f = 0; f < 2; f++) {
+  await ev(`document.querySelector('#arcade-action').click()`);     // 再来一局
+  await sleep(600);
+  for (let b = 0; b < 2; b++) {
+    for (let t = 0; t < 220; t++) {                                  // 等准星跑到最边上
+      const g = parseFloat(await ev(`document.querySelector('#bw-guide').style.left`) || '50');
+      if (g < 31 || g > 69) break;
+      await sleep(25);
+    }
+    await ev(`document.querySelector('#arcade-action').click()`);
+    await sleep(1400);
+    if ((await ev(`document.querySelector('#arcade-action').textContent`)).indexOf('再来') >= 0) break;
+  }
+}
+check('连续两局没成绩会降一档（不会卡在高难度）', (await ev(`EG.State.data.gameLevel.bowling`)) <= lvBw0,
+  '档位=' + (await ev(`EG.State.data.gameLevel.bowling`)));
+check('难度档位写进存档（含保龄球）', await ev(`!!JSON.parse(localStorage.getItem('meow-elevator-save-v1')).gameLevel.bowling`));
+await ev(`document.querySelector('#arcade-close').click()`);
+await sleep(250);
 
 /* --- 回 1F --- */
 await ev(`document.querySelector('.floorbtn[data-floor="1"]').click()`);

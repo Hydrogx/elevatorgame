@@ -371,7 +371,160 @@
     }
   }
 
-  var GAMES = { basket: startBasket, badminton: startBadminton, slot: startSlot };
+  /* ---------- ④ 保龄球 ---------- */
+  function startBowling() {
+    var cfg = C.bowling;
+    var level = levelOf('bowling');
+    var strikeZone = cfg.strike[level - 1] || cfg.strike[0];
+    var speed = speedOf('bowling', level);
+    var pos = 50, dir = 1, busy = false;
+    var standing = 10, ballsLeft = cfg.balls, framePins = 0;
+    var goodStreak = 0, missStreak = 0;
+
+    /* 10 个球瓶的位置（%）+ 层级：越靠前（下）越在上面 */
+    var PINS = [
+      [50, 52, 5], [45.8, 43.5, 4], [54.2, 43.5, 4],
+      [41.6, 35, 3], [50, 35, 3], [58.4, 35, 3],
+      [37.4, 26.5, 2], [45.8, 26.5, 2], [54.2, 26.5, 2], [62.6, 26.5, 2]
+    ];
+
+    open({
+      game: 'bowling',
+      title: '🎳 保龄球小游戏',
+      hint: '看准了再点 <b>投球</b>！小球瓶全倒就是全中（每局 ' + cfg.balls + ' 球）',
+      score: '还剩 10 个球瓶',
+      action: '投球 !',
+      body:
+        '<div class="bw">' +
+          '<img class="bw__lane" src="' + A.lane + '" alt="">' +
+          PINS.map(function (p, i) {
+            return '<img class="bw__pin" id="bw-pin' + i + '" src="' + A.pin + '" alt="" ' +
+                   'style="left:' + p[0] + '%;top:' + p[1] + '%;z-index:' + p[2] + '">';
+          }).join('') +
+          '<i class="bw__guide" id="bw-guide"></i>' +
+          '<img class="bw__ball" id="bw-ball" src="' + A.bowlBall + '" alt="">' +
+        '</div>',
+      onAction: throwBall
+    });
+
+    var guide = bodyEl.querySelector('#bw-guide');
+    var ball = bodyEl.querySelector('#bw-ball');
+    var pinEls = PINS.map(function (p, i) { return bodyEl.querySelector('#bw-pin' + i); });
+
+    function loop() {
+      pos += dir * speed;
+      if (pos >= 70) { pos = 70; dir = -1; }
+      else if (pos <= 30) { pos = 30; dir = 1; }
+      guide.style.left = pos + '%';
+      raf = requestAnimationFrame(loop);
+    }
+    loop();
+    active = { stop: stopRaf };
+
+    function resetPins() {
+      standing = 10;
+      framePins = 0;
+      ballsLeft = cfg.balls;
+      pinEls.forEach(function (el) { el.classList.remove('is-down'); });
+      setScore('还剩 10 个球瓶');
+    }
+
+    /* 按准星偏移算倒几个瓶：全中窗口跟着档位变，其它区间固定 */
+    function pinsFor(offset) {
+      if (offset <= strikeZone) return 10;
+      if (offset <= 10) return EG.util.randInt(7, 9);
+      if (offset <= 14) return EG.util.randInt(4, 6);
+      if (offset <= 17.5) return EG.util.randInt(1, 3);
+      return 0;
+    }
+
+    function throwBall() {
+      if (busy) return;
+      busy = true;
+
+      var offset = Math.abs(pos - 50);
+      var want = Math.min(standing, pinsFor(offset));
+
+      /* 小球滚过去 */
+      ball.style.left = pos + '%';
+      ball.style.bottom = '44%';
+
+      window.setTimeout(function () {
+        EG.Audio.play(want > 0 ? 'pop' : 'error');
+
+        /* 从还站着的瓶里挑 want 个打倒 */
+        var alive = [];
+        pinEls.forEach(function (el, i) { if (!el.classList.contains('is-down')) alive.push(i); });
+        for (var i = 0; i < want && alive.length; i++) {
+          var k = EG.util.randInt(0, alive.length - 1);
+          pinEls[alive[k]].classList.add('is-down');
+          alive.splice(k, 1);
+        }
+
+        standing -= want;
+        framePins += want;
+        ballsLeft -= 1;
+
+        if (want === 0) setScore('洗沟了…再来一球！');
+        else setScore('打倒 ' + want + ' 个｜还剩 ' + standing + ' 个');
+
+        window.setTimeout(function () {
+          ball.style.left = '50%';
+          ball.style.bottom = '4%';
+          busy = false;
+
+          if (standing === 0 || ballsLeft <= 0) endFrame();
+          else setScore('还剩 ' + standing + ' 个球瓶（还有 ' + ballsLeft + ' 球）');
+        }, 520);
+      }, 560);
+    }
+
+    function endFrame() {
+      var strike = framePins === 10 && ballsLeft === cfg.balls - 1;
+      var spare = framePins === 10 && !strike;
+      var bonus = strike ? cfg.strikeBonus : (spare ? cfg.spareBonus : 0);
+      var got = framePins * cfg.coinPerPin + bonus;
+
+      if (got > 0) pay(got, bodyEl.querySelector('.bw__pins') || ball, strike || spare);
+      EG.Audio.play(strike || spare ? 'success' : 'coin');
+      setScore('这一局打倒 ' + framePins + ' 个' + (strike ? '｜全中！' : (spare ? '｜补中！' : '')) +
+               '｜+' + got + ' 颗' + (strike ? ' 🎉' : ''));
+
+      /* 打得好就升档，连续两局没成绩就降档 */
+      if (framePins >= 8) {
+        goodStreak += 1; missStreak = 0;
+        if (goodStreak >= cfg.upStreak) {
+          goodStreak = 0;
+          if (shiftLevel('bowling', 1)) {
+            level = levelOf('bowling');
+            strikeZone = cfg.strike[level - 1] || strikeZone;
+            speed = speedOf('bowling', level);
+          }
+        }
+      } else if (framePins <= 3) {
+        missStreak += 1; goodStreak = 0;
+        if (missStreak >= cfg.downStreak) {
+          missStreak = 0;
+          if (shiftLevel('bowling', -1)) {
+            level = levelOf('bowling');
+            strikeZone = cfg.strike[level - 1] || strikeZone;
+            speed = speedOf('bowling', level);
+          }
+        }
+      } else {
+        goodStreak = 0; missStreak = 0;
+      }
+
+      setAction('再来一局', function () {
+        resetPins();
+        loop();
+        active = { stop: stopRaf };
+        setAction('投球 !', throwBall);      // 别忘了把按钮换回「投球」
+      });
+    }
+  }
+
+  var GAMES = { basket: startBasket, badminton: startBadminton, slot: startSlot, bowling: startBowling };
 
   /* 点弹窗外面的遮罩、或右上角 × 都能关掉 */
   if (closeEl) closeEl.addEventListener('click', close);

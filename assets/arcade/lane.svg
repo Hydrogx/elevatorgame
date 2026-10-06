@@ -1,0 +1,23 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 300" width="600" height="300" preserveAspectRatio="none">
+  <!-- 保龄球道（近大远小）。球瓶是 DOM 元素，这里只画木头球道和沟槽 -->
+  <defs>
+    <linearGradient id="laneWood" x1="0" y1="1" x2="0" y2="0">
+      <stop offset="0" stop-color="#EBCB9C"/>
+      <stop offset="0.55" stop-color="#E0B985"/>
+      <stop offset="1" stop-color="#D2A46C"/>
+    </linearGradient>
+  </defs>
+  <!-- 球道两侧的沟槽 -->
+  <path d="M96 300 L196 30 h-52 L0 300 Z" fill="#B98E60" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <path d="M504 300 L404 30 h52 L600 300 Z" fill="#B98E60" stroke="#6B4A45" stroke-width="6" stroke-linejoin="round"/>
+  <!-- 球道 -->
+  <path d="M120 300 L206 30 h188 L480 300 Z" fill="url(#laneWood)" stroke="#6B4A45" stroke-width="7" stroke-linejoin="round"/>
+  <!-- 球瓶区台面 -->
+  <rect x="196" y="14" width="208" height="34" rx="10" fill="#C08B5C" stroke="#6B4A45" stroke-width="6"/>
+  <!-- 犯规线 + 定位箭头 -->
+  <path d="M124 268 h352" stroke="#C08B5C" stroke-width="6"/>
+  <g fill="#C08B5C" opacity="0.9">
+    <path d="M300 210 l7 16 h-14 Z"/><path d="M258 232 l6 14 h-12 Z"/><path d="M342 232 l6 14 h-12 Z"/>
+    <path d="M216 250 l5 12 h-10 Z"/><path d="M384 250 l5 12 h-10 Z"/>
+  </g>
+</svg>
